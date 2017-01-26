@@ -1,0 +1,137 @@
+---
+title: "Análise de Questionários do Projeto 'Meninas na Computação'"
+output:
+  html_notebook: 
+    code_folding: hide
+  html_document: default
+---
+```{r, include=FALSE}
+rm(list = ls())
+options("scipen"=100, "digits"=2)
+
+library(readxl)
+# library(readr)
+library(arules)
+library(ggplot2)
+library(reshape2)
+library(gridExtra)
+library(stringr)
+```
+
+Este estudo é uma análise estatística sobre o projeto [Meninas na Computação](http://meninas.cic.unb.br/), coordenado pela professora Dra. Maristela Terto e Holanda et al. 
+
+```{r}
+S2011 <- read_excel("../dados/raw.xlsx", sheet = "2011", col_types = c("text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text"), na = "")
+
+S2012 <- read_excel("../dados/raw.xlsx", sheet = "2012", col_types = c("text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text"), na = "")
+
+S2013 <- read_excel("../dados/raw.xlsx", sheet = "2013", col_types = c("text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text"), na = "")
+
+S2014 <- read_excel("../dados/raw.xlsx", sheet = "2014", col_types = c("text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text"), na = "")
+```
+
+Durante os anos de 2011 a 2014, foram entrevistados `r nrow(S2011) + nrow(S2012) + nrow(S2013) + nrow(S2014)` alunos do nível fundamental e médio, sobre o curso superior que pretendiam seguir. 
+
+O questionário possui 14 questões, além das informações: _sexo_, _série_, se o aluno _pretende_ fazer um curso superior e se ele pretende _fazer Ciência da Computação_.
+
+O primeiro passo do estudo foi recuperar as respostas dos questionários. 
+
+O segundo passo envolveu a preparação dos dados. Em primeiro lugar, os questionários foram unificados em uma única tabela, a fim de facilitar a manipulação.
+
+```{r}
+S2011$Ano <- 2011
+S2012$Ano <- 2012
+S2013$Ano <- 2013
+S2014$Ano <- 2014
+
+respostas <- rbind(S2011, S2012)
+respostas <- rbind(respostas, S2013)
+# respostas <- rbind(respostas, S2014)
+# rm(list = c("S2011", "S2012", "S2013", "S2014"))
+
+respostas$Serie <- stringr::str_trim(respostas$Serie, side = "both")
+respostas$Serie[respostas$Serie == "NA"] <- NA
+respostas <- as.data.frame(lapply(respostas, as.factor))
+```
+
+
+Como o estudo consiste em identificar as motivações das alunas entrevistadas em seguir ou não uma carreira em Ciência da Computação, foram retirados os `r nrow(respostas[respostas$Sexo == 'M',])` entrevistados de sexo masculino.
+
+```{r}
+respostas <- respostas[respostas$Sexo == 'F',]
+respostas$Sexo <- NULL
+names(respostas) <- c("Serie", "Fara_Curso_Superior", "Fara_Computacao", "Locais_Uso_Computador", "Atividade_Uso_Computador", "Somente_Ensina_Software", "Pouca_Matematica", "Maioria_Homens", "Saber_Usar_Computador", "Precisa_Curso_Superior", "Familia_Gostaria", "Dificuldade_Emprego", "Pouco_Lazer", "Usa_Criatividade", "Da_Prestigio", "Boa_Remuneracao", "Atuacao_Outras_Areas", "Ano")
+
+```
+
+São encontradas as seguintes distribuições de série na amostra:
+
+```{r}
+series <- aggregate(x = list(Quantidade = respostas$Serie), by = list(Ano = respostas$Ano, Serie = respostas$Serie), FUN=length)
+
+por_ano <- aggregate(x = list(Total = respostas$Serie), by = list(Ano = respostas$Ano), FUN=length)
+
+series <- merge(series, por_ano)
+
+series$Percentual <- series$Quantidade * 100 / series$Total
+
+p = ggplot(data = series, aes(x = "", y = Percentual, fill = Serie))  
+p = p + geom_bar(width = 1, stat = "identity")
+p = p + facet_grid(facets = . ~ Ano)
+p = p + coord_polar(theta = "y", start = 0) 
+p = p + scale_x_discrete()
+p = p + xlab("") + ylab("") + labs(fill="Ano") 
+p = p + ggtitle("Percentual de Entrevistadas por Série em cada Ano")
+p
+```
+
+As alunas responderam da seguinte forma sobre a área que gostariam de cursar:
+
+```{r}
+cursos <- aggregate(x = list(Quantidade = respostas$Fara_Curso_Superior), by = list(Ano = respostas$Ano, Fara_Curso_Superior = respostas$Fara_Curso_Superior), FUN=length)
+
+por_ano <- aggregate(x = list(Total = respostas$Fara_Curso_Superior), by = list(Ano = respostas$Ano), FUN=length)
+
+cursos <- merge(cursos, por_ano)
+
+cursos$Percentual <- cursos$Quantidade * 100 / cursos$Total
+
+p = ggplot(data = cursos, aes(x = "", y = Percentual, fill = Fara_Curso_Superior))  
+p = p + geom_bar(width = 1, stat = "identity")
+p = p + facet_grid(facets = . ~ Ano)
+p = p + coord_polar(theta = "y", start = 0) 
+p = p + scale_x_discrete()
+p = p + xlab("") + ylab("") + labs(fill="Ano") 
+p = p + ggtitle("Percentual de Entrevistadas por Área de Interesse")
+p
+```
+
+Podemos observar que os percentuais permanecem ao longo dos anos, sendo a preferência por Ciências Biológicas e de Saúde em torno de `r round(cursos$Percentual[cursos$Ano == 2011 & cursos$Fara_Curso_Superior == 'Biologicas e Saude'])`\%, para Humanas cerca de `r round(cursos$Percentual[cursos$Ano == 2011 & cursos$Fara_Curso_Superior == 'Humanas'])`\% e para Exatas próximo a `r round(cursos$Percentual[cursos$Ano == 2011 & cursos$Fara_Curso_Superior == 'Exatas'])`\%.
+
+A opinião das alunas sobre o cursar Ciência da Computação é representada nos gráficos a seguir:
+
+```{r}
+comp <- aggregate(x = list(Quantidade = respostas$Fara_Computacao), by = list(Ano = respostas$Ano, Fara_Computacao = respostas$Fara_Computacao), FUN=length)
+
+por_ano <- aggregate(x = list(Total = respostas$Fara_Computacao), by = list(Ano = respostas$Ano), FUN=length)
+
+comp <- merge(comp, por_ano)
+
+comp$Percentual <- comp$Quantidade * 100 / comp$Total
+
+p = ggplot(data = comp, aes(x = "", y = Percentual, fill = Fara_Computacao))  
+p = p + geom_bar(width = 1, stat = "identity")
+p = p + facet_grid(facets = . ~ Ano)
+p = p + coord_polar(theta = "y", start = 0) 
+p = p + scale_x_discrete()
+p = p + xlab("") + ylab("") + labs(fill="Ano") 
+p = p + ggtitle("Percentual de Entrevistadas por Interesse em Computação")
+p
+```
+
+Será realizado a seguir uma análise de variância, no intuito de identificar se as questões possuem alguma variação ao longo do tempo. Nesse caso, o tratamento foram os anos das pesquisas e os blocos foram as questões.
+
+```{r}
+
+```
+
