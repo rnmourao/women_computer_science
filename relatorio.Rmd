@@ -21,16 +21,14 @@ library(stringr)
 Este estudo é uma análise estatística sobre o projeto [Meninas na Computação](http://meninas.cic.unb.br/), coordenado pela professora Dra. Maristela Terto e Holanda et al. 
 
 ```{r}
-S2011 <- read_excel("../dados/raw.xlsx", sheet = "2011", col_types = c("text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text"), na = "")
-
-S2012 <- read_excel("../dados/raw.xlsx", sheet = "2012", col_types = c("text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text"), na = "")
-
-S2013 <- read_excel("../dados/raw.xlsx", sheet = "2013", col_types = c("text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text"), na = "")
-
-S2014 <- read_excel("../dados/raw.xlsx", sheet = "2014", col_types = c("text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text", "text"), na = "")
+respostas <- read_excel("../dados/raw.xlsx", sheet = "unificado", na = "")
+respostas$Q1 <- NULL
+respostas$Q1 <- NULL
+respostas$Serie <- stringr::str_trim(respostas$Serie, side = "both")
+respostas <- as.data.frame(lapply(respostas, as.factor))
 ```
 
-Durante os anos de 2011 a 2014, foram entrevistados `r nrow(S2011) + nrow(S2012) + nrow(S2013) + nrow(S2014)` alunos do nível fundamental e médio, sobre o curso superior que pretendiam seguir. 
+Durante os anos de 2011 a 2014, foram entrevistados `r nrow(respostas)` alunos do nível fundamental, médio e superior, sobre o curso superior que pretendiam seguir. 
 
 O questionário possui 14 questões, além das informações: _sexo_, _série_, se o aluno _pretende_ fazer um curso superior e se ele pretende _fazer Ciência da Computação_.
 
@@ -38,30 +36,11 @@ O primeiro passo do estudo foi recuperar as respostas dos questionários.
 
 O segundo passo envolveu a preparação dos dados. Em primeiro lugar, os questionários foram unificados em uma única tabela, a fim de facilitar a manipulação.
 
-```{r}
-S2011$Ano <- 2011
-S2012$Ano <- 2012
-S2013$Ano <- 2013
-S2014$Ano <- 2014
-
-respostas <- rbind(S2011, S2012)
-respostas <- rbind(respostas, S2013)
-# respostas <- rbind(respostas, S2014)
-# rm(list = c("S2011", "S2012", "S2013", "S2014"))
-
-respostas$Serie <- stringr::str_trim(respostas$Serie, side = "both")
-respostas$Serie[respostas$Serie == "NA"] <- NA
-respostas <- as.data.frame(lapply(respostas, as.factor))
-```
-
-
 Como o estudo consiste em identificar as motivações das alunas entrevistadas em seguir ou não uma carreira em Ciência da Computação, foram retirados os `r nrow(respostas[respostas$Sexo == 'M',])` entrevistados de sexo masculino.
 
 ```{r}
 respostas <- respostas[respostas$Sexo == 'F',]
 respostas$Sexo <- NULL
-names(respostas) <- c("Serie", "Fara_Curso_Superior", "Fara_Computacao", "Locais_Uso_Computador", "Atividade_Uso_Computador", "Somente_Ensina_Software", "Pouca_Matematica", "Maioria_Homens", "Saber_Usar_Computador", "Precisa_Curso_Superior", "Familia_Gostaria", "Dificuldade_Emprego", "Pouco_Lazer", "Usa_Criatividade", "Da_Prestigio", "Boa_Remuneracao", "Atuacao_Outras_Areas", "Ano")
-
 ```
 
 São encontradas as seguintes distribuições de série na amostra:
@@ -129,7 +108,7 @@ p = p + ggtitle("Percentual de Entrevistadas por Interesse em Computação")
 p
 ```
 
-Será realizado a seguir uma análise de variância, no intuito de identificar se as questões possuem alguma variação ao longo do tempo. Nesse caso, o tratamento foram os anos das pesquisas e os blocos foram as questões.
+Será realizada a seguir uma análise de variância, no intuito de identificar se as questões possuem alguma variação ao longo do tempo. Nesse caso, o tratamento foram os anos das pesquisas e os blocos foram as questões.
 
 ```{r}
 
