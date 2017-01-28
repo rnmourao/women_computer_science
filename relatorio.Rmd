@@ -16,21 +16,25 @@ library(ggplot2)
 library(reshape2)
 library(gridExtra)
 library(stringr)
+library(knitr)
+library(arules)
 ```
 
 Este estudo é uma análise estatística sobre o projeto [Meninas na Computação](http://meninas.cic.unb.br/), coordenado pela professora Dra. Maristela Terto e Holanda et al. 
 
 ```{r}
 respostas <- read_excel("../dados/raw.xlsx", sheet = "unificado", na = "")
+
 respostas$Q1 <- NULL
-respostas$Q1 <- NULL
+respostas$Q2 <- NULL
 respostas$Serie <- stringr::str_trim(respostas$Serie, side = "both")
 respostas <- as.data.frame(lapply(respostas, as.factor))
+respostas <- respostas[, c(5, 1, 2, 3, 4, 6:ncol(respostas))]
 ```
 
 Durante os anos de 2011 a 2014, foram entrevistados `r nrow(respostas)` alunos do nível fundamental, médio e superior, sobre o curso superior que pretendiam seguir. 
 
-O questionário possui 14 questões, além das informações: _sexo_, _série_, se o aluno _pretende_ fazer um curso superior e se ele pretende _fazer Ciência da Computação_.
+O questionário possui 14 questões que foram desmembradas em 36 variáveis.
 
 O primeiro passo do estudo foi recuperar as respostas dos questionários. 
 
@@ -39,7 +43,7 @@ O segundo passo envolveu a preparação dos dados. Em primeiro lugar, os questio
 Como o estudo consiste em identificar as motivações das alunas entrevistadas em seguir ou não uma carreira em Ciência da Computação, foram retirados os `r nrow(respostas[respostas$Sexo == 'M',])` entrevistados de sexo masculino.
 
 ```{r}
-respostas <- respostas[respostas$Sexo == 'F',]
+respostas <- subset(respostas, respostas$Sexo == "F")
 respostas$Sexo <- NULL
 ```
 
@@ -108,9 +112,87 @@ p = p + ggtitle("Percentual de Entrevistadas por Interesse em Computação")
 p
 ```
 
-Será realizada a seguir uma análise de variância, no intuito de identificar se as questões possuem alguma variação ao longo do tempo. Nesse caso, o tratamento foram os anos das pesquisas e os blocos foram as questões.
+Será realizada a seguir uma análise de variância, no intuito de identificar se há algum dos atributos coletados no questionário indique alguma variação na média de candidatas que optam por computação, isto é, se o atributo **Fara_Computacao** muda dependendo de outros atributos. 
+
+Para que seja feita a análise de variância, a amostra deve atender certas pressuposições básicas:
+1) os erros são variáveis aleatórias independentes;
+2) a variância é constante;
+3) a distribuição dos erros é normal ou aproximadamente normal.
+
+
+Como exemplo, será efetuada isoladamente a análise de variância do atributo **Fara_Computacao** em relação ao atributo **Ano**, com as respostas **Sim**, **Nao** e **Nao sei ainda** como blocos de estudo e os anos como o tratamentos. A variável observada é a quantidade de respondentes para cada resposta, em cada ano.
 
 ```{r}
+Ano <- aggregate(x = list(QT = respostas$Ano), by = list(Tratamento = respostas$Ano, Bloco = respostas$Fara_Computacao), FUN=length)
+knit_print(Ano)
 
+fit <- anova(lm(QT ~ Tratamento + Bloco, data = Ano))
+cat("\nTratamento: Ano\n")
+print(fit)
+```
+
+A partir do p-valor do tratamento **Ano** (Pr(>F)) abaixo de 5%, há evidências de uma diferença na quantidade de alunas que optam por computação devido à passagem do tempo. O problema é que a quantidade de entrevistados no ano de 2011 é muito superior à dos outros anos, o que claramente causou a diferença nas médias. Com isso, a análise acima ficou prejudicada, não podendo ser considerada correta.
+
+```{r}
+tam_amostra <- 400
+```
+
+
+Para evitar que características especifícas das coletas em diferentes anos prejudiquem a análise, foram selecionadas aleatoriamente `r tam_amostra` amostras de cada ano. Apesar da redução, o novo tamanho da amostra irá prover um nível de confiança de 95%, com margem de erro menor que 5%.
+
+```{r}
+niveis <- levels(respostas$Ano)
+amostra_anova <- NULL
+for (i in 1:length(niveis)) {
+ temp <- respostas[respostas$Ano == niveis[i],]
+ rownames(temp) <- 1:nrow(temp)
+ set.seed(2017)
+ temp <- temp[sample(nrow(temp), tam_amostra), ]
+ if (is.null(amostra_anova)) {
+   amostra_anova <- temp
+ } else {
+   amostra_anova <- rbind(amostra_anova, temp)
+ }
+}
+rm("temp")
+```
+
+A seguir serão apresentadas as análises de variância dos atributos coletados nas entrevistas.
+
+```{r}
+for (i in 2:ncol(amostra_anova)) {
+  i = 3
+  temp <- aggregate(list(QT = amostra_anova[, i]), by = list(Tratamento = amostra_anova[, i], Bloco = amostra_anova$Fara_Computacao), FUN=length)
+
+  # complementar temp com dominios zerados
+  temp2 <- expand.grid(Bloco = levels(amostra_anova$Fara_Computacao), Tratamento = levels(amostra_anova[, i]))
+  temp <- merge(temp, temp2, all.y = TRUE)
+  temp$QT[is.na(temp$QT)] <- 0
+  
+  nome <- colnames(amostra_anova)[i]
+  cat(paste("\nBloco:", nome, "\n"))  
+  cat("\n")
+  knit_print(temp)
+  cat("\n")
+  
+  fit <- anova(lm(QT ~ Tratamento + Bloco, data = temp))
+  print(fit)
+
+  assign(nome, temp)
+}
+
+```
+
+
+
+
+O próximo passo é identificar se há combinações de atributos que expliquem essa opção. Para isso será utilizado o algoritmo Apriori de mineração de regras de associação.
+
+```{r}
+# regras = apriori(data = respostas)
+# regras = apriori(data = respostas, parameter = list(minlen=2, supp=0.1, conf=0.8, maxtime=300), appearance = list(rhs = c("Fara_Computacao=Sim", "Fara_Computacao=Nao", "Fara_Computacao=Nao sei ainda"), default="lhs"))
+
+# regras.ordem <- sort(regras, by="lift")
+# write(regras.ordem, file="../dados/regras.txt")
 ```
 
