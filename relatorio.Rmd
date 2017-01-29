@@ -123,12 +123,14 @@ Para que seja feita a análise de variância, a amostra deve atender certas pres
 Como exemplo, será efetuada isoladamente a análise de variância do atributo **Fara_Computacao** em relação ao atributo **Ano**, com as respostas **Sim**, **Nao** e **Nao sei ainda** como blocos de estudo e os anos como o tratamentos. A variável observada é a quantidade de respondentes para cada resposta, em cada ano.
 
 ```{r}
-Ano <- aggregate(x = list(QT = respostas$Ano), by = list(Tratamento = respostas$Ano, Bloco = respostas$Fara_Computacao), FUN=length)
+Ano <- aggregate(x = list(QT = respostas$Ano), by = list(Bloco = respostas$Ano, Tratamento = respostas$Fara_Computacao), FUN=length)
 knit_print(Ano)
 
-fit <- anova(lm(QT ~ Tratamento + Bloco, data = Ano))
-cat("\nTratamento: Ano\n")
-print(fit)
+fit <- lm(QT ~ Tratamento + Bloco, data = Ano)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+knit_print(TukeyHSD(fit))
 ```
 
 A partir do p-valor do tratamento **Ano** (Pr(>F)) abaixo de 5%, há evidências de uma diferença na quantidade de alunas que optam por computação devido à passagem do tempo. O problema é que a quantidade de entrevistados no ano de 2011 é muito superior à dos outros anos, o que claramente causou a diferença nas médias. Com isso, a análise acima ficou prejudicada, não podendo ser considerada correta.
@@ -143,10 +145,10 @@ Para evitar que características especifícas das coletas em diferentes anos pre
 ```{r}
 niveis <- levels(respostas$Ano)
 amostra_anova <- NULL
+set.seed(2017)
 for (i in 1:length(niveis)) {
  temp <- respostas[respostas$Ano == niveis[i],]
  rownames(temp) <- 1:nrow(temp)
- set.seed(2017)
  temp <- temp[sample(nrow(temp), tam_amostra), ]
  if (is.null(amostra_anova)) {
    amostra_anova <- temp
@@ -160,12 +162,12 @@ rm("temp")
 A seguir serão apresentadas as análises de variância dos atributos coletados nas entrevistas.
 
 ```{r}
+par(mfrow=c(2,2))
 for (i in 2:ncol(amostra_anova)) {
-  i = 3
-  temp <- aggregate(list(QT = amostra_anova[, i]), by = list(Tratamento = amostra_anova[, i], Bloco = amostra_anova$Fara_Computacao), FUN=length)
+  temp <- aggregate(list(QT = amostra_anova[, i]), by = list(Bloco = amostra_anova[, i], Tratamento = amostra_anova$Fara_Computacao), FUN=length)
 
   # complementar temp com dominios zerados
-  temp2 <- expand.grid(Bloco = levels(amostra_anova$Fara_Computacao), Tratamento = levels(amostra_anova[, i]))
+  temp2 <- expand.grid(Tratamento = levels(amostra_anova$Fara_Computacao), Bloco = levels(amostra_anova[, i]))
   temp <- merge(temp, temp2, all.y = TRUE)
   temp$QT[is.na(temp$QT)] <- 0
   
@@ -175,9 +177,16 @@ for (i in 2:ncol(amostra_anova)) {
   knit_print(temp)
   cat("\n")
   
-  fit <- anova(lm(QT ~ Tratamento + Bloco, data = temp))
-  print(fit)
-
+  knit_print(aggregate(x = list(Media = temp$QT), by = list(Tratamento = temp$Tratamento), FUN=mean))
+  cat("\n")
+  
+  fit <- lm(QT ~ Tratamento + Bloco, data = temp)
+  knit_print(anova(fit))
+  
+  plot(fit)
+  
+  knit_print(TukeyHSD(fit))
+  
   assign(nome, temp)
 }
 
