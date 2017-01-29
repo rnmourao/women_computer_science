@@ -126,11 +126,11 @@ Como exemplo, será efetuada isoladamente a análise de variância do atributo *
 Ano <- aggregate(x = list(QT = respostas$Ano), by = list(Bloco = respostas$Ano, Tratamento = respostas$Fara_Computacao), FUN=length)
 knit_print(Ano)
 
-fit <- lm(QT ~ Tratamento + Bloco, data = Ano)
+fit <- aov(QT ~ Tratamento + Bloco, data = Ano)
 knit_print(anova(fit))
+knit_print(TukeyHSD(fit, 'Tratamento'))
 par(mfrow=c(2,2))
 plot(fit)
-knit_print(TukeyHSD(fit))
 ```
 
 A partir do p-valor do tratamento **Ano** (Pr(>F)) abaixo de 5%, há evidências de uma diferença na quantidade de alunas que optam por computação devido à passagem do tempo. O problema é que a quantidade de entrevistados no ano de 2011 é muito superior à dos outros anos, o que claramente causou a diferença nas médias. Com isso, a análise acima ficou prejudicada, não podendo ser considerada correta.
@@ -180,12 +180,12 @@ for (i in 2:ncol(amostra_anova)) {
   knit_print(aggregate(x = list(Media = temp$QT), by = list(Tratamento = temp$Tratamento), FUN=mean))
   cat("\n")
   
-  fit <- lm(QT ~ Tratamento + Bloco, data = temp)
+  fit <- aov(QT ~ Tratamento + Bloco, data = temp)
   knit_print(anova(fit))
   
-  plot(fit)
+  knit_print(TukeyHSD(fit, 'Tratamento'))
   
-  knit_print(TukeyHSD(fit))
+  plot(fit)
   
   assign(nome, temp)
 }
