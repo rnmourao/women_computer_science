@@ -10,7 +10,7 @@ rm(list = ls())
 options("scipen"=100, "digits"=2)
 
 library(readxl)
-# library(readr)
+library(readr)
 library(arules)
 library(ggplot2)
 library(reshape2)
@@ -29,7 +29,7 @@ respostas$Q1 <- NULL
 respostas$Q2 <- NULL
 respostas$Serie <- stringr::str_trim(respostas$Serie, side = "both")
 respostas <- as.data.frame(lapply(respostas, as.factor))
-respostas <- respostas[, c(5, 1, 2, 3, 4, 6:ncol(respostas))]
+respostas <- respostas[, c(1, 5, 2, 3, 4, 6:ncol(respostas))]
 ```
 
 Durante os anos de 2011 a 2014, foram entrevistados `r nrow(respostas)` alunos do nível fundamental, médio e superior, sobre o curso superior que pretendiam seguir. 
@@ -112,7 +112,9 @@ p = p + ggtitle("Percentual de Entrevistadas por Interesse em Computação")
 p
 ```
 
-Será realizada a seguir uma análise de variância, no intuito de identificar se há algum dos atributos coletados no questionário indique alguma variação na média de candidatas que optam por computação, isto é, se o atributo **Fara_Computacao** muda dependendo de outros atributos. 
+Será realizada a seguir uma análise de variância, no intuito de identificar, pergunta a pergunta, se as quantidades médias das respostas são estatisticamente diferentes ou se a diferença identificada nas médias trata-se de ruído. 
+
+A análise de variância não será completa sem um teste de comparação de médias: após identificar diferenças reais entre as respostas, será efetuado o teste de Tukey que dirá quais dos itens são diferentes entre si.
 
 Para que seja feita a análise de variância, a amostra deve atender certas pressuposições básicas:
 1) os erros são variáveis aleatórias independentes;
@@ -120,29 +122,40 @@ Para que seja feita a análise de variância, a amostra deve atender certas pres
 3) a distribuição dos erros é normal ou aproximadamente normal.
 
 
-Como exemplo, será efetuada isoladamente a análise de variância do atributo **Fara_Computacao** em relação ao atributo **Ano**, com as respostas **Sim**, **Nao** e **Nao sei ainda** como blocos de estudo e os anos como o tratamentos. A variável observada é a quantidade de respondentes para cada resposta, em cada ano.
+Como exemplo, será efetuada isoladamente a análise de variância do atributo **Fara_Computacao** em relação ao atributo **Ano**, com as respostas *Sim*, *Nao* e *Nao sei ainda* como blocos de estudo e os anos como o tratamentos. A variável observada é o percentual de respostas atribuídas em cada item, avaliada a cada ano.
+
+A utilização do percentual de respostas a cada item previne que a diferença na quantidade de entrevistas prejudique a análise. 
 
 ```{r}
-Ano <- aggregate(x = list(QT = respostas$Ano), by = list(Bloco = respostas$Ano, Tratamento = respostas$Fara_Computacao), FUN=length)
-knit_print(Ano)
+Fara_Computacao <- aggregate(x = list(Quantidade = respostas$Ano), by = list(Ano = respostas$Ano, Tratamento = respostas$Fara_Computacao), FUN=length)
 
-fit <- aov(QT ~ Tratamento + Bloco, data = Ano)
+Total <- aggregate(x = list(Total = respostas$Fara_Computacao), by = list(Ano = respostas$Ano), FUN=length)
+
+Fara_Computacao <- merge(Fara_Computacao, Total)
+
+Fara_Computacao$Percentual <- Fara_Computacao$Quantidade / Fara_Computacao$Total
+
+knit_print(Fara_Computacao)
+
+knit_print(M <- aggregate(x = list(Media = Fara_Computacao$Percentual), by = list(Tratamento = Fara_Computacao$Tratamento), FUN=mean))
+cat("\n")
+
+fit <- aov(Percentual ~ Tratamento, data = Fara_Computacao)
 knit_print(anova(fit))
 knit_print(TukeyHSD(fit, 'Tratamento'))
 par(mfrow=c(2,2))
 plot(fit)
 ```
 
-A partir do p-valor do tratamento **Ano** (Pr(>F)) abaixo de 5%, há evidências de uma diferença na quantidade de alunas que optam por computação devido à passagem do tempo. O problema é que a quantidade de entrevistados no ano de 2011 é muito superior à dos outros anos, o que claramente causou a diferença nas médias. Com isso, a análise acima ficou prejudicada, não podendo ser considerada correta.
+A partir do p-valor do tratamento **Ano** (Pr(>F)) abaixo de 5%, há evidências de uma diferença na quantidade de alunas que optam por computação devido à passagem do tempo.
 
+Ao efetuar o teste de Tukey, identificamos que, enquanto as médias das respostas *Nao* e *Nao sei ainda* diferem estatisticamente, com os valores `r 100 * M$Media[M$Tratamento == "Nao"]`\% e `r 100 * M$Media[M$Tratamento == "Nao sei ainda"]`\%, não se identifica diferença entre a resposta *Sim* e as outras. Disso, pode-se concluir que quando o respondente informa *Sim*, não há garantia que o percentual `r 100 * M$Media[M$Tratamento == "Sim"]`\% seja realmente maior que o da resposta *Nao* e menor que o da resposta *Nao sei ainda*.
+
+Em outras palavras, pode-se dizer que o percentual de pessoas que  responderam *Nao* é decididamente menor que o percentual das que responderam *Nao sei ainda*.
+
+<!--
 ```{r}
 tam_amostra <- 400
-```
-
-
-Para evitar que características especifícas das coletas em diferentes anos prejudiquem a análise, foram selecionadas aleatoriamente `r tam_amostra` amostras de cada ano. Apesar da redução, o novo tamanho da amostra irá prover um nível de confiança de 95%, com margem de erro menor que 5%.
-
-```{r}
 niveis <- levels(respostas$Ano)
 amostra_anova <- NULL
 set.seed(2017)
@@ -158,29 +171,36 @@ for (i in 1:length(niveis)) {
 }
 rm("temp")
 ```
+-->
 
 A seguir serão apresentadas as análises de variância dos atributos coletados nas entrevistas.
 
 ```{r}
 par(mfrow=c(2,2))
-for (i in 2:ncol(amostra_anova)) {
-  temp <- aggregate(list(QT = amostra_anova[, i]), by = list(Bloco = amostra_anova[, i], Tratamento = amostra_anova$Fara_Computacao), FUN=length)
+for (i in 3:ncol(respostas)) {
+  temp <- aggregate(list(Quantidade = respostas[, i]), by = list(Ano = respostas$Ano, Tratamento = respostas[, i]), FUN=length)
 
   # complementar temp com dominios zerados
-  temp2 <- expand.grid(Tratamento = levels(amostra_anova$Fara_Computacao), Bloco = levels(amostra_anova[, i]))
+  temp2 <- expand.grid(Tratamento = levels(respostas[, i]), Ano = levels(respostas$Ano))
   temp <- merge(temp, temp2, all.y = TRUE)
-  temp$QT[is.na(temp$QT)] <- 0
+  temp$Quantidade[is.na(temp$Quantidade)] <- 0
   
-  nome <- colnames(amostra_anova)[i]
-  cat(paste("\nBloco:", nome, "\n"))  
+  Total <- aggregate(x = list(Total = respostas[, i]), by = list(Ano = respostas$Ano), FUN=length)
+
+  temp <- merge(temp, Total)
+
+  temp$Percentual <- temp$Quantidade / temp$Total
+  
+  nome <- colnames(respostas)[i]
+  cat(paste("\nTratamento:", nome, "\n"))  
   cat("\n")
   knit_print(temp)
   cat("\n")
   
-  knit_print(aggregate(x = list(Media = temp$QT), by = list(Tratamento = temp$Tratamento), FUN=mean))
+  knit_print(aggregate(x = list(Media = temp$Percentual), by = list(Tratamento = temp$Tratamento), FUN=mean))
   cat("\n")
   
-  fit <- aov(QT ~ Tratamento + Bloco, data = temp)
+  fit <- aov(Percentual ~ Tratamento, data = temp)
   knit_print(anova(fit))
   
   knit_print(TukeyHSD(fit, 'Tratamento'))
@@ -191,8 +211,6 @@ for (i in 2:ncol(amostra_anova)) {
 }
 
 ```
-
-
 
 
 O próximo passo é identificar se há combinações de atributos que expliquem essa opção. Para isso será utilizado o algoritmo Apriori de mineração de regras de associação.
