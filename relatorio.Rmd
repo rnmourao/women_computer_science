@@ -17,19 +17,23 @@ library(reshape2)
 library(gridExtra)
 library(stringr)
 library(knitr)
+library(agricolae)
 library(arules)
 ```
 
 Este estudo é uma análise estatística sobre o projeto [Meninas na Computação](http://meninas.cic.unb.br/), coordenado pela professora Dra. Maristela Terto e Holanda et al. 
 
 ```{r}
-respostas <- read_excel("../dados/raw.xlsx", sheet = "unificado", na = "")
+respostas <- read_excel("raw.xlsx", sheet = "unificado", na = "")
 
 respostas$Q1 <- NULL
 respostas$Q2 <- NULL
 respostas$Serie <- stringr::str_trim(respostas$Serie, side = "both")
 respostas <- as.data.frame(lapply(respostas, as.factor))
-respostas <- respostas[, c(1, 5, 2, 3, 4, 6:ncol(respostas))]
+opcao <- data.frame(Fara_Computacao = levels(respostas$Fara_Computacao), opcao_computacao = c(1, 2, 3))
+respostas <- merge(respostas, opcao)
+
+respostas <- respostas[, c(37, 1:36)]
 ```
 
 Durante os anos de 2011 a 2014, foram entrevistados `r nrow(respostas)` alunos do nível fundamental, médio e superior, sobre o curso superior que pretendiam seguir. 
@@ -121,39 +125,10 @@ Para que seja feita a análise de variância, a amostra deve atender certas pres
 2) a variância é constante;
 3) a distribuição dos erros é normal ou aproximadamente normal.
 
-
-Como exemplo, será efetuada isoladamente a análise de variância do atributo **Fara_Computacao** em relação ao atributo **Ano**, com as respostas *Sim*, *Nao* e *Nao sei ainda* como blocos de estudo e os anos como o tratamentos. A variável observada é o percentual de respostas atribuídas em cada item, avaliada a cada ano.
+Como exemplo, será efetuada isoladamente a análise de variância do atributo **opcao_computacao** em relação ao atributo **Ano**, com os anos como tratamentos. A variável observada é o interesse do aluno por optar pelo curso de ciência da computação.
 
 A utilização do percentual de respostas a cada item previne que a diferença na quantidade de entrevistas prejudique a análise. 
 
-```{r}
-Fara_Computacao <- aggregate(x = list(Quantidade = respostas$Ano), by = list(Ano = respostas$Ano, Tratamento = respostas$Fara_Computacao), FUN=length)
-
-Total <- aggregate(x = list(Total = respostas$Fara_Computacao), by = list(Ano = respostas$Ano), FUN=length)
-
-Fara_Computacao <- merge(Fara_Computacao, Total)
-
-Fara_Computacao$Percentual <- Fara_Computacao$Quantidade / Fara_Computacao$Total
-
-knit_print(Fara_Computacao)
-
-knit_print(M <- aggregate(x = list(Media = Fara_Computacao$Percentual), by = list(Tratamento = Fara_Computacao$Tratamento), FUN=mean))
-cat("\n")
-
-fit <- aov(Percentual ~ Tratamento, data = Fara_Computacao)
-knit_print(anova(fit))
-knit_print(TukeyHSD(fit, 'Tratamento'))
-par(mfrow=c(2,2))
-plot(fit)
-```
-
-A partir do p-valor do tratamento **Ano** (Pr(>F)) abaixo de 5%, há evidências de uma diferença na quantidade de alunas que optam por computação devido à passagem do tempo.
-
-Ao efetuar o teste de Tukey, identificamos que, enquanto as médias das respostas *Nao* e *Nao sei ainda* diferem estatisticamente, com os valores `r 100 * M$Media[M$Tratamento == "Nao"]`\% e `r 100 * M$Media[M$Tratamento == "Nao sei ainda"]`\%, não se identifica diferença entre a resposta *Sim* e as outras. Disso, pode-se concluir que quando o respondente informa *Sim*, não há garantia que o percentual `r 100 * M$Media[M$Tratamento == "Sim"]`\% seja realmente maior que o da resposta *Nao* e menor que o da resposta *Nao sei ainda*.
-
-Em outras palavras, pode-se dizer que o percentual de pessoas que  responderam *Nao* é decididamente menor que o percentual das que responderam *Nao sei ainda*.
-
-<!--
 ```{r}
 tam_amostra <- 400
 niveis <- levels(respostas$Ano)
@@ -171,46 +146,57 @@ for (i in 1:length(niveis)) {
 }
 rm("temp")
 ```
--->
 
-A seguir serão apresentadas as análises de variância dos atributos coletados nas entrevistas.
 
 ```{r}
+temp <- data.frame(tratamento = amostra_anova[, 3], opcao_computacao = amostra_anova[, 1])
+
+knit_print(aggregate(x = list(Media = temp$opcao_computacao), by = list(Tratamento = temp$tratamento), FUN=mean))
+cat("\n")
+
+fit <- aov(opcao_computacao ~ tratamento, data = temp)
+knit_print(anova(fit))
+cat("\n")
+
+knit_print(HSD.test(fit, 'tratamento'))
+
 par(mfrow=c(2,2))
-for (i in 3:ncol(respostas)) {
-  temp <- aggregate(list(Quantidade = respostas[, i]), by = list(Ano = respostas$Ano, Tratamento = respostas[, i]), FUN=length)
+plot(fit)
+```
 
-  # complementar temp com dominios zerados
-  temp2 <- expand.grid(Tratamento = levels(respostas[, i]), Ano = levels(respostas$Ano))
-  temp <- merge(temp, temp2, all.y = TRUE)
-  temp$Quantidade[is.na(temp$Quantidade)] <- 0
+A partir do p-valor do tratamento **Ano** (Pr(>F)) abaixo de 5%, há evidências de uma diferença na quantidade de alunas que optam por computação devido à passagem do tempo.
+
+Contudo, ao efetuar o teste de Tukey, percebemos que não há diferença real entre o ano de 2011 e os demais. Desta forma, há uma forte evidência de constância na indecisão das alunas.
+
+A seguir serão apresentadas as análises de variância dos outros atributos coletados nas entrevistas.
+
+```{r}
+
+for (i in 4:ncol(amostra_anova)) {
+  temp <- data.frame(tratamento = amostra_anova[, i], opcao_computacao = amostra_anova[, 1])
   
-  Total <- aggregate(x = list(Total = respostas[, i]), by = list(Ano = respostas$Ano), FUN=length)
-
-  temp <- merge(temp, Total)
-
-  temp$Percentual <- temp$Quantidade / temp$Total
-  
-  nome <- colnames(respostas)[i]
+  nome <- colnames(amostra_anova)[i]
   cat(paste("\nTratamento:", nome, "\n"))  
   cat("\n")
-  knit_print(temp)
+  
+  knit_print(aggregate(x = list(Media = temp$opcao_computacao), by = list(Tratamento = temp$tratamento), FUN=mean))
   cat("\n")
   
-  knit_print(aggregate(x = list(Media = temp$Percentual), by = list(Tratamento = temp$Tratamento), FUN=mean))
-  cat("\n")
-  
-  fit <- aov(Percentual ~ Tratamento, data = temp)
+  fit <- aov(opcao_computacao ~ tratamento, data = temp)
   knit_print(anova(fit))
-  
-  knit_print(TukeyHSD(fit, 'Tratamento'))
-  
-  plot(fit)
+  cat("\n")
+
+  knit_print(HSD.test(fit, 'tratamento'))
   
   assign(nome, temp)
-}
 
+  par(mfrow=c(2,2))  
+  plot(fit)
+}
 ```
+
+
+A partir da análise de variância e do teste de Tukey dos atributos, identificamos que 
 
 
 O próximo passo é identificar se há combinações de atributos que expliquem essa opção. Para isso será utilizado o algoritmo Apriori de mineração de regras de associação.
