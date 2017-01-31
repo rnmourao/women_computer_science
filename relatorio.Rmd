@@ -125,10 +125,11 @@ Para que seja feita a análise de variância, a amostra deve atender certas pres
 2) a variância é constante;
 3) a distribuição dos erros é normal ou aproximadamente normal.
 
-Como exemplo, será efetuada isoladamente a análise de variância do atributo **opcao_computacao** em relação ao atributo **Ano**, com os anos como tratamentos. A variável observada é o interesse do aluno por optar pelo curso de ciência da computação.
+Os gráficos que apóiam essas pressuposições serão movidos para o fim da página.
 
-A utilização do percentual de respostas a cada item previne que a diferença na quantidade de entrevistas prejudique a análise. 
+Como exemplo, será efetuada isoladamente a análise de variância do atributo **opcao_computacao** em relação ao atributo **Ano**, com os anos como tratamentos. A variável observada é o interesse do aluno por optar pelo curso de ciência da computação, sendo atribuído o valor 1 no caso em que a estudante respondeu que não fará vestibular para computação, 2 se ainda está em dúvida e 3 se informou que irá optar por computação.
 
+<!--
 ```{r}
 tam_amostra <- 400
 niveis <- levels(respostas$Ano)
@@ -146,19 +147,16 @@ for (i in 1:length(niveis)) {
 }
 rm("temp")
 ```
-
+-->
 
 ```{r}
-temp <- data.frame(tratamento = amostra_anova[, 3], opcao_computacao = amostra_anova[, 1])
+temp <- data.frame(Tratamento = respostas[, 3], Opcao_Computacao = respostas[, 1])
 
-knit_print(aggregate(x = list(Media = temp$opcao_computacao), by = list(Tratamento = temp$tratamento), FUN=mean))
-cat("\n")
-
-fit <- aov(opcao_computacao ~ tratamento, data = temp)
+fit <- aov(Opcao_Computacao ~ Tratamento, data = temp)
 knit_print(anova(fit))
 cat("\n")
 
-knit_print(HSD.test(fit, 'tratamento'))
+knit_print(HSD.test(fit, 'Tratamento'))
 
 par(mfrow=c(2,2))
 plot(fit)
@@ -166,29 +164,26 @@ plot(fit)
 
 A partir do p-valor do tratamento **Ano** (Pr(>F)) abaixo de 5%, há evidências de uma diferença na quantidade de alunas que optam por computação devido à passagem do tempo.
 
-Contudo, ao efetuar o teste de Tukey, percebemos que não há diferença real entre o ano de 2011 e os demais. Desta forma, há uma forte evidência de constância na indecisão das alunas.
+Contudo, ao efetuar o teste de Tukey, percebemos que não há diferença real entre o ano de 2011 e os demais. Desta forma, concluímos que há constância na indecisão das alunas.
 
 A seguir serão apresentadas as análises de variância dos outros atributos coletados nas entrevistas.
 
 ```{r}
 
-for (i in 4:ncol(amostra_anova)) {
-  temp <- data.frame(tratamento = amostra_anova[, i], opcao_computacao = amostra_anova[, 1])
+for (i in 4:ncol(respostas)) {
+  temp <- data.frame(Tratamento = respostas[, i], Opcao_Computacao = respostas[, 1])
   
-  nome <- colnames(amostra_anova)[i]
+  nome <- colnames(respostas)[i]
   cat(paste("\nTratamento:", nome, "\n"))  
   cat("\n")
   
-  knit_print(aggregate(x = list(Media = temp$opcao_computacao), by = list(Tratamento = temp$tratamento), FUN=mean))
-  cat("\n")
-  
-  fit <- aov(opcao_computacao ~ tratamento, data = temp)
+  fit <- aov(Opcao_Computacao ~ Tratamento, data = temp)
   knit_print(anova(fit))
   cat("\n")
 
-  knit_print(HSD.test(fit, 'tratamento'))
+  knit_print(HSD.test(fit, 'Tratamento'))
   
-  assign(nome, temp)
+  # assign(nome, temp)
 
   par(mfrow=c(2,2))  
   plot(fit)
@@ -196,8 +191,53 @@ for (i in 4:ncol(amostra_anova)) {
 ```
 
 
-A partir da análise de variância e do teste de Tukey dos atributos, identificamos que 
+A partir da análise de variância e do teste de Tukey dos atributos, identificamos o seguinte:
 
+Sobre o atributo **Série**, devemos descartar a informação sobre as estudantes de Supletivo, devido à baixa quantidade de respondentes. Normalmente se descartam tratamentos com menos de 30 ocorrências. Podemos perceber dois grupos: do Ensino Fundamental até o Segundo Ano há uma tendência levemente positiva em relação ao curso de computação; por outro lado, alunas do Terceiro Ano e que já cursam o Nível Superior possuem leve rejeição pelo curso.
+
+Em relação à intenção de fazer um curso superior, atributo **Fara_Curso_Superior**, as estudantes que informaram predileção por Exatas, Biológicas e Saúde possuem uma leve tendência a optar por computação, enquanto as que marcaram Humanas tem dúvida sobre uma carreira em computação.
+
+O atributo **Somente_Ensina_Software** mostra que as estudantes que acreditam em tal afirmação tem tendência a optar por um curso de computação, enquanto as que acreditam no contrário ou não tem certeza ficaram em dúvida sobre cursar computação.
+
+Um dos resultados mais desconcertantes refere-se ao atributo **Pouca_Matematica**: apesar da maioria das entrevistadas acreditar de que o curso de computação baseia-se em muito conteúdo matemático, uma quantidade considerável de respondentes discorda. O elemento contraditório é que estas últimas tem certa tendência em seguir uma carreira em computação!
+
+Outro resultado conflitante está relacionado à afirmação de que nos cursos de computação há muitos homens, atributo **Maioria_Homens**. As entrevistadas que discordam dessa afirmação pretendem cursar ciência da computação.
+
+Sobre o domínio de uso do computador ser um pré-requisito para o curso de computação, atributo **Precisa_Saber_Usar_Computador**, a decisão sobre cursar ou não ciência da computação ficou equilibrada em relação a esse quesito.
+
+O atributo **Precisa_Curso_Superior** está relacionado à necessidade de uma graduação para exercer a profissão de cientista da computação. As estudantes que acreditam nessa afirmativa tem uma leve tendência a optar pelo curso de computação. Já as que não acreditam ou tem dúvida estão indecisas sobre o cursar computação.
+
+O atributo mais marcante neste estudo foi **Familia_Gostaria_Computacao**. Nesse, é possível perceber claramente a influência familiar na decisão do curso superior: estudantes que acreditam que a família ficaria feliz caso elas optassem por computação tem uma forte tendência em realmente escolher o curso. As entrevistadas que acreditam que a família não apoiaria a escolha desse curso tem uma tendência a rejeitar a computação. As que não tem certeza da opinião da família também não tem certeza sobre o desejo de seguir essa carreira.
+
+O atributo **Dificuldade_Emprego**, origina-se da percepção das estudantes de que uma pessoa que trabalha na área de computação tem dificuldades em empregar-se. Houve pouca quantidade de entrevistadas que acreditava nessa afirmação mas, no geral, as estudantes que ficaram indecisas sobre cursar computação.
+
+O atributo **Pouco_Lazer**, originário da pergunta "Quem trabalha com computação tem poucas horas de lazer?", teve resultados semelhantes ao atributo **Dificuldade_Emprego**, percebendo-se uma forte indecisão na opção do curso, independentemente da percepção de quantidade de lazer.
+
+Os atributos **Usa_Criatividade**, **Da_Prestigio**, **Boa_Remuneracao** e **Atuacao_Outras_Areas** parecem-se muito com os atributos **Dificuldade_Emprego** e **Pouco_Lazer**, denotando que as entrevistadas ainda não preocupam-se com esses atributos na hora de escolher o curso superior.
+
+O atributo **Usa_Computador_Propria_Casa**, que é auto-explicativo, mostra que alunas que não usam ou não possuem o computador em suas casas estão muito propensas a fazer um curso de computação! As estudantes que usam do equipamento em seu domicílio mostram-se indecisas sobre a opção pelo curso.
+
+Os atributos **Usa_Computador_Casa_Parentes** e **Usa_Computacao_Casa_Amigos** tem pouca relevância na decisão por um curso de computação.
+
+O não uso do computador na escola, atributo **Usa_Computador_Escola** gera um efeito inverso, isto é, alunas que não usam o equipamento em aula mostram leve tendência em optar por computação.
+
+Usar ou não usar o computador no trabalho, atributo **Usa_Computador_Trabalho**, parece não ter relevância na escolha do curso de computação.
+
+Usar o computador em uma *Lan House* tem um efeito positivo na opção pelo curso de computação. 
+
+Usar ou não usar o computador na biblioteca, atributo **Usa_Computador_Biblioteca**, não tem relevância na opção por cursar computação.
+
+Usar o computador em um *Centro de Inclusão Digital* tem um efeito positivo semelhante a usar em uma *Lan House*, movendo a vontade das alunas para a ciência da computação.
+
+O uso de aplicações de escritório, como *editores de texto*, *planilhas eletrônicas* e *editores de imagens* não tem impacto na escolha do curso de computação.
+
+Contudo, o uso de *banco de dados* e a criação de *programas de computador* tem influência positiva na decisão por cursar ciência da computação.
+
+O **não** uso de *internet*, *redes sociais* e *e-mail* motiva as estudantes a optar pelo curso de computação.
+
+O uso de jogos de computador, atributo **Usa_Jogos**, não tem relevância na escolha do curso de computação.
+
+*Desenvolver páginas web* e *utilizar outros softwares* tem uma pequena relevância na escolha do curso de computação.
 
 O próximo passo é identificar se há combinações de atributos que expliquem essa opção. Para isso será utilizado o algoritmo Apriori de mineração de regras de associação.
 
