@@ -9,16 +9,32 @@ output:
 rm(list = ls())
 options("scipen"=100, "digits"=2)
 
+# install.packages("readxl")
 library(readxl)
+
+# install.packages("readr")
 library(readr)
+
+#install.packages("arules")
 library(arules)
+
+# install.packages("ggplot2")
 library(ggplot2)
+
+# install.packages("reshape2")
 library(reshape2)
+
+# install.packages("gridExtra")
 library(gridExtra)
+
+# install.packages("stringr")
 library(stringr)
+
+# install.packages("knitr")
 library(knitr)
+
+# install.packages("agricolae")
 library(agricolae)
-library(arules)
 ```
 
 Este estudo é uma análise estatística sobre o projeto [Meninas na Computação](http://meninas.cic.unb.br/), coordenado pela professora Dra. Maristela Terto e Holanda et al. 
