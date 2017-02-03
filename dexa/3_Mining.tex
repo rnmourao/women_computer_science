@@ -1,3 +1,51 @@
 \section{Data Mining}\label{sec:mining}%
+%3. Teoria sobre a análise dos Dados (Roberto e Guilherme).%
 
-Teoria sobre a análise dos Dados (Roberto e Guilherme)
+Data mining can be defined as the process of discovering insightful patterns and predictive models from data~\cite{Zaki2014}, trying to make sense of usually large amounts of data in some domain~\cite{Cios2007}. \gnramos{In this work, the main interest is the gender gap in the fields of the ``hard sciences'', so we attempt to understand the profiles of women intending to enroll in undergraduate studies, specially those interested in Computer Science.}
+
+From 2011 to 2014, 3707 people were polled, responding a questionnaire\footnote{\url{\gnramos{Link para o arquivo de questonário}}}. The idea was to obtain information on their perceptions of their future undergraduate studies.
+
+\subsection{Poll}\label{sec:mining:poll}%
+The poll had 14 questions which translated into 36 variables.
+\gnramos{descrição das perguntas, motivações, tipos de respostas (categoricas, numericas...)}
+
+\subsection{Statistical Analysis}\label{sec:mining:stat}%
+The usual pre-processing tasks were quickly done; all questionnaires were created and processed by CESPE\footnote{\url{http://www.cespe.unb.br/}}, a specialized research center, and the results given in simple spreadsheets. The data for all years was consolidated in a single spreadsheet\footnote{\url{\gnramos{link para o respositório}}}
+which was then processed in the \texttt{R} programming language.
+
+The script cleans up the data (empty columns, whitespaces, etc.) and begins to process it for analysis. The first step is to consider only the data for the 3680 female respondents. The data is distributed throughout the years as illustrated in Figure~\ref{fig:RespondentsPerYear}. \gnramos{Descrição desta informação}.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/RespondentsPerYear}%
+\caption{Number of respondents per year.}%
+\label{fig:RespondentsPerYear}%
+\end{figure}%
+
+Figure~\ref{fig:EducationalStage} shows how the respondents were distributed by educational stage, indicates that \gnramos{qual a relevância desta informação?},
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/EducationalStage}%
+\caption{Educational Stages of respondents.}%
+\label{fig:EducationalStage}%
+\end{figure}%
+
+Figure~\ref{fig:FieldOfInterest} shows the respondents' interest in different fields of study. This results indicate that, throughout the years, the percentages for each choice remains more or less the same with an average of $41\%$ for \emph{Biology-Health Sciences}, $22\%$ for \emph{Exact Sciences} and $33\%$ for \emph{Human Sciences}.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/FieldOfInterest}%
+\caption{Respondents' fields of interest.}%
+\label{fig:FieldOfInterest}%
+\end{figure}%
+
+Figure~\ref{fig:InterestInCS.pdf} shows the respondents' interest in different fields of study. This results indicate that, throughout the years, the percentages for each choice remains more or less the same with an average of $41\%$ for \emph{Biology-Health Sciences}, $22\%$ for \emph{Exact Sciences} and $33\%$ for \emph{Human Sciences}.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/InterestInCS.pdf}%
+\caption{Respondents interested in Computer Science.}%
+\label{fig:InterestInCS.pdf}%
+\end{figure}%
+
+
+
+
+
