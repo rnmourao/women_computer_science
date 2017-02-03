@@ -14,6 +14,13 @@ for (pkg in c('readxl', 'readr', 'arules', 'ggplot2', 'reshape2',
 # Pretty printing
 options('scipen'=100, 'digits'=2)
 
+# Cleaning up workspace
+rm(list = ls())
+
+# Set working directory
+# setwd("/home/mourao/Documentos/women_computer_science/")
+
+# Get raw data
 poll.answers <- read_excel('raw.xlsx', sheet='unificado', na='')
 
 # Cleanup data
@@ -108,7 +115,10 @@ ggsave('InterestInCS.pdf', width=7, height=2)
 
 # For girls who chose to
 CS.choice <- data.frame(Fara_Computacao=levels(poll.answers$Fara_Computacao),
-                        CS_Choice=c(1, 2, 3))
+                        CS_Choice=0)
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == "No"] <- -1
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == "Maybe"] <- 0
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == "Yes"] <- 1
 poll.answers <- merge(poll.answers, CS.choice)
 CS.choice.index <- match('CS_Choice', names(poll.answers))
 
@@ -116,40 +126,42 @@ print('CS.choice.index')
 print(CS.choice.index)
 
 year.index <- match('Ano', names(poll.answers))
-temp <- data.frame(Tratamento=poll.answers[, year.index],
+temp <- data.frame(Treatment=poll.answers[, year.index],
                    CS_Choice=poll.answers[, CS.choice.index])
 
-fit <- aov(CS_Choice ~ Tratamento, data=temp)
+fit <- aov(CS_Choice ~ Treatment, data=temp)
 knit_print(anova(fit))
-cat('\n')
 
-knit_print(HSD.test(fit, 'Tratamento'))
+knit_print(HSD.test(fit, 'Treatment'))
 
 par(mfrow=c(2,2))
 
 pdf('ANOVA.pdf')
 plot(fit)
+# mtext("Title for Two Plots", outer = TRUE, cex = 1.5)
 dev.off()
 
 # Other attributes
 pdf('Variance.pdf')
 for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last one
-  temp <- data.frame(Tratamento=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index])
+  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index])
 
   nome <- colnames(poll.answers)[i]
-  cat(paste('\nTratamento:', nome, '\n'))
+  cat(paste('\nTreatment:', nome, '\n'))
   cat('\n')
 
-  fit <- aov(CS_Choice ~ Tratamento, data=temp)
+  fit <- aov(CS_Choice ~ Treatment, data=temp)
   knit_print(anova(fit))
   cat('\n')
 
-  knit_print(HSD.test(fit, 'Tratamento'))
+  knit_print(HSD.test(fit, 'Treatment'))
 
   # assign(nome, temp)
 
   par(mfrow=c(2,2))
-
+  
   plot(fit)
+  # mtext("Title for Two Plots", outer = TRUE, cex = 1.5)
+  
 }
 dev.off()
