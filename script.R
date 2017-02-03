@@ -12,13 +12,13 @@ for (pkg in c('readxl', 'readr', 'arules', 'ggplot2', 'reshape2',
     ignore <- install.packages(pkg)
 
 # Pretty printing
-options('scipen'=100, 'digits'=2)
+options('digits'=2)
 
 # Cleaning up workspace
 rm(list = ls())
 
 # Set working directory
-# setwd("/home/mourao/Documentos/women_computer_science/")
+# setwd("/home/f8676628/Documentos/women_computer_science/")
 
 # Get raw data
 poll.answers <- read_excel('raw.xlsx', sheet='unificado', na='')
@@ -68,7 +68,7 @@ p <- ggplot(data=educational.stage, aes(x='', y=Percentual, fill=Serie)) +
      xlab('') + ylab('') + labs(fill='') + # + labs(fill='Stage')
      ggtitle('Interviewees per Educational Stage') +
      scale_fill_discrete(breaks=c('Middle School', 'High School (10th Grade)', 'High School (11th Grade)', 'High School (12th Grade)', 'Adult Education Program', 'College'))
-ggsave('EducationalStage.pdf', width=7, height=2)
+ggsave('dexa/img/EducationalStage.pdf', width=7, height=2)
 
 
 # Results per interest in undergraduate field of study #########################
@@ -89,7 +89,7 @@ p <- ggplot(data=field.of.interest, aes(x='', y=Percentual, fill=Fara_Curso_Supe
      scale_x_discrete() +
      xlab('') + ylab('') + labs(fill='') + # + labs(fill='Field')
      ggtitle('Interviewees per Field of Interest')
-ggsave('FieldOfInterest.pdf', width=7, height=2)
+ggsave('dexa/img/FieldOfInterest.pdf', width=7, height=2)
 
 # Results for interest in Computer Science #####################################
 interest.in.CS <- aggregate(x=list(Quantidade=poll.answers$Fara_Computacao),
@@ -109,7 +109,7 @@ p <- ggplot(data=interest.in.CS, aes(x='', y=Percentual, fill=Fara_Computacao)) 
      scale_x_discrete() +
      xlab('') + ylab('') + labs(fill='') + # labs(fill='Ano')
      ggtitle('Interviewees Interested in CS')
-ggsave('InterestInCS.pdf', width=7, height=2)
+ggsave('dexa/img/InterestInCS.pdf', width=7, height=2)
 
 # Variance analysis ############################################################
 
@@ -130,48 +130,53 @@ temp <- data.frame(Treatment=poll.answers[, year.index],
                    CS_Choice=poll.answers[, CS.choice.index])
 
 fit <- aov(CS_Choice ~ Treatment, data=temp)
-pdf("anova_table_Ano.pdf", height=1, width=9)
+pdf("dexa/img/anova_table_Ano.pdf", height=1, width=9)
   grid.table(anova(fit))
 dev.off()
 
-print(HSD.test(fit, 'Treatment'))
+pdf("dexa/img/tukey_Ano.pdf", height=1.5, width=1.8)
+  grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
+dev.off()
 
-
-pdf('anova_chart_Ano.pdf')
+pdf('dexa/img/anova_chart_Ano.pdf')
   par(mfrow=c(2,2))
   plot(fit)
 dev.off()
 
 # Other attributes
-pdf('Variance.pdf')
 for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last one
   temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index])
 
   nome <- colnames(poll.answers)[i]
-  cat(paste('\nTreatment:', nome, '\n'))
-  cat('\n')
 
   fit <- aov(CS_Choice ~ Treatment, data=temp)
-  print(anova(fit))
-  cat('\n')
+  w = 6 + 2.5 * nchar(as.character(summary(fit)[[1]][["Pr(>F)"]][1])) / 20
+  pdf(paste('dexa/img/anova_table_', nome, '.pdf', sep = ""), height=1, width=w)
+    grid.table(anova(fit))
+  dev.off()
 
-  print(HSD.test(fit, 'Treatment'))
+  h = 1.5 + 0.1 * length(unique(temp$Treatment))
+  w = 1.5 + 0.1 * max(nchar(as.character(temp$Treatment)))
+  pdf(paste('dexa/img/tukey_', nome, '.pdf', sep = ""), height=h, width=w)
+    grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
+  dev.off()
 
-  par(mfrow=c(2,2))
-  plot(fit)
-  
+  pdf(paste('dexa/img/anova_chart_', nome, '.pdf', sep = ""))
+    par(mfrow=c(2,2))
+    plot(fit)
+  dev.off()
 }
-dev.off()
 
 # Grouping ANOVA treatments
 multiple_anova <- function (temp, index) {
   number = sprintf("%02d", index)
   fit <- aov(CS_Choice ~ ., data = temp)
-  pdf(paste("anova_table_multiple_", number, ".pdf", sep = ""), height = 10, width = 18)
+  h = 1 + 0.3 * ncol(temp) 
+  pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = h, width = 18)
     grid.table(anova(fit))
   dev.off()
   
-  pdf(paste("anova_chart_multiple_", number, ".pdf", sep = ""))
+  pdf(paste("dexa/img/anova_chart_multiple_", number, ".pdf", sep = ""))
     par(mfrow=c(2,2))
     plot(fit)
   dev.off()
