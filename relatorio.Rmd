@@ -9,16 +9,32 @@ output:
 rm(list = ls())
 options("scipen"=100, "digits"=2)
 
+# install.packages("readxl")
 library(readxl)
+
+# install.packages("readr")
 library(readr)
+
+#install.packages("arules")
 library(arules)
+
+# install.packages("ggplot2")
 library(ggplot2)
+
+# install.packages("reshape2")
 library(reshape2)
+
+# install.packages("gridExtra")
 library(gridExtra)
+
+# install.packages("stringr")
 library(stringr)
+
+# install.packages("knitr")
 library(knitr)
+
+# install.packages("agricolae")
 library(agricolae)
-library(arules)
 ```
 
 Este estudo é uma análise estatística sobre o projeto [Meninas na Computação](http://meninas.cic.unb.br/), coordenado pela professora Dra. Maristela Terto e Holanda et al. 
@@ -129,26 +145,6 @@ Os gráficos que apóiam essas pressuposições serão movidos para o fim da pá
 
 Como exemplo, será efetuada isoladamente a análise de variância do atributo **opcao_computacao** em relação ao atributo **Ano**, com os anos como tratamentos. A variável observada é o interesse do aluno por optar pelo curso de ciência da computação, sendo atribuído o valor 1 no caso em que a estudante respondeu que não fará vestibular para computação, 2 se ainda está em dúvida e 3 se informou que irá optar por computação.
 
-<!--
-```{r}
-tam_amostra <- 400
-niveis <- levels(respostas$Ano)
-amostra_anova <- NULL
-set.seed(2017)
-for (i in 1:length(niveis)) {
- temp <- respostas[respostas$Ano == niveis[i],]
- rownames(temp) <- 1:nrow(temp)
- temp <- temp[sample(nrow(temp), tam_amostra), ]
- if (is.null(amostra_anova)) {
-   amostra_anova <- temp
- } else {
-   amostra_anova <- rbind(amostra_anova, temp)
- }
-}
-rm("temp")
-```
--->
-
 ```{r}
 temp <- data.frame(Tratamento = respostas[, 3], Opcao_Computacao = respostas[, 1])
 
@@ -239,13 +235,200 @@ O uso de jogos de computador, atributo **Usa_Jogos**, não tem relevância na es
 
 *Desenvolver páginas web* e *utilizar outros softwares* tem uma pequena relevância na escolha do curso de computação.
 
+Iremos agora criar um modelo de análise de variância levando em consideração todas as variáveis do questionário, adotando uma abordagem *top-down*, isto é, iterando sobre o modelo e retirando as variáveis menos significativas, até que todas as variáveis sejam significativas.
+
+```{r}
+temp <- respostas[, c(1, 3:ncol(respostas))]
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+
+Novo modelo, retirando variável **Usa_Computador_Biblioteca**:
+
+```{r}
+temp$Usa_Computador_Biblioteca <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Email**:
+
+```{r}
+temp$Usa_Email <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Editor_Texto**:
+
+```{r}
+temp$Usa_Editor_Texto <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Outros_Softwares**:
+
+```{r}
+temp$Usa_Outros_Softwares <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Criatividade**:
+
+```{r}
+temp$Usa_Criatividade <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Computador_Trabalho**:
+
+```{r}
+temp$Usa_Computador_Trabalho <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Redes_Sociais**:
+
+```{r}
+temp$Usa_Redes_Sociais <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Computador_Casa_Parentes**:
+
+```{r}
+temp$Usa_Computador_Casa_Parentes <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Editor_Imagem**:
+
+```{r}
+temp$Usa_Editor_Imagem <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Internet**:
+
+```{r}
+temp$Usa_Internet <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Pouco_Lazer**:
+
+```{r}
+temp$Pouco_Lazer <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Desenvolve_Paginas_Web**:
+
+```{r}
+temp$Desenvolve_Paginas_Web <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Planilha_Eletrônica**:
+
+```{r}
+temp$Usa_Planilha_Eletrônica <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Computador_Casa_Amigos**:
+
+```{r}
+temp$Usa_Computador_Casa_Amigos <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+Retirando variável **Usa_Jogos**:
+
+```{r}
+temp$Usa_Jogos <- NULL
+
+fit <- aov(opcao_computacao ~ ., data = temp)
+knit_print(anova(fit))
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+
+
 O próximo passo é identificar se há combinações de atributos que expliquem essa opção. Para isso será utilizado o algoritmo Apriori de mineração de regras de associação.
 
 ```{r}
-# regras = apriori(data = respostas)
-# regras = apriori(data = respostas, parameter = list(minlen=2, supp=0.1, conf=0.8, maxtime=300), appearance = list(rhs = c("Fara_Computacao=Sim", "Fara_Computacao=Nao", "Fara_Computacao=Nao sei ainda"), default="lhs"))
+# regras = apriori(data = respostas[, 2:36], parameter = list(minlen=2, supp=0.1, conf=0.8, maxtime=600))
 
 # regras.ordem <- sort(regras, by="lift")
-# write(regras.ordem, file="../dados/regras.txt")
+
+# Encontrando as regras redundantes
+# subset.matrix <- is.subset(regras.ordem, regras.ordem)
+# subset.matrix[lower.tri(subset.matrix, diag = T)] = NA
+
+# Vejam o que montamos até aqui
+# subset.matrix[1:5,1:5]
+
+
+# write(regras, file="regras.txt")
 ```
 

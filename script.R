@@ -11,9 +11,16 @@ for (pkg in c('agricolae', 'ggplot2', 'knitr', 'readxl'))
     ignore <- install.packages(pkg)
 
 # Pretty printing
-options('scipen'=100, 'digits'=2, device='pdf')
+options('digits'=2, device='pdf')
 cat('\n')
 
+# Cleaning up workspace
+rm(list = ls())
+
+# Set working directory
+# setwd("/home/f8676628/Documentos/women_computer_science/")
+
+# Get raw data
 poll.answers <- read_excel('raw.xlsx', sheet='unificado', na='')
 
 # Cleanup data
@@ -132,44 +139,118 @@ ggsave('dexa/img/InterestInCS.pdf', width=7, height=2)
 
 # For girls who chose to
 CS.choice <- data.frame(Fara_Computacao=levels(poll.answers$Fara_Computacao),
-                        CS_Choice=c(1, 2, 3))
+                        CS_Choice=0)
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == "No"] <- -1
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == "Maybe"] <- 0
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == "Yes"] <- 1
 poll.answers <- merge(poll.answers, CS.choice)
 CS.choice.index <- match('CS_Choice', names(poll.answers))
 
 year.index <- match('Ano', names(poll.answers))
-temp <- data.frame(Tratamento=poll.answers[, year.index],
+temp <- data.frame(Treatment=poll.answers[, year.index],
                    CS_Choice=poll.answers[, CS.choice.index])
 
-fit <- aov(CS_Choice ~ Tratamento, data=temp)
-knit_print(anova(fit))
-cat('\n')
+fit <- aov(CS_Choice ~ Treatment, data=temp)
+pdf("dexa/img/anova_table_Ano.pdf", height=1, width=9)
+  grid.table(anova(fit))
+dev.off()
 
-knit_print(HSD.test(fit, 'Tratamento'))
+pdf("dexa/img/tukey_Ano.pdf", height=1.5, width=1.8)
+  grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
+ignore <- dev.off()
 
-par(mfrow=c(2,2))
-pdf('dexa/img/ANOVA.pdf')
-plot(fit)
+pdf('dexa/img/anova_chart_Ano.pdf')
+  par(mfrow=c(2,2))
+  plot(fit)
 ignore <- dev.off()
 
 # Other attributes
-pdf('dexa/img/Variance.pdf')
 for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last one
-  temp <- data.frame(Tratamento=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index])
+  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index])
 
   nome <- colnames(poll.answers)[i]
-  cat(paste('\nTratamento:', nome, '\n'))
-  cat('\n')
 
-  fit <- aov(CS_Choice ~ Tratamento, data=temp)
-  knit_print(anova(fit))
-  cat('\n')
+  fit <- aov(CS_Choice ~ Treatment, data=temp)
+  w = 6 + 2.5 * nchar(as.character(summary(fit)[[1]][["Pr(>F)"]][1])) / 20
+  pdf(paste('dexa/img/anova_table_', nome, '.pdf', sep = ""), height=1, width=w)
+    grid.table(anova(fit))
+  dev.off()
 
-  knit_print(HSD.test(fit, 'Tratamento'))
+  h = 1.5 + 0.1 * length(unique(temp$Treatment))
+  w = 1.5 + 0.1 * max(nchar(as.character(temp$Treatment)))
+  pdf(paste('dexa/img/tukey_', nome, '.pdf', sep = ""), height=h, width=w)
+    grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
+  dev.off()
 
-  # assign(nome, temp)
-
-  par(mfrow=c(2,2))
-
-  plot(fit)
+  pdf(paste('dexa/img/anova_chart_', nome, '.pdf', sep = ""))
+    par(mfrow=c(2,2))
+    plot(fit)
+  dev.off()
 }
-ignore <- dev.off()
+
+# Grouping ANOVA treatments
+multiple_anova <- function (temp, index) {
+  number = sprintf("%02d", index)
+  fit <- aov(CS_Choice ~ ., data = temp)
+  h = 1 + 0.3 * ncol(temp) 
+  pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = h, width = 18)
+    grid.table(anova(fit))
+  dev.off()
+  
+  pdf(paste("dexa/img/anova_chart_multiple_", number, ".pdf", sep = ""))
+    par(mfrow=c(2,2))
+    plot(fit)
+  dev.off()
+  
+  return(index + 1)
+}
+
+temp <- poll.answers[, c(2:ncol(poll.answers))]
+i = 0
+
+i <- multiple_anova(temp, i)
+
+temp$Usa_Computador_Biblioteca <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Email <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Editor_Texto <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Outros_Softwares <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Criatividade <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Computador_Trabalho <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Redes_Sociais <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Computador_Casa_Parentes <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Editor_Imagem <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Internet <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Pouco_Lazer <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Desenvolve_Paginas_Web <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Planilha_Eletrônica <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Computador_Casa_Amigos <- NULL
+i <- multiple_anova(temp, i)
+
+temp$Usa_Jogos <- NULL
+i <- multiple_anova(temp, i)
