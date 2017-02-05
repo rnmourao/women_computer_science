@@ -6,19 +6,19 @@
 # the University of Brasília (http://meninas.cic.unb.br)
 
 # Dependencies
-for (pkg in c('agricolae', 'ggplot2', 'knitr', 'readxl'))
+for (pkg in c('agricolae', 'ggplot2', 'knitr', 'readxl', 'gridExtra', 'arules'))
   if (!require(pkg, character.only=TRUE))
     ignore <- install.packages(pkg)
 
 # Pretty printing
-options('digits'=2, device='pdf')
+options(digits=2, device='pdf', max.print = 99999)
 cat('\n')
 
 # Cleaning up workspace
 rm(list = ls())
 
 # Set working directory
-# setwd("/home/f8676628/Documentos/women_computer_science/")
+setwd("/home/mourao/Documentos/women_computer_science/")
 
 # Get raw data
 poll.answers <- read_excel('raw.xlsx', sheet='unificado', na='')
@@ -188,69 +188,91 @@ for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last
   dev.off()
 }
 
-# Grouping ANOVA treatments
-multiple_anova <- function (temp, index) {
-  number = sprintf("%02d", index)
+## Factorial Analysis
+
+# Remove non-significant attributes using a top-down approach
+temp <- poll.answers
+temp$Fara_Computacao <- NULL
+temp$Ano <- NULL
+
+df <- NULL
+for (i in 1:(ncol(temp) - 1)) {
   fit <- aov(CS_Choice ~ ., data = temp)
-  h = 1 + 0.3 * ncol(temp) 
-  pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = h, width = 18)
+  
+  # Creating a data frame for p-values
+  values <- as.data.frame(summary(fit)[[1]][4:5])
+  names(values)[1] <- 'f'
+  names(values)[2] <- 'p'
+  values$attribute <- trimws(rownames(values))
+  rownames(values) <- seq(1, nrow(values))
+  values <- values[!is.na(values$p),]
+  values <- values[order(values$p, decreasing = TRUE),]
+
+
+  # remove attribute with greater p-value
+  index <- match(values$attribute[1], names(temp))
+  temp <- temp[, -index]
+  
+  f <- sum(values$f)
+  columns <- match(names(temp), names(poll.answers))
+  
+  df2 <- data.frame('f' = f)
+  df2$columns <- list(columns)  
+  if (is.null(df)) {
+    df <- df2
+  } else {
+    df <- rbind(df, df2)
+  }
+  
+  
+}
+max_f <- unlist(as.array(df$columns[df$f == max(df$f)]))
+temp <- poll.answers[, max_f]
+
+
+
+### Test interactions
+
+multiple_anova <- function (temp) {
+  number = ncol(temp) - 1
+  
+  formula = paste("CS_Choice ~", names(temp)[2])
+  for (i in 3:ncol(temp)) {
+    formula = paste(formula, "*", names(temp)[i])
+  }
+  f <- as.formula(formula)
+  fit <- aov(f, data = temp)
+  
+  pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = 90, width = 30)
     grid.table(anova(fit))
   dev.off()
+    
+  sink(paste("multiple_anova", number, ".txt", sep=""), split = FALSE)
+    print(anova(fit))
+  sink()
   
   pdf(paste("dexa/img/anova_chart_multiple_", number, ".pdf", sep = ""))
     par(mfrow=c(2,2))
     plot(fit)
   dev.off()
-  
-  return(index + 1)
 }
 
-temp <- poll.answers[, c(2:ncol(poll.answers))]
-i = 0
+# Grouping ANOVA treatments - positive aspects
+# positivos <- match(c("CS_Choice","Familia_Gostaria_Computacao", "Usa_Computador_Centro_Inclusao_Digital", "Usa_Computador_Lan_House", "Cria_Programas_Computador", "Fara_Curso_Superior", "Desenvolve_Paginas_Web", "Usa_Banco_Dados", "Usa_Outros_Softwares", "Usa_Jogos"), names(poll.answers))
+# temp <- poll.answers[, positivos]
+multiple_anova(temp)
 
-i <- multiple_anova(temp, i)
 
-temp$Usa_Computador_Biblioteca <- NULL
-i <- multiple_anova(temp, i)
 
-temp$Usa_Email <- NULL
-i <- multiple_anova(temp, i)
+# Association Rule Mining #############################################################
 
-temp$Usa_Editor_Texto <- NULL
-i <- multiple_anova(temp, i)
+# rules = apriori(data = poll.answers[, 1:35], parameter = list(minlen=2, maxlen=36, supp=0.1, conf=0.8, maxtime=600), appearance = list(items = c("Fara_Computacao=No", "Fara_Computacao=Yes", "Fara_Computacao=Maybe"), default="both"))
 
-temp$Usa_Outros_Softwares <- NULL
-i <- multiple_anova(temp, i)
+# Encontrando as regras redundantes
+# subset.matrix <- is.subset(regras.ordem, regras.ordem)
+# subset.matrix[lower.tri(subset.matrix, diag = T)] = NA
 
-temp$Usa_Criatividade <- NULL
-i <- multiple_anova(temp, i)
+# Vejam o que montamos até aqui
+# subset.matrix[1:5,1:5]
 
-temp$Usa_Computador_Trabalho <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Usa_Redes_Sociais <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Usa_Computador_Casa_Parentes <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Usa_Editor_Imagem <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Usa_Internet <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Pouco_Lazer <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Desenvolve_Paginas_Web <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Usa_Planilha_Eletrônica <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Usa_Computador_Casa_Amigos <- NULL
-i <- multiple_anova(temp, i)
-
-temp$Usa_Jogos <- NULL
-i <- multiple_anova(temp, i)
+# write(rules, file="rules.txt")
