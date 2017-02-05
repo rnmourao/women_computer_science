@@ -17,8 +17,8 @@ cat('\n')
 # Cleaning up workspace
 rm(list = ls())
 
-# Set working directory
-setwd("/home/mourao/Documentos/women_computer_science/")
+#### Set working directory
+# setwd("/home/mourao/Documentos/women_computer_science/")
 
 # Get raw data
 poll.answers <- read_excel('raw.xlsx', sheet='unificado', na='')
@@ -223,46 +223,32 @@ for (i in 1:(ncol(temp) - 1)) {
   } else {
     df <- rbind(df, df2)
   }
-  
-  
 }
 max_f <- unlist(as.array(df$columns[df$f == max(df$f)]))
 temp <- poll.answers[, max_f]
 
+### Test interactions (Some RAM problems...)
+number = ncol(temp) - 1
 
-
-### Test interactions
-
-multiple_anova <- function (temp) {
-  number = ncol(temp) - 1
-  
-  formula = paste("CS_Choice ~", names(temp)[2])
-  for (i in 3:ncol(temp)) {
-    formula = paste(formula, "*", names(temp)[i])
-  }
-  f <- as.formula(formula)
-  fit <- aov(f, data = temp)
-  
-  pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = 90, width = 30)
-    grid.table(anova(fit))
-  dev.off()
-    
-  sink(paste("multiple_anova", number, ".txt", sep=""), split = FALSE)
-    print(anova(fit))
-  sink()
-  
-  pdf(paste("dexa/img/anova_chart_multiple_", number, ".pdf", sep = ""))
-    par(mfrow=c(2,2))
-    plot(fit)
-  dev.off()
+formula = paste("CS_Choice ~", names(temp)[2])
+for (i in 3:ncol(temp)) {
+  formula = paste(formula, "*", names(temp)[i])
 }
+f <- as.formula(formula)
+fit <- aov(f, data = temp)
 
-# Grouping ANOVA treatments - positive aspects
-# positivos <- match(c("CS_Choice","Familia_Gostaria_Computacao", "Usa_Computador_Centro_Inclusao_Digital", "Usa_Computador_Lan_House", "Cria_Programas_Computador", "Fara_Curso_Superior", "Desenvolve_Paginas_Web", "Usa_Banco_Dados", "Usa_Outros_Softwares", "Usa_Jogos"), names(poll.answers))
-# temp <- poll.answers[, positivos]
-multiple_anova(temp)
+pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = 90, width = 30)
+  grid.table(anova(fit))
+dev.off()
+  
+sink(paste("multiple_anova", number, ".txt", sep=""), split = FALSE)
+  print(anova(fit))
+sink()
 
-
+pdf(paste("dexa/img/anova_chart_multiple_", number, ".pdf", sep = ""))
+  par(mfrow=c(2,2))
+  plot(fit)
+dev.off()
 
 # Association Rule Mining #############################################################
 
