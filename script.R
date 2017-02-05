@@ -228,37 +228,42 @@ max_f <- unlist(as.array(df$columns[df$f == max(df$f)]))
 temp <- poll.answers[, max_f]
 
 ### Test interactions (Some RAM problems...)
-number = ncol(temp) - 1
-
-formula = paste("CS_Choice ~", names(temp)[2])
-for (i in 3:ncol(temp)) {
-  formula = paste(formula, "*", names(temp)[i])
-}
-f <- as.formula(formula)
-fit <- aov(f, data = temp)
-
-pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = 90, width = 30)
-  grid.table(anova(fit))
-dev.off()
-  
-sink(paste("multiple_anova", number, ".txt", sep=""), split = FALSE)
-  print(anova(fit))
-sink()
-
-pdf(paste("dexa/img/anova_chart_multiple_", number, ".pdf", sep = ""))
-  par(mfrow=c(2,2))
-  plot(fit)
-dev.off()
+# number = ncol(temp) - 1
+# 
+# formula = paste("CS_Choice ~", names(temp)[2])
+# for (i in 3:ncol(temp)) {
+#   formula = paste(formula, "*", names(temp)[i])
+# }
+# f <- as.formula(formula)
+# fit <- aov(f, data = temp)
+# 
+# pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = 90, width = 30)
+#   grid.table(anova(fit))
+# dev.off()
+#   
+# sink(paste("multiple_anova", number, ".txt", sep=""), split = FALSE)
+#   print(anova(fit))
+# sink()
+# 
+# pdf(paste("dexa/img/anova_chart_multiple_", number, ".pdf", sep = ""))
+#   par(mfrow=c(2,2))
+#   plot(fit)
+# dev.off()
 
 # Association Rule Mining #############################################################
 
-# rules = apriori(data = poll.answers[, 1:35], parameter = list(minlen=2, maxlen=36, supp=0.1, conf=0.8, maxtime=600), appearance = list(items = c("Fara_Computacao=No", "Fara_Computacao=Yes", "Fara_Computacao=Maybe"), default="both"))
+# Checking what anova attribute selection brings...
+temp <- poll.answers[, c(1, max_f)]
+temp$CS_Choice <- NULL
 
-# Encontrando as regras redundantes
-# subset.matrix <- is.subset(regras.ordem, regras.ordem)
+rules = apriori(data = temp)
+
+rules.ordered <- sort(rules, by = "support")
+# inspect(head(rules.ordered, n = 20))
+
+write(rules.ordered, file="rules.txt")
+
+# Find redundant rules
+# subset.matrix <- is.subset(rules.ordered, rules.ordered)
 # subset.matrix[lower.tri(subset.matrix, diag = T)] = NA
-
-# Vejam o que montamos até aqui
 # subset.matrix[1:5,1:5]
-
-# write(rules, file="rules.txt")
