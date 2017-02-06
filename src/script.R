@@ -1,6 +1,6 @@
 # file: script.R
 # authors: Guilherme N. Ramos (gnramos@unb.br)
-#          Roberto Mourão
+#          Roberto N. Mourão
 #
 # Script for analysis of data for the Meninas na Computação Project in
 # the University of Brasília (http://meninas.cic.unb.br)
