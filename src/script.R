@@ -18,10 +18,10 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-# setwd("/home/mourao/Documentos/women_computer_science/")
+# setwd('/home/mourao/Documentos/women_computer_science/')
 
 # Get raw data
-poll.answers <- read_excel('raw.xlsx', sheet='unificado', na='')
+poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
 
 # Cleanup data
 poll.answers$Q1 <- NULL
@@ -64,7 +64,7 @@ p <- ggplot(data=respondents.per.year, aes(x='', y=Total, fill=Year)) +
      scale_x_discrete() +
      xlab('') + ylab('') + labs(fill='') + # + labs(fill='Stage')
      # ggtitle('Respondents per Year') +
-ggsave('dexa/img/RespondentsPerYear.pdf', width=7, height=2)
+ggsave('../dexa/img/RespondentsPerYear.pdf', width=7, height=2)
 
 
 # Results per educational stage ################################################
@@ -86,7 +86,7 @@ p <- ggplot(data=educational.stage, aes(x='', y=Percentage, fill=Serie)) +
      xlab('') + ylab('') + labs(fill='') + # + labs(fill='Stage')
      # ggtitle('Respondents per Educational Stage') +
      scale_fill_discrete(breaks=c('Middle School', 'High School (10th Grade)', 'High School (11th Grade)', 'High School (12th Grade)', 'Adult Education Program', 'College'))
-ggsave('dexa/img/EducationalStage.pdf', width=7, height=2)
+ggsave('../dexa/img/EducationalStage.pdf', width=7, height=2)
 
 
 # Results per interest in undergraduate field of study #########################
@@ -107,7 +107,7 @@ p <- ggplot(data=field.of.interest, aes(x='', y=Percentage, fill=FieldOfInterest
      scale_x_discrete() +
      xlab('') + ylab('') + labs(fill='') + # + labs(fill='Field')
      # ggtitle('Respondents per Field of Interest')
-ggsave('dexa/img/FieldOfInterest.pdf', width=7, height=2)
+ggsave('../dexa/img/FieldOfInterest.pdf', width=7, height=2)
 
 cat('All respondents:\n')
 aggregate(x=list(Percentage=field.of.interest$Percentage),
@@ -133,16 +133,16 @@ p <- ggplot(data=interest.in.CS, aes(x='', y=Percentage, fill=Fara_Computacao)) 
      scale_x_discrete() +
      xlab('') + ylab('') + labs(fill='') + # labs(fill='Ano')
      # ggtitle('Respondents Interested in CS')
-ggsave('dexa/img/InterestInCS.pdf', width=7, height=2)
+ggsave('../dexa/img/InterestInCS.pdf', width=7, height=2)
 
 # Variance analysis ############################################################
 
 # For girls who chose to
 CS.choice <- data.frame(Fara_Computacao=levels(poll.answers$Fara_Computacao),
                         CS_Choice=0)
-CS.choice$CS_Choice[CS.choice$Fara_Computacao == "No"] <- -1
-CS.choice$CS_Choice[CS.choice$Fara_Computacao == "Maybe"] <- 0
-CS.choice$CS_Choice[CS.choice$Fara_Computacao == "Yes"] <- 1
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == 'No'] <- -1
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == 'Maybe'] <- 0
+CS.choice$CS_Choice[CS.choice$Fara_Computacao == 'Yes'] <- 1
 poll.answers <- merge(poll.answers, CS.choice)
 CS.choice.index <- match('CS_Choice', names(poll.answers))
 
@@ -151,17 +151,17 @@ temp <- data.frame(Treatment=poll.answers[, year.index],
                    CS_Choice=poll.answers[, CS.choice.index])
 
 fit <- aov(CS_Choice ~ Treatment, data=temp)
-pdf("dexa/img/anova_table_Ano.pdf", height=1, width=9)
+pdf('../dexa/img/anova_table_Year.pdf', height=1, width=9)
   grid.table(anova(fit))
-dev.off()
-
-pdf("dexa/img/tukey_Ano.pdf", height=1.5, width=1.8)
-  grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
 ignore <- dev.off()
 
-pdf('dexa/img/anova_chart_Ano.pdf')
-  par(mfrow=c(2,2))
-  plot(fit)
+pdf('../dexa/img/tukey_Year.pdf', height=1.5, width=1.8)
+  grid.table(HSD.test(fit, 'Treatment')$groups, rows=NULL)
+ignore <- dev.off()
+
+pdf('../dexa/img/anova_chart_Year.pdf')
+par(mfrow=c(2,2))
+plot(fit)
 ignore <- dev.off()
 
 # Other attributes
@@ -171,18 +171,18 @@ for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last
   nome <- colnames(poll.answers)[i]
 
   fit <- aov(CS_Choice ~ Treatment, data=temp)
-  w = 6 + 2.5 * nchar(as.character(summary(fit)[[1]][["Pr(>F)"]][1])) / 20
-  pdf(paste('dexa/img/anova_table_', nome, '.pdf', sep = ""), height=1, width=w)
+  w = 6 + 2.5 * nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])) / 20
+  pdf(paste0('../dexa/img/anova_table_', nome, '.pdf'), height=1, width=w)
     grid.table(anova(fit))
   dev.off()
 
   h = 1.5 + 0.1 * length(unique(temp$Treatment))
   w = 1.5 + 0.1 * max(nchar(as.character(temp$Treatment)))
-  pdf(paste('dexa/img/tukey_', nome, '.pdf', sep = ""), height=h, width=w)
+  pdf(paste0('../dexa/img/tukey_', nome, '.pdf'), height=h, width=w)
     grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
   dev.off()
 
-  pdf(paste('dexa/img/anova_chart_', nome, '.pdf', sep = ""))
+  pdf(paste0('../dexa/img/anova_chart_', nome, '.pdf'))
     par(mfrow=c(2,2))
     plot(fit)
   dev.off()
@@ -198,7 +198,7 @@ temp$Ano <- NULL
 df <- NULL
 for (i in 1:(ncol(temp) - 1)) {
   fit <- aov(CS_Choice ~ ., data = temp)
-  
+
   # Creating a data frame for p-values
   values <- as.data.frame(summary(fit)[[1]][4:5])
   names(values)[1] <- 'f'
@@ -212,12 +212,12 @@ for (i in 1:(ncol(temp) - 1)) {
   # remove attribute with greater p-value
   index <- match(values$attribute[1], names(temp))
   temp <- temp[, -index]
-  
+
   f <- sum(values$f)
   columns <- match(names(temp), names(poll.answers))
-  
+
   df2 <- data.frame('f' = f)
-  df2$columns <- list(columns)  
+  df2$columns <- list(columns)
   if (is.null(df)) {
     df <- df2
   } else {
@@ -229,23 +229,23 @@ temp <- poll.answers[, max_f]
 
 ### Test interactions (Some RAM problems...)
 # number = ncol(temp) - 1
-# 
-# formula = paste("CS_Choice ~", names(temp)[2])
+#
+# formula = paste('CS_Choice ~', names(temp)[2])
 # for (i in 3:ncol(temp)) {
-#   formula = paste(formula, "*", names(temp)[i])
+#   formula = paste(formula, '*', names(temp)[i])
 # }
 # f <- as.formula(formula)
 # fit <- aov(f, data = temp)
-# 
-# pdf(paste("dexa/img/anova_table_multiple_", number, ".pdf", sep = ""), height = 90, width = 30)
+#
+# pdf(paste('../dexa/img/anova_table_multiple_', number, '.pdf', sep = ''), height = 90, width = 30)
 #   grid.table(anova(fit))
 # dev.off()
-#   
-# sink(paste("multiple_anova", number, ".txt", sep=""), split = FALSE)
+#
+# sink(paste('multiple_anova', number, '.txt', sep=''), split = FALSE)
 #   print(anova(fit))
 # sink()
-# 
-# pdf(paste("dexa/img/anova_chart_multiple_", number, ".pdf", sep = ""))
+#
+# pdf(paste('../dexa/img/anova_chart_multiple_', number, '.pdf', sep = ''))
 #   par(mfrow=c(2,2))
 #   plot(fit)
 # dev.off()
@@ -258,10 +258,10 @@ temp$CS_Choice <- NULL
 
 rules = apriori(data = temp)
 
-rules.ordered <- sort(rules, by = "support")
+rules.ordered <- sort(rules, by = 'support')
 # inspect(head(rules.ordered, n = 20))
 
-write(rules.ordered, file="rules.txt")
+write(rules.ordered, file='rules.txt')
 
 # Find redundant rules
 # subset.matrix <- is.subset(rules.ordered, rules.ordered)
