@@ -18,7 +18,7 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-setwd('/home/f8676628/Documentos/women_computer_science/src/')
+# setwd('/home/f8676628/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
