@@ -18,7 +18,7 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-# setwd('/home/mourao/Documentos/women_computer_science/')
+setwd('/home/f8676628/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -177,7 +177,7 @@ for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last
   dev.off()
 
   h = 1.5 + 0.1 * length(unique(temp$Treatment))
-  w = 1.5 + 0.1 * max(nchar(as.character(temp$Treatment)))
+  w = 1.5 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
   pdf(paste0('../dexa/img/tukey_', nome, '.pdf'), height=h, width=w)
     grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
   dev.off()
