@@ -18,7 +18,7 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-# setwd('/home/f8676628/Documentos/women_computer_science/src/')
+# setwd('/home/mourao/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -145,6 +145,7 @@ CS.choice$CS_Choice[CS.choice$Fara_Computacao == 'Maybe'] <- 0
 CS.choice$CS_Choice[CS.choice$Fara_Computacao == 'Yes'] <- 1
 poll.answers <- merge(poll.answers, CS.choice)
 CS.choice.index <- match('CS_Choice', names(poll.answers))
+CS.response.index <- match('Fara_Computacao', names(poll.answers))
 
 year.index <- match('Ano', names(poll.answers))
 temp <- data.frame(Treatment=poll.answers[, year.index],
@@ -166,26 +167,33 @@ ignore <- dev.off()
 
 # Other attributes
 for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last one
-  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index])
+  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index], CS_Response = poll.answers[, CS.response.index])
 
   nome <- colnames(poll.answers)[i]
-
-  fit <- aov(CS_Choice ~ Treatment, data=temp)
+  f <- as.formula('CS_Choice ~ Treatment')
+  fit <- aov(f, data=temp)
+  
+  pdf(paste0('../dexa/img/plot_', nome, '.pdf'))
+    temp2 <- aggregate(x = list(Quantity = temp$CS_Response), by = list(Treatment = temp$Treatment, CS_Response = temp$CS_Response), FUN=length)
+    barplot(temp2$Quantity, names.arg = levels(temp2$CS_Choice))
+  ignore <- dev.off()
+  
   w = 6 + 2.5 * nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])) / 20
   pdf(paste0('../dexa/img/anova_table_', nome, '.pdf'), height=1, width=w)
     grid.table(anova(fit))
-  dev.off()
-
-  h = 1.5 + 0.1 * length(unique(temp$Treatment))
-  w = 1.5 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
-  pdf(paste0('../dexa/img/tukey_', nome, '.pdf'), height=h, width=w)
-    grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
-  dev.off()
+  ignore <- dev.off()
 
   pdf(paste0('../dexa/img/anova_chart_', nome, '.pdf'))
     par(mfrow=c(2,2))
     plot(fit)
-  dev.off()
+  ignore <- dev.off()
+  
+  h = 1.5 + 0.1 * length(unique(temp$Treatment))
+  w = 1.5 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
+  pdf(paste0('../dexa/img/tukey_', nome, '.pdf'), height=h, width=w)
+    grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
+  ignore <- dev.off()
+
 }
 
 ## Factorial Analysis
@@ -246,8 +254,9 @@ for (i in 1:nrow(combinations)) {
   ignore <- dev.off()
   
   pdf(paste('../dexa/img/anova_chart_interaction_', trt, '.pdf', sep = ''))
-    par(mfrow=c(2,2))
-    plot(fit)
+    # par(mfrow=c(2,2))
+    # plot(fit)
+    interaction.plot(temp2[, 1], temp2[, 2], temp2[, 3], type = "b")
   ignore <- dev.off()
   
   h = 1.5 + 0.3 * length(levels(temp2[, 4]))
