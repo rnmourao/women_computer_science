@@ -18,7 +18,7 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-# setwd('/home/f8676628/Documentos/women_computer_science/src/')
+setwd('/home/f8676628/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -227,28 +227,35 @@ for (i in 1:(ncol(temp) - 1)) {
 max_f <- unlist(as.array(df$columns[df$f == max(df$f)]))
 temp <- poll.answers[, max_f]
 
-### Test interactions (Some RAM problems...)
-# number = ncol(temp) - 1
-#
-# formula = paste('CS_Choice ~', names(temp)[2])
-# for (i in 3:ncol(temp)) {
-#   formula = paste(formula, '*', names(temp)[i])
-# }
-# f <- as.formula(formula)
-# fit <- aov(f, data = temp)
-#
-# pdf(paste('../dexa/img/anova_table_multiple_', number, '.pdf', sep = ''), height = 90, width = 30)
-#   grid.table(anova(fit))
-# dev.off()
-#
-# sink(paste('multiple_anova', number, '.txt', sep=''), split = FALSE)
-#   print(anova(fit))
-# sink()
-#
-# pdf(paste('../dexa/img/anova_chart_multiple_', number, '.pdf', sep = ''))
-#   par(mfrow=c(2,2))
-#   plot(fit)
-# dev.off()
+### Test interactions
+CS.choice.index <- match('CS_Choice', names(temp))
+combinations <- t(combn(1:(ncol(temp) - 1), 2))
+for (i in 1:nrow(combinations)) {
+  temp2 <- temp[, c(combinations[i, 1], combinations[i, 2], CS.choice.index)]
+  temp2 <- temp2[!is.na(temp2[, 1]) & !is.na(temp2[, 2]),]
+  temp2$interaction <- as.factor(paste0(temp2[, 1], ".", temp2[, 2]))
+  trt <- paste0(names(temp2)[1], ".", names(temp2)[2])
+  names(temp2)[4] <- trt
+  
+  f <- as.formula(paste("CS_Choice ~", trt))
+  fit <- aov(f, data=temp2)
+  
+  w = 4 + 2.6 *(nchar(trt) + nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])))/ 20
+  pdf(paste('../dexa/img/anova_table_interaction_', trt, '.pdf', sep = ''), height = 1, width = w)
+    grid.table(anova(fit))
+  ignore <- dev.off()
+  
+  pdf(paste('../dexa/img/anova_chart_interaction_', trt, '.pdf', sep = ''))
+    par(mfrow=c(2,2))
+    plot(fit)
+  ignore <- dev.off()
+  
+  h = 1.5 + 0.3 * length(levels(temp2[, 4]))
+  w = 1.5 + 0.1 * max(nchar(as.character(levels(temp2[, 4]))))
+  pdf(paste0('../dexa/img/tukey_interaction_', trt, '.pdf'), height=h, width=w)
+    grid.table(HSD.test(fit, trt)$groups, rows = NULL)
+  ignore <- dev.off()
+}
 
 # Association Rule Mining #############################################################
 
@@ -261,7 +268,7 @@ rules = apriori(data = temp)
 rules.ordered <- sort(rules, by = 'support')
 # inspect(head(rules.ordered, n = 20))
 
-write(rules.ordered, file='rules.txt')
+write(rules.ordered, file='../data/rules.txt')
 
 # Find redundant rules
 # subset.matrix <- is.subset(rules.ordered, rules.ordered)
