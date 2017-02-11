@@ -18,7 +18,7 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-# setwd('/home/mourao/Documentos/women_computer_science/src/')
+setwd('/home/mourao/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -173,10 +173,11 @@ for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last
   f <- as.formula('CS_Choice ~ Treatment')
   fit <- aov(f, data=temp)
   
-  pdf(paste0('../dexa/img/plot_', nome, '.pdf'))
-    temp2 <- aggregate(x = list(Quantity = temp$CS_Response), by = list(Treatment = temp$Treatment, CS_Response = temp$CS_Response), FUN=length)
-    barplot(temp2$Quantity, names.arg = levels(temp2$CS_Choice))
-  ignore <- dev.off()
+  temp2 <- aggregate(x = list(Quantity = temp$CS_Response), by = list(CS_Response = temp$CS_Response, Treatment = temp$Treatment), FUN=length)
+  ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS_Response)) + 
+    geom_bar(position="dodge", stat="identity") + 
+    scale_fill_discrete(name='Treatment')
+  ggsave(paste0('../dexa/img/plot_', nome, '.pdf'), width=5, height=3)
   
   w = 6 + 2.5 * nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])) / 20
   pdf(paste0('../dexa/img/anova_table_', nome, '.pdf'), height=1, width=w)
@@ -198,13 +199,11 @@ for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last
 
 ## Factorial Analysis
 
-# Remove non-significant attributes using a top-down approach
-temp <- poll.answers
-temp$Fara_Computacao <- NULL
-temp$Ano <- NULL
-
-df <- NULL
-for (i in 1:(ncol(temp) - 1)) {
+# Removing non-significant attributes using a top-down approach
+not_significant <- c(CS.response.index, year.index)
+temp <- poll.answers[, -not_significant]
+gotcha <- FALSE
+while(!gotcha | ncol(temp) <= 1) {
   fit <- aov(CS_Choice ~ ., data = temp)
 
   # Creating a data frame for p-values
@@ -216,24 +215,15 @@ for (i in 1:(ncol(temp) - 1)) {
   values <- values[!is.na(values$p),]
   values <- values[order(values$p, decreasing = TRUE),]
 
-
   # remove attribute with greater p-value
-  index <- match(values$attribute[1], names(temp))
-  temp <- temp[, -index]
-
-  f <- sum(values$f)
-  columns <- match(names(temp), names(poll.answers))
-
-  df2 <- data.frame('f' = f)
-  df2$columns <- list(columns)
-  if (is.null(df)) {
-    df <- df2
+  if (values$p[1] >= 0.05) {
+    index <- match(values$attribute[1], names(poll.answers))
+    not_significant <- c(not_significant, index)  
+    temp <- poll.answers[, -not_significant]
   } else {
-    df <- rbind(df, df2)
+    break
   }
 }
-max_f <- unlist(as.array(df$columns[df$f == max(df$f)]))
-temp <- poll.answers[, max_f]
 
 ### Test interactions
 CS.choice.index <- match('CS_Choice', names(temp))
@@ -269,17 +259,19 @@ for (i in 1:nrow(combinations)) {
 # Association Rule Mining #############################################################
 
 # Checking what anova attribute selection brings...
-temp <- poll.answers[, c(1, max_f)]
-temp$CS_Choice <- NULL
+CS.choice.index <- match('CS_Choice', names(poll.answers))
+not_significant <- not_significant[not_significant != CS.response.index]
+not_significant <- c(not_significant, CS.choice.index)
+temp <- poll.answers[, -not_significant]
 
 rules = apriori(data = temp)
 
 rules.ordered <- sort(rules, by = 'support')
 # inspect(head(rules.ordered, n = 20))
 
-write(rules.ordered, file='../data/rules.txt')
+# write(rules.ordered, file='../data/rules.txt')
 
 # Find redundant rules
-# subset.matrix <- is.subset(rules.ordered, rules.ordered)
+subset.matrix <- is.subset(rules.ordered, rules.ordered)
 # subset.matrix[lower.tri(subset.matrix, diag = T)] = NA
 # subset.matrix[1:5,1:5]
