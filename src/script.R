@@ -18,7 +18,7 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-setwd('/home/mourao/Documentos/women_computer_science/src/')
+# setwd('/home/mourao/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -265,7 +265,7 @@ temp <- poll.answers[, -CS.choice.index]
 # Mining rules
 
 # ECLAT
-rules_eclat = eclat(data = temp, parameter = list(maxlen = 2, support = 0.01))
+rules_eclat = eclat(data = temp, parameter = list(maxlen = 3, support = 0.01))
 cs_rules_eclat <- subset(rules_eclat, subset = items %in% c("Fara_Computacao=Yes", "Fara_Computacao=No", "Fara_Computacao=Maybe"))
 cs_rules_eclat <- sort(cs_rules_eclat, by = 'support')
 # inspect(cs_rules_eclat)
@@ -273,13 +273,16 @@ cs_rules_eclat <- sort(cs_rules_eclat, by = 'support')
 # Checking complementary rules
 CS_DF <- data.frame(itemset = labels(cs_rules_eclat), support = cs_rules_eclat@quality) 
 CS_DF$itemset <- gsub("\\{|\\}", "", CS_DF$itemset)
-itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", CS_DF$itemset), ",", 2))
-names(itemsets) <- c("CS_Response", "item2")
+itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", CS_DF$itemset), ",", 3))
+names(itemsets) <- c("CS_Response", "item1", "item2")
 itemsets <- cbind(itemsets, value = round(100 * CS_DF$support))
-complementary <- cast(data = itemsets, formula = "item2~CS_Response", mean, fill = NA)
+complementary <- cast(data = itemsets, formula = "item1+item2~CS_Response", mean, fill = NA)
+CS_Yes <- subset(complementary, 
+                 complementary$`Fara_Computacao=Yes` > complementary$`Fara_Computacao=No` & 
+                   complementary$`Fara_Computacao=Yes` > complementary$`Fara_Computacao=Maybe`)
 
 # Saving rules on disk
-write(cs_rules_eclat, file='../data/eclat.txt')
+write(complementary, file='../data/eclat.txt')
 
 # Finding interactions...
 
