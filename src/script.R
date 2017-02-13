@@ -6,7 +6,7 @@
 # the University of Brasília (http://meninas.cic.unb.br)
 
 # Dependencies
-for (pkg in c('agricolae', 'ggplot2', 'knitr', 'readxl', 'gridExtra', 'arules'))
+for (pkg in c('agricolae', 'ggplot2', 'readxl', 'gridExtra', 'arules', 'stringr', 'reshape'))
   if (!require(pkg, character.only=TRUE))
     ignore <- install.packages(pkg)
 
@@ -258,20 +258,45 @@ for (i in 1:nrow(combinations)) {
 
 # Association Rule Mining #############################################################
 
-# Checking what anova attribute selection brings...
+# Restoring data frame to its original format
 CS.choice.index <- match('CS_Choice', names(poll.answers))
-not_significant <- not_significant[not_significant != CS.response.index]
-not_significant <- c(not_significant, CS.choice.index)
-temp <- poll.answers[, -not_significant]
+temp <- poll.answers[, -CS.choice.index]
 
-rules = apriori(data = temp)
+# Mining rules
 
-rules.ordered <- sort(rules, by = 'support')
-# inspect(head(rules.ordered, n = 20))
+# ECLAT
+rules_eclat = eclat(data = temp, parameter = list(maxlen = 2, support = 0.01))
+cs_rules_eclat <- subset(rules_eclat, subset = items %in% c("Fara_Computacao=Yes", "Fara_Computacao=No", "Fara_Computacao=Maybe"))
+cs_rules_eclat <- sort(cs_rules_eclat, by = 'support')
+# inspect(cs_rules_eclat)
 
-# write(rules.ordered, file='../data/rules.txt')
+# Checking complementary rules
+CS_DF <- data.frame(itemset = labels(cs_rules_eclat), support = cs_rules_eclat@quality) 
+CS_DF$itemset <- gsub("\\{|\\}", "", CS_DF$itemset)
+itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", CS_DF$itemset), ",", 2))
+names(itemsets) <- c("CS_Response", "item2")
+itemsets <- cbind(itemsets, value = round(100 * CS_DF$support))
+complementary <- cast(data = itemsets, formula = "item2~CS_Response", mean, fill = NA)
 
-# Find redundant rules
-subset.matrix <- is.subset(rules.ordered, rules.ordered)
+# Saving rules on disk
+write(cs_rules_eclat, file='../data/eclat.txt')
+
+# Finding interactions...
+
+
+# # APRIORI
+# rules = apriori(data = temp, parameter = list(maxlen = 3))
+# cs_rules <- subset(rules, subset = items %in% c("Fara_Computacao=Yes", "Fara_Computacao=No", "Fara_Computacao=Maybe") & lift >= 1)
+# rm(rules)
+# cs_rules <- sort(cs_rules, by = 'support')
+# 
+# # Finding redundant rules
+# subset.matrix <- is.subset(cs_rules, cs_rules)
 # subset.matrix[lower.tri(subset.matrix, diag = T)] = NA
-# subset.matrix[1:5,1:5]
+# redundants <- colSums(subset.matrix, na.rm = T) >= 1
+# cs_rules_reduced <- cs_rules[!redundants]
+# 
+# # Checking opposite rules ???
+# 
+# # Saving rules on disk
+# write(cs_rules_reduced, file='../data/apriori.txt')
