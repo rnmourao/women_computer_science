@@ -18,7 +18,7 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-setwd('/home/mourao/Documentos/women_computer_science/src/')
+# setwd('/home/f8676628/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -265,18 +265,21 @@ temp <- poll.answers[, -CS.choice.index]
 # Mining rules
 
 # ECLAT
-rules_eclat = eclat(data = temp, parameter = list(maxlen = 2, support = 0.01))
-cs_rules_eclat <- subset(rules_eclat, subset = items %in% c("Fara_Computacao=Yes", "Fara_Computacao=No", "Fara_Computacao=Maybe"))
+cs_rules_eclat = eclat(data = temp, parameter = list(maxlen = 3, support = 0.01))
+# cs_rules_eclat <- subset(rules_eclat, subset = items %in% c("Fara_Computacao=Yes", "Fara_Computacao=No", "Fara_Computacao=Maybe"))
 cs_rules_eclat <- sort(cs_rules_eclat, by = 'support')
-# inspect(cs_rules_eclat)
 
 # Checking complementary rules
 CS_DF <- data.frame(itemset = labels(cs_rules_eclat), support = cs_rules_eclat@quality) 
 CS_DF$itemset <- gsub("\\{|\\}", "", CS_DF$itemset)
-itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", CS_DF$itemset), ",", 2))
-names(itemsets) <- c("CS_Response", "item2")
+itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", CS_DF$itemset), ",", 3))
+names(itemsets) <- c("item1", "item2", "item3")
+itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item1", "item2")] <- itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item2", "item1")]
+itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item1", "item3")] <- itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item3", "item1")] 
 itemsets <- cbind(itemsets, value = round(100 * CS_DF$support))
-complementary <- cast(data = itemsets, formula = "item2~CS_Response", mean, fill = NA)
+itemsets <- itemsets[order(itemsets$item1, itemsets$item2, itemsets$item3),]
+complementary <- cast(data = itemsets[grepl("Fara_Computacao", itemsets$item1, fixed = TRUE),], formula = "item2+item3~item1", mean, fill = NA)
+uniques <- itemsets[itemsets$item2 == "" & itemsets$item2 == "",]
 
 # Saving rules on disk
 write(cs_rules_eclat, file='../data/eclat.txt')
