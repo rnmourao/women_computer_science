@@ -18,7 +18,7 @@ cat('\n')
 rm(list = ls())
 
 #### Set working directory
-# setwd('/home/mourao/Documentos/women_computer_science/src/')
+# setwd('/home/f8676628/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -221,6 +221,7 @@ while(!gotcha | ncol(temp) <= 1) {
     not_significant <- c(not_significant, index)  
     temp <- poll.answers[, -not_significant]
   } else {
+    print(summary(fit))
     break
   }
 }
@@ -260,7 +261,8 @@ for (i in 1:nrow(combinations)) {
 
 # Restoring data frame to its original format
 CS.choice.index <- match('CS_Choice', names(poll.answers))
-temp <- poll.answers[, -CS.choice.index]
+year.index <- match('Ano', names(poll.answers))
+temp <- poll.answers[, -c(CS.choice.index, year.index)]
 
 # Mining rules
 
