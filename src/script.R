@@ -268,18 +268,16 @@ temp <- poll.answers[, -c(CS.choice.index, year.index)]
 
 # ECLAT
 cs_rules_eclat = eclat(data = temp, parameter = list(maxlen = 3, support = 0.01))
-# cs_rules_eclat <- subset(rules_eclat, subset = items %in% c("Fara_Computacao=Yes", "Fara_Computacao=No", "Fara_Computacao=Maybe"))
 cs_rules_eclat <- sort(cs_rules_eclat, by = 'support')
-# inspect(cs_rules_eclat)
 
 # Checking complementary rules
-CS_DF <- data.frame(itemset = labels(cs_rules_eclat), support = cs_rules_eclat@quality) 
-CS_DF$itemset <- gsub("\\{|\\}", "", CS_DF$itemset)
-itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", CS_DF$itemset), ",", 3))
+df <- data.frame(itemset = labels(cs_rules_eclat), support = cs_rules_eclat@quality) 
+df$itemset <- gsub("\\{|\\}", "", df$itemset)
+itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", df$itemset), ",", 3))
 names(itemsets) <- c("item1", "item2", "item3")
 itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item1", "item2")] <- itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item2", "item1")]
 itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item1", "item3")] <- itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item3", "item1")] 
-itemsets <- cbind(itemsets, value = round(100 * CS_DF$support))
+itemsets <- cbind(itemsets, value = round(100 * df$support))
 itemsets <- itemsets[order(itemsets$item1, itemsets$item2, itemsets$item3),]
 complementary <- cast(data = itemsets[grepl("Fara_Computacao", itemsets$item1, fixed = TRUE),], formula = "item2+item3~item1", mean, fill = NA)
 uniques <- itemsets[itemsets$item2 == "" & itemsets$item2 == "",]
@@ -287,11 +285,18 @@ CS_Yes <- subset(complementary,
                  complementary$`Fara_Computacao=Yes` > complementary$`Fara_Computacao=No` & 
                    complementary$`Fara_Computacao=Yes` > complementary$`Fara_Computacao=Maybe`)
 
+## Familia_Gostaria_Computacao=Sim => Fara_Computacao=Yes
+# confidence (A => B) = support(A U B) / support(A)
+conf = 15 / 25
+
+# lift (A => B) = support(A U B) / support(A) * support(B)
+lift = 15 / (25 * 36)
+
+
 # Saving rules on disk
-write(complementary, file='../data/eclat.txt')
+# write(complementary, file='../data/eclat.txt')
 
 # Finding interactions...
-
 
 # # APRIORI
 # rules = apriori(data = temp, parameter = list(maxlen = 3))
