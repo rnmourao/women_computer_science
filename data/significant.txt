@@ -11,9 +11,11 @@ Usa_Computador_Propria_Casa               1      7     7.2   15.44 8.7e-05 ***
 Cria_Programas_Computador                 1      6     6.4   13.77 0.00021 ***
 Precisa_Curso_Superior                    2     11     5.7   12.20 5.3e-06 ***
 Somente_Ensina_Software                   2      8     4.2    8.98 0.00013 ***
+Atuacao_Outras_Areas                      2      6     3.2    6.96 0.00097 *** 
+
 Usa_Computador_Escola                     1      4     4.4    9.41 0.00217 ** 
-Atuacao_Outras_Areas                      2      6     3.2    6.96 0.00097 ***
 Usa_Computador_Centro_Inclusao_Digital    1      3     3.2    6.76 0.00935 ** 
+
 Usa_Jogos                                 1      2     2.1    4.44 0.03516 *  
 Usa_Computador_Casa_Amigos                1      2     2.0    4.24 0.03950 *  
 Boa_Remuneracao                           2      4     2.0    4.22 0.01474 *  

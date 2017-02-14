@@ -12,7 +12,6 @@ for (pkg in c('agricolae', 'ggplot2', 'readxl', 'gridExtra', 'arules', 'stringr'
 
 # Pretty printing
 options(digits=2, device='pdf', max.print = 99999)
-cat('\n')
 
 # Cleaning up workspace
 rm(list = ls())
@@ -266,51 +265,49 @@ temp <- poll.answers[, -c(CS.choice.index, year.index)]
 
 # Mining rules
 
-# ECLAT
-cs_rules_eclat = eclat(data = temp, parameter = list(maxlen = 3, support = 0.01))
-cs_rules_eclat <- sort(cs_rules_eclat, by = 'support')
+# APRIORI
+cs_rules = apriori(data = temp, 
+                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=ncol(temp)), 
+                   appearance = list(rhs = "Fara_Computacao=Yes", default = "lhs"))
 
-# Checking complementary rules
-df <- data.frame(itemset = labels(cs_rules_eclat), support = cs_rules_eclat@quality) 
-df$itemset <- gsub("\\{|\\}", "", df$itemset)
-itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", df$itemset), ",", 3))
-names(itemsets) <- c("item1", "item2", "item3")
-itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item1", "item2")] <- itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item2", "item1")]
-itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item1", "item3")] <- itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item3", "item1")] 
-itemsets <- cbind(itemsets, value = round(100 * df$support))
-itemsets <- itemsets[order(itemsets$item1, itemsets$item2, itemsets$item3),]
-complementary <- cast(data = itemsets[grepl("Fara_Computacao", itemsets$item1, fixed = TRUE),], formula = "item2+item3~item1", mean, fill = NA)
-uniques <- itemsets[itemsets$item2 == "" & itemsets$item2 == "",]
-CS_Yes <- subset(complementary, 
-                 complementary$`Fara_Computacao=Yes` > complementary$`Fara_Computacao=No` & 
-                   complementary$`Fara_Computacao=Yes` > complementary$`Fara_Computacao=Maybe`)
-
-## Familia_Gostaria_Computacao=Sim => Fara_Computacao=Yes
-# confidence (A => B) = support(A U B) / support(A)
-conf = 15 / 25
-
-# lift (A => B) = support(A U B) / support(A) * support(B)
-lift = 15 / (25 * 36)
-
+cs_rules_ordered <- sort(cs_rules, by = 'lift')
 
 # Saving rules on disk
-# write(complementary, file='../data/eclat.txt')
+write(cs_rules_ordered, file='../data/apriori.txt')
 
-# Finding interactions...
-
-# # APRIORI
-# rules = apriori(data = temp, parameter = list(maxlen = 3))
-# cs_rules <- subset(rules, subset = items %in% c("Fara_Computacao=Yes", "Fara_Computacao=No", "Fara_Computacao=Maybe") & lift >= 1)
-# rm(rules)
-# cs_rules <- sort(cs_rules, by = 'support')
+# # ECLAT
+# cs_rules_eclat = eclat(data = temp, parameter = list(maxlen = 3, support = 0.01))
+# cs_rules_eclat <- sort(cs_rules_eclat, by = 'support')
 # 
-# # Finding redundant rules
-# subset.matrix <- is.subset(cs_rules, cs_rules)
-# subset.matrix[lower.tri(subset.matrix, diag = T)] = NA
-# redundants <- colSums(subset.matrix, na.rm = T) >= 1
-# cs_rules_reduced <- cs_rules[!redundants]
+# # Checking complementary rules
+# df <- data.frame(itemset = labels(cs_rules_eclat), support = cs_rules_eclat@quality) 
+# df$itemset <- gsub("\\{|\\}", "", df$itemset)
+# itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", df$itemset), ",", 3))
+# names(itemsets) <- c("item1", "item2", "item3")
+# itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item1", "item2")] <- itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item2", "item1")]
+# itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item1", "item3")] <- itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item3", "item1")] 
+# itemsets <- cbind(itemsets, value = df$support)
+# itemsets <- itemsets[order(itemsets$item1, itemsets$item2, itemsets$item3),]
+# # complementary <- cast(data = itemsets[grepl("Fara_Computacao", itemsets$item1, fixed = TRUE),], formula = "item2+item3~item1", mean, fill = NA)
+# uniques <- itemsets[itemsets$item2 == "" & itemsets$item3 == "",]
+# CS_plus_other <- itemsets[itemsets$item1 == "Fara_Computacao=Yes" & itemsets$item2 != "" & itemsets$item3 == "",]
 # 
-# # Checking opposite rules ???
+# ## Rules A => B
+# # confidence (A => B) = support(A U B) / support(A)
+# # lift (A => B) = support(A U B) / support(A) * support(B)
+# 
+# CS_plus_other$confidence <- NA
+# CS_plus_other$lift <- NA
+# for (i in 1:nrow(CS_plus_other)) {
+#   item <- CS_plus_other$item2[i] 
+#   A <- uniques$value[match(item, uniques$item1)]
+#   B <- uniques$value[match("Fara_Computacao=Yes", uniques$item1)]
+#   
+#   CS_plus_other$confidence[i] <- CS_plus_other$value[i] / A
+#   CS_plus_other$lift[i] <- CS_plus_other$value[i] / (A * B)
+# }
 # 
 # # Saving rules on disk
-# write(cs_rules_reduced, file='../data/apriori.txt')
+# # write(complementary, file='../data/eclat.txt')
+# 
+# # Finding interactions...
