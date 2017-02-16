@@ -6,7 +6,7 @@
 # the University of Brasília (http://meninas.cic.unb.br)
 
 # Dependencies
-for (pkg in c('agricolae', 'ggplot2', 'readxl', 'gridExtra', 'arules', 'stringr', 'reshape'))
+for (pkg in c('agricolae', 'ggplot2', 'readxl', 'gridExtra', 'arules', 'stringr', 'reshape', 'arulesViz'))
   if (!require(pkg, character.only=TRUE))
     ignore <- install.packages(pkg)
 
@@ -17,7 +17,7 @@ options(digits=2, device='pdf', max.print = 99999)
 rm(list = ls())
 
 #### Set working directory
-# setwd('/home/mourao/Documentos/women_computer_science/src/')
+# setwd('/home/f8676628/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -271,6 +271,11 @@ cs_rules = apriori(data = temp,
                    appearance = list(rhs = "Fara_Computacao=Yes", default = "lhs"))
 
 cs_rules_ordered <- sort(cs_rules, by = 'lift')
+
+# plot
+pdf("../dexa/img/apriori.pdf")
+  plot(cs_rules_ordered)
+ignore <- dev.off()
 
 # Saving rules on disk
 write(cs_rules_ordered, file='../data/apriori.csv', sep=";", row.names = FALSE)
