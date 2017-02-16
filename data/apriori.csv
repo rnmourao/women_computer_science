@@ -1,0 +1,22 @@
+"rules";"support";"confidence";"lift"
+"{Familia_Gostaria_Computacao=Sim,Usa_Jogos=Sim} => {Fara_Computacao=Yes}";0.108386737252717;0.645107794361526;1.79202157427517
+"{Familia_Gostaria_Computacao=Sim,Usa_Computador_Casa_Parentes=Sim} => {Fara_Computacao=Yes}";0.101142379492895;0.631304347826087;1.75367748014538
+"{Familia_Gostaria_Computacao=Sim,Usa_Computador_Trabalho=Nao} => {Fara_Computacao=Yes}";0.127890777375313;0.628767123287671;1.74662941600577
+"{Familia_Gostaria_Computacao=Sim,Atuacao_Outras_Areas=Sim} => {Fara_Computacao=Yes}";0.122318194483143;0.627142857142857;1.74211742591774
+"{Familia_Gostaria_Computacao=Sim,Usa_Criatividade=Sim} => {Fara_Computacao=Yes}";0.131234327110616;0.620553359683794;1.72381269961698
+"{Familia_Gostaria_Computacao=Sim} => {Fara_Computacao=Yes}";0.153803287823906;0.611295681063123;1.69809612951668
+"{Familia_Gostaria_Computacao=Sim,Da_Prestigio=Sim} => {Fara_Computacao=Yes}";0.102535525215938;0.609271523178808;1.69247329465073
+"{Familia_Gostaria_Computacao=Sim,Usa_Computador_Biblioteca=Nao} => {Fara_Computacao=Yes}";0.117581499024798;0.60545193687231;1.68186300420644
+"{Familia_Gostaria_Computacao=Sim,Usa_Redes_Sociais=Sim} => {Fara_Computacao=Yes}";0.13234884368905;0.603557814485388;1.67660139023843
+"{Familia_Gostaria_Computacao=Sim,Usa_Email=Sim} => {Fara_Computacao=Yes}";0.124547227640011;0.603238866396761;1.67571539589627
+"{Familia_Gostaria_Computacao=Sim,Usa_Editor_Imagem=Sim} => {Fara_Computacao=Yes}";0.105043187517414;0.6032;1.67560743034056
+"{Familia_Gostaria_Computacao=Sim,Usa_Internet=Sim} => {Fara_Computacao=Yes}";0.127054889941488;0.602377807133421;1.67332349055871
+"{Familia_Gostaria_Computacao=Sim,Usa_Editor_Texto=Sim} => {Fara_Computacao=Yes}";0.1209250487601;0.601941747572815;1.67211217650065
+"{Familia_Gostaria_Computacao=Sim,Usa_Computador_Centro_Inclusao_Digital=Nao} => {Fara_Computacao=Yes}";0.13792142658122;0.598548972188634;1.66268750865713
+"{Familia_Gostaria_Computacao=Sim,Desenvolve_Paginas_Web=Nao} => {Fara_Computacao=Yes}";0.122596823627751;0.597826086956522;1.66067943195585
+"{Familia_Gostaria_Computacao=Sim,Usa_Computador_Propria_Casa=Sim} => {Fara_Computacao=Yes}";0.132627472833658;0.59723964868256;1.65905038631711
+"{Somente_Ensina_Software=Nao,Familia_Gostaria_Computacao=Sim} => {Fara_Computacao=Yes}";0.1078294789635;0.594470046082949;1.65135680757872
+"{Familia_Gostaria_Computacao=Sim,Usa_Outros_Softwares=Nao} => {Fara_Computacao=Yes}";0.104485929228197;0.5859375;1.62765455688854
+"{Familia_Gostaria_Computacao=Sim,Usa_Banco_Dados=Nao} => {Fara_Computacao=Yes}";0.11145165784341;0.577200577200577;1.6033845755208
+"{Familia_Gostaria_Computacao=Sim,Cria_Programas_Computador=Nao} => {Fara_Computacao=Yes}";0.105043187517414;0.569486404833837;1.581955655533
+"{Precisa_Curso_Superior=Sim,Usa_Computador_Lan_House=Sim} => {Fara_Computacao=Yes}";0.100306492059069;0.524781341107872;1.45777107835615

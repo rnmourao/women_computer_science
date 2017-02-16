@@ -17,7 +17,7 @@ options(digits=2, device='pdf', max.print = 99999)
 rm(list = ls())
 
 #### Set working directory
-# setwd('/home/f8676628/Documentos/women_computer_science/src/')
+# setwd('/home/mourao/Documentos/women_computer_science/src/')
 
 # Get raw data
 poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
@@ -267,13 +267,13 @@ temp <- poll.answers[, -c(CS.choice.index, year.index)]
 
 # APRIORI
 cs_rules = apriori(data = temp, 
-                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=ncol(temp)), 
+                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=3), 
                    appearance = list(rhs = "Fara_Computacao=Yes", default = "lhs"))
 
 cs_rules_ordered <- sort(cs_rules, by = 'lift')
 
 # Saving rules on disk
-write(cs_rules_ordered, file='../data/apriori.txt')
+write(cs_rules_ordered, file='../data/apriori.csv', sep=";", row.names = FALSE)
 
 # # ECLAT
 # cs_rules_eclat = eclat(data = temp, parameter = list(maxlen = 3, support = 0.01))
