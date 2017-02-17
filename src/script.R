@@ -147,53 +147,45 @@ CS.choice.index <- match('CS_Choice', names(poll.answers))
 CS.response.index <- match('Fara_Computacao', names(poll.answers))
 
 year.index <- match('Ano', names(poll.answers))
-temp <- data.frame(Treatment=poll.answers[, year.index],
-                   CS_Choice=poll.answers[, CS.choice.index])
 
-fit <- aov(CS_Choice ~ Treatment, data=temp)
-pdf('../dexa/img/anova_table_Year.pdf', height=1, width=9)
-  grid.table(anova(fit))
-ignore <- dev.off()
+treatments <- data.frame(treatment = NULL, f.value = NULL, max.mean = NULL)
 
-pdf('../dexa/img/tukey_Year.pdf', height=1.5, width=1.8)
-  grid.table(HSD.test(fit, 'Treatment')$groups, rows=NULL)
-ignore <- dev.off()
-
-pdf('../dexa/img/anova_chart_Year.pdf')
-par(mfrow=c(2,2))
-plot(fit)
-ignore <- dev.off()
-
-# Other attributes
-for (i in (year.index + 1):(CS.choice.index-1)) {  # CS.choice.index is the last one
+# Analyze individual attributes
+for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
   temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index], CS_Response = poll.answers[, CS.response.index])
 
-  nome <- colnames(poll.answers)[i]
+  name <- colnames(poll.answers)[i]
   f <- as.formula('CS_Choice ~ Treatment')
   fit <- aov(f, data=temp)
+  fit.summary <- summary(fit)
+  tukey <- HSD.test(fit, 'Treatment')
   
   temp2 <- aggregate(x = list(Quantity = temp$CS_Response), by = list(CS_Response = temp$CS_Response, Treatment = temp$Treatment), FUN=length)
   ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS_Response)) + 
     geom_bar(position="dodge", stat="identity") + 
     scale_fill_discrete(name='Treatment')
-  ggsave(paste0('../dexa/img/plot_', nome, '.pdf'), width=5, height=3)
+  ggsave(paste0('../dexa/img/plot_', name, '.pdf'), width=5, height=3)
   
-  w = 6 + 2.5 * nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])) / 20
-  pdf(paste0('../dexa/img/anova_table_', nome, '.pdf'), height=1, width=w)
+  w = 6 + 2.5 * nchar(as.character(fit.summary[[1]][['Pr(>F)']][1])) / 20
+  pdf(paste0('../dexa/img/anova_table_', name, '.pdf'), height=1, width=w)
     grid.table(anova(fit))
   ignore <- dev.off()
 
-  pdf(paste0('../dexa/img/anova_chart_', nome, '.pdf'))
+  pdf(paste0('../dexa/img/anova_chart_', name, '.pdf'))
     par(mfrow=c(2,2))
     plot(fit)
   ignore <- dev.off()
   
   h = 1.5 + 0.1 * length(unique(temp$Treatment))
   w = 1.5 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
-  pdf(paste0('../dexa/img/tukey_', nome, '.pdf'), height=h, width=w)
-    grid.table(HSD.test(fit, 'Treatment')$groups, rows = NULL)
+  pdf(paste0('../dexa/img/tukey_', name, '.pdf'), height=h, width=w)
+    grid.table(tukey$groups, rows = NULL)
   ignore <- dev.off()
-
+  
+  df <-  data.frame(treatment = name, 
+                    f.value = fit.summary[[1]][['F value']][[1]],
+                    max.mean = max(tukey$groups$means))
+  treatments <- rbind(treatments, df)
 }
 
 ## Factorial Analysis
@@ -237,6 +229,8 @@ for (i in 1:nrow(combinations)) {
   
   f <- as.formula(paste("CS_Choice ~", trt))
   fit <- aov(f, data=temp2)
+  fit.summary <- summary(fit)
+  tukey <- HSD.test(fit, trt)
   
   w = 4 + 2.6 *(nchar(trt) + nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])))/ 20
   pdf(paste('../dexa/img/anova_table_interaction_', trt, '.pdf', sep = ''), height = 1, width = w)
@@ -254,6 +248,11 @@ for (i in 1:nrow(combinations)) {
   pdf(paste0('../dexa/img/tukey_interaction_', trt, '.pdf'), height=h, width=w)
     grid.table(HSD.test(fit, trt)$groups, rows = NULL)
   ignore <- dev.off()
+  
+  df <-  data.frame(treatment = trt, 
+                    f.value = fit.summary[[1]][['F value']][[1]],
+                    max.mean = max(tukey$groups$means))
+  treatments <- rbind(treatments, df)
 }
 
 # Association Rule Mining #############################################################
