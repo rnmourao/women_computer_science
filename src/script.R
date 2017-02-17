@@ -148,7 +148,7 @@ CS.response.index <- match('Fara_Computacao', names(poll.answers))
 
 year.index <- match('Ano', names(poll.answers))
 
-treatments <- data.frame(treatment = NULL, f.value = NULL, max.mean = NULL)
+treatments <- data.frame(treatment = NULL, f.value = NULL, max.mean = NULL, sup = NULL)
 
 # Analyze individual attributes
 for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
@@ -182,9 +182,23 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
     grid.table(tukey$groups, rows = NULL)
   ignore <- dev.off()
   
+  g <- tukey$groups
+  m <- tukey$means
+  max_m <- -9
+  s <- 0
+  for (j in 1:nrow(g)) {
+    if (g$means[j] > max_m) {
+      if (str_count(paste(g$M, collapse = ''), as.character(g$M[j])) == 1) {
+        max_m <- g$means[j] 
+        s <- m$r[row.names(m) == trimws(g$trt[j])] / sum(m$r)
+      }
+    }
+  }
+  
   df <-  data.frame(treatment = name, 
                     f.value = fit.summary[[1]][['F value']][[1]],
-                    max.mean = max(tukey$groups$means))
+                    max.mean = max_m,
+                    sup = s)
   treatments <- rbind(treatments, df)
 }
 
@@ -249,11 +263,29 @@ for (i in 1:nrow(combinations)) {
     grid.table(HSD.test(fit, trt)$groups, rows = NULL)
   ignore <- dev.off()
   
+  g <- tukey$groups
+  m <- tukey$means
+  max_m <- -9
+  s <- 0
+  for (j in 1:nrow(g)) {
+    if (g$means[j] > max_m) {
+      if (str_count(paste(g$M, collapse = ''), as.character(g$M[j])) == 1) {
+        max_m <- g$means[j] 
+        s <- m$r[row.names(m) == trimws(g$trt[j])] / sum(m$r)
+      }
+    }
+  }
+  
   df <-  data.frame(treatment = trt, 
                     f.value = fit.summary[[1]][['F value']][[1]],
-                    max.mean = max(tukey$groups$means))
+                    max.mean = max_m,
+                    sup = s)
   treatments <- rbind(treatments, df)
 }
+
+treatments <- treatments[treatments$sup >= 0.1,]
+treatments <- treatments[order(treatments$max.mean, decreasing = TRUE),]
+write.table(treatments, "../data/anova.csv", row.names = FALSE, dec = ",", sep = ";")
 
 # Association Rule Mining #############################################################
 
