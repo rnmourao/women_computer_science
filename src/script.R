@@ -226,8 +226,8 @@ combinations <- t(combn(1:(ncol(temp) - 1), 2))
 for (i in 1:nrow(combinations)) {
   temp2 <- temp[, c(combinations[i, 1], combinations[i, 2], CS.choice.index)]
   temp2 <- temp2[!is.na(temp2[, 1]) & !is.na(temp2[, 2]),]
-  temp2$interaction <- as.factor(paste0(temp2[, 1], '.', temp2[, 2]))
-  trt <- paste0(names(temp2)[1], '.', names(temp2)[2])
+  temp2$interaction <- as.factor(paste0(temp2[, 1], '_x_', temp2[, 2]))
+  trt <- paste0(names(temp2)[1], '_x_', names(temp2)[2])
   names(temp2)[4] <- trt
 
   f <- as.formula(paste("CS_Choice ~", trt))
