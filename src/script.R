@@ -20,32 +20,17 @@ rm(list = ls())
 # setwd('/home/f8676628/Documentos/women_computer_science/src/')
 
 # Get raw data
-poll.answers <- read_excel('../data/raw.xlsx', sheet='unificado', na='')
+poll.answers <- read_excel('../data/raw.xlsx', sheet='answers', na='')
 
 # Cleanup data
 poll.answers$Q1 <- NULL
 poll.answers$Q2 <- NULL
-poll.answers$Serie <- stringr::str_trim(poll.answers$Serie, side='both')
 
 cat('Number of respondents: ', nrow(poll.answers), '\n\n')
 
 # Girls only
-poll.answers <- subset(poll.answers, poll.answers$Sexo == 'F')
-poll.answers$Sexo <- NULL
-
-# Translation
-poll.answers$Serie[poll.answers$Serie=='Ensino Fundamental'] <- 'Middle School'
-poll.answers$Serie[poll.answers$Serie=='Primeiro Ano'] <- 'High School (10th Grade)'
-poll.answers$Serie[poll.answers$Serie=='Segundo Ano'] <- 'High School (11th Grade)'
-poll.answers$Serie[poll.answers$Serie=='Terceiro Ano'] <- 'High School (12th Grade)'
-poll.answers$Serie[poll.answers$Serie=='Supletivo'] <- 'Adult Education Program'
-poll.answers$Serie[poll.answers$Serie=='Ensino Superior'] <- 'College'
-poll.answers$Fara_Curso_Superior[poll.answers$Fara_Curso_Superior=='Biologicas e Saude'] <- 'Biology-Health Sciences'
-poll.answers$Fara_Curso_Superior[poll.answers$Fara_Curso_Superior=='Humanas'] <- 'Human Sciences'
-poll.answers$Fara_Curso_Superior[poll.answers$Fara_Curso_Superior=='Exatas'] <- 'Exact Sciences'
-poll.answers$Fara_Computacao[poll.answers$Fara_Computacao=='Sim'] <- 'Yes'
-poll.answers$Fara_Computacao[poll.answers$Fara_Computacao=='Nao'] <- 'No'
-poll.answers$Fara_Computacao[poll.answers$Fara_Computacao=='Nao sei ainda'] <- 'Maybe'
+poll.answers <- subset(poll.answers, poll.answers$Gender == 'F')
+poll.answers$Gender <- NULL
 
 # Processing
 poll.answers <- as.data.frame(lapply(poll.answers, as.factor))
@@ -53,8 +38,8 @@ poll.answers <- as.data.frame(lapply(poll.answers, as.factor))
 cat('Female respondents: ', nrow(poll.answers), '\n\n')
 
 # Results per year #############################################################
-respondents.per.year <- aggregate(x=list(Total=poll.answers$Ano),
-                               by=list(Year=poll.answers$Ano),
+respondents.per.year <- aggregate(x=list(Total=poll.answers$Year),
+                               by=list(Year=poll.answers$Year),
                                FUN=length)
 
 p <- ggplot(data=respondents.per.year, aes(x='', y=Total, fill=Year)) +
@@ -67,17 +52,17 @@ ggsave('../dexa/img/RespondentsPerYear.pdf', width=7, height=2)
 
 
 # Results per educational stage ################################################
-educational.stage <- aggregate(x=list(total=poll.answers$Serie),
-                               by=list(Year=poll.answers$Ano, Serie=poll.answers$Serie),
+educational.stage <- aggregate(x=list(total=poll.answers$Educational_Stage),
+                               by=list(Year=poll.answers$Year, Educational_Stage=poll.answers$Educational_Stage),
                                FUN=length)
-by.year <- aggregate(x=list(Total=poll.answers$Serie),
-                     by=list(Year=poll.answers$Ano),
+by.year <- aggregate(x=list(Total=poll.answers$Educational_Stage),
+                     by=list(Year=poll.answers$Year),
                      FUN=length)
 
 educational.stage <- merge(educational.stage, by.year)
 educational.stage$Percentage <- (educational.stage$total * 100) / educational.stage$Total
 
-p <- ggplot(data=educational.stage, aes(x='', y=Percentage, fill=Serie)) +
+p <- ggplot(data=educational.stage, aes(x='', y=Percentage, fill=Educational_Stage)) +
      geom_bar(width=1, stat='identity') +
      facet_grid(facets=. ~ Year) +
      coord_polar(theta='y', start=0) +
@@ -89,11 +74,11 @@ ggsave('../dexa/img/EducationalStage.pdf', width=7, height=2)
 
 
 # Results per interest in undergraduate field of study #########################
-field.of.interest <- aggregate(x=list(NumRespondents=poll.answers$Fara_Curso_Superior),
-                               by=list(Year=poll.answers$Ano, FieldOfInterest=poll.answers$Fara_Curso_Superior),
+field.of.interest <- aggregate(x=list(NumRespondents=poll.answers$Field_Interest),
+                               by=list(Year=poll.answers$Year, FieldOfInterest=poll.answers$Field_Interest),
                                FUN=length)
-by.year <- aggregate(x=list(TotalRespondents=poll.answers$Fara_Curso_Superior),
-                     by=list(Year=poll.answers$Ano),
+by.year <- aggregate(x=list(TotalRespondents=poll.answers$Field_Interest),
+                     by=list(Year=poll.answers$Year),
                      FUN=length)
 
 field.of.interest <- merge(field.of.interest, by.year)
@@ -115,44 +100,44 @@ aggregate(x=list(Percentage=field.of.interest$Percentage),
 cat('\n')
 
 # Results for interest in Computer Science #####################################
-interest.in.CS <- aggregate(x=list(Quantidade=poll.answers$Fara_Computacao),
-                            by=list(Year=poll.answers$Ano, Fara_Computacao=poll.answers$Fara_Computacao),
+interest.in.CS <- aggregate(x=list(Quantidade=poll.answers$CS_Interest),
+                            by=list(Year=poll.answers$Year, CS_Interest=poll.answers$CS_Interest),
                             FUN=length)
-by.year <- aggregate(x=list(Total=poll.answers$Fara_Computacao),
-                     by=list(Year=poll.answers$Ano),
+by.year <- aggregate(x=list(Total=poll.answers$CS_Interest),
+                     by=list(Year=poll.answers$Year),
                      FUN=length)
 
 interest.in.CS <- merge(interest.in.CS, by.year)
 interest.in.CS$Percentage <- (interest.in.CS$Quantidade * 100) / interest.in.CS$Total
 
-p <- ggplot(data=interest.in.CS, aes(x='', y=Percentage, fill=Fara_Computacao)) +
+p <- ggplot(data=interest.in.CS, aes(x='', y=Percentage, fill=CS_Interest)) +
      geom_bar(width=1, stat='identity') +
      facet_grid(facets=. ~ Year) +
      coord_polar(theta='y', start=0) +
      scale_x_discrete() +
-     xlab('') + ylab('') + labs(fill='') + # labs(fill='Ano')
+     xlab('') + ylab('') + labs(fill='') + # labs(fill='Year')
      # ggtitle('Respondents Interested in CS')
 ggsave('../dexa/img/InterestInCS.pdf', width=7, height=2)
 
 # Variance analysis ############################################################
 
 # For girls who chose to
-CS.choice <- data.frame(Fara_Computacao=levels(poll.answers$Fara_Computacao),
+CS.choice <- data.frame(CS_Interest=levels(poll.answers$CS_Interest),
                         CS_Choice=0)
-CS.choice$CS_Choice[CS.choice$Fara_Computacao == 'No'] <- -1
-CS.choice$CS_Choice[CS.choice$Fara_Computacao == 'Maybe'] <- 0
-CS.choice$CS_Choice[CS.choice$Fara_Computacao == 'Yes'] <- 1
+CS.choice$CS_Choice[CS.choice$CS_Interest == 'No'] <- -1
+CS.choice$CS_Choice[CS.choice$CS_Interest == 'Maybe'] <- 0
+CS.choice$CS_Choice[CS.choice$CS_Interest == 'Yes'] <- 1
 poll.answers <- merge(poll.answers, CS.choice)
 CS.choice.index <- match('CS_Choice', names(poll.answers))
-CS.response.index <- match('Fara_Computacao', names(poll.answers))
+CS.response.index <- match('CS_Interest', names(poll.answers))
 
-year.index <- match('Ano', names(poll.answers))
+year.index <- match('Year', names(poll.answers))
 
 treatments <- data.frame(treatment = NULL, f.value = NULL, max.mean = NULL, sup = NULL)
 
 # Analyze individual attributes
 for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
-  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index], CS_Response = poll.answers[, CS.response.index])
+  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index], CS_Interest = poll.answers[, CS.response.index])
 
   name <- colnames(poll.answers)[i]
   f <- as.formula('CS_Choice ~ Treatment')
@@ -160,8 +145,8 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
   fit.summary <- summary(fit)
   tukey <- HSD.test(fit, 'Treatment')
   
-  temp2 <- aggregate(x = list(Quantity = temp$CS_Response), by = list(CS_Response = temp$CS_Response, Treatment = temp$Treatment), FUN=length)
-  ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS_Response)) + 
+  temp2 <- aggregate(x = list(Quantity = temp$CS_Interest), by = list(CS_Interest = temp$CS_Interest, Treatment = temp$Treatment), FUN=length)
+  ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS_Interest)) + 
     geom_bar(position="dodge", stat="identity") + 
     scale_fill_discrete(name='Treatment')
   ggsave(paste0('../dexa/img/plot_', name, '.pdf'), width=5, height=3)
@@ -237,8 +222,8 @@ combinations <- t(combn(1:(ncol(temp) - 1), 2))
 for (i in 1:nrow(combinations)) {
   temp2 <- temp[, c(combinations[i, 1], combinations[i, 2], CS.choice.index)]
   temp2 <- temp2[!is.na(temp2[, 1]) & !is.na(temp2[, 2]),]
-  temp2$interaction <- as.factor(paste0(temp2[, 1], ".", temp2[, 2]))
-  trt <- paste0(names(temp2)[1], ".", names(temp2)[2])
+  temp2$interaction <- as.factor(paste0(temp2[, 1], "_x_", temp2[, 2]))
+  trt <- paste0(names(temp2)[1], "_x_", names(temp2)[2])
   names(temp2)[4] <- trt
   
   f <- as.formula(paste("CS_Choice ~", trt))
@@ -247,11 +232,11 @@ for (i in 1:nrow(combinations)) {
   tukey <- HSD.test(fit, trt)
   
   w = 4 + 2.6 *(nchar(trt) + nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])))/ 20
-  pdf(paste('../dexa/img/anova_table_interaction_', trt, '.pdf', sep = ''), height = 1, width = w)
+  pdf(paste('../dexa/img/anova_table_', trt, '.pdf', sep = ''), height = 1, width = w)
     grid.table(anova(fit))
   ignore <- dev.off()
   
-  pdf(paste('../dexa/img/anova_chart_interaction_', trt, '.pdf', sep = ''))
+  pdf(paste('../dexa/img/anova_chart_', trt, '.pdf', sep = ''))
     # par(mfrow=c(2,2))
     # plot(fit)
     interaction.plot(temp2[, 1], temp2[, 2], temp2[, 3], type = "b")
@@ -259,7 +244,7 @@ for (i in 1:nrow(combinations)) {
   
   h = 1.5 + 0.3 * length(levels(temp2[, 4]))
   w = 1.5 + 0.1 * max(nchar(as.character(levels(temp2[, 4]))))
-  pdf(paste0('../dexa/img/tukey_interaction_', trt, '.pdf'), height=h, width=w)
+  pdf(paste0('../dexa/img/tukey_', trt, '.pdf'), height=h, width=w)
     grid.table(HSD.test(fit, trt)$groups, rows = NULL)
   ignore <- dev.off()
   
@@ -291,7 +276,7 @@ write.table(treatments, "../data/anova.csv", row.names = FALSE, dec = ",", sep =
 
 # Restoring data frame to its original format
 CS.choice.index <- match('CS_Choice', names(poll.answers))
-year.index <- match('Ano', names(poll.answers))
+year.index <- match('Year', names(poll.answers))
 temp <- poll.answers[, -c(CS.choice.index, year.index)]
 
 # Mining rules
@@ -299,7 +284,7 @@ temp <- poll.answers[, -c(CS.choice.index, year.index)]
 # APRIORI
 cs_rules = apriori(data = temp, 
                    parameter = list(confidence = 0.5, maxtime = 300, maxlen=3), 
-                   appearance = list(rhs = "Fara_Computacao=Yes", default = "lhs"))
+                   appearance = list(rhs = "CS_Interest=Yes", default = "lhs"))
 
 cs_rules_ordered <- sort(cs_rules, by = 'lift')
 
@@ -320,13 +305,13 @@ write(cs_rules_ordered, file='../data/apriori.csv', sep=";", row.names = FALSE)
 # df$itemset <- gsub("\\{|\\}", "", df$itemset)
 # itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", df$itemset), ",", 3))
 # names(itemsets) <- c("item1", "item2", "item3")
-# itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item1", "item2")] <- itemsets[grepl("Fara_Computacao", itemsets$item2, fixed = TRUE), c("item2", "item1")]
-# itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item1", "item3")] <- itemsets[grepl("Fara_Computacao", itemsets$item3, fixed = TRUE), c("item3", "item1")] 
+# itemsets[grepl("CS_Interest", itemsets$item2, fixed = TRUE), c("item1", "item2")] <- itemsets[grepl("CS_Interest", itemsets$item2, fixed = TRUE), c("item2", "item1")]
+# itemsets[grepl("CS_Interest", itemsets$item3, fixed = TRUE), c("item1", "item3")] <- itemsets[grepl("CS_Interest", itemsets$item3, fixed = TRUE), c("item3", "item1")] 
 # itemsets <- cbind(itemsets, value = df$support)
 # itemsets <- itemsets[order(itemsets$item1, itemsets$item2, itemsets$item3),]
-# # complementary <- cast(data = itemsets[grepl("Fara_Computacao", itemsets$item1, fixed = TRUE),], formula = "item2+item3~item1", mean, fill = NA)
+# # complementary <- cast(data = itemsets[grepl("CS_Interest", itemsets$item1, fixed = TRUE),], formula = "item2+item3~item1", mean, fill = NA)
 # uniques <- itemsets[itemsets$item2 == "" & itemsets$item3 == "",]
-# CS_plus_other <- itemsets[itemsets$item1 == "Fara_Computacao=Yes" & itemsets$item2 != "" & itemsets$item3 == "",]
+# CS_plus_other <- itemsets[itemsets$item1 == "CS_Interest=Yes" & itemsets$item2 != "" & itemsets$item3 == "",]
 # 
 # ## Rules A => B
 # # confidence (A => B) = support(A U B) / support(A)
@@ -337,7 +322,7 @@ write(cs_rules_ordered, file='../data/apriori.csv', sep=";", row.names = FALSE)
 # for (i in 1:nrow(CS_plus_other)) {
 #   item <- CS_plus_other$item2[i] 
 #   A <- uniques$value[match(item, uniques$item1)]
-#   B <- uniques$value[match("Fara_Computacao=Yes", uniques$item1)]
+#   B <- uniques$value[match("CS_Interest=Yes", uniques$item1)]
 #   
 #   CS_plus_other$confidence[i] <- CS_plus_other$value[i] / A
 #   CS_plus_other$lift[i] <- CS_plus_other$value[i] / (A * B)
