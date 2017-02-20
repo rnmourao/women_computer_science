@@ -141,30 +141,17 @@ treatments <- data.frame(treatment=NULL, f.value=NULL, max.mean=NULL, sup=NULL)
 
 # Analyze individual attributes
 for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
-<<<<<<< HEAD
-  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index], CS_Interest = poll.answers[, CS.response.index])
-=======
-  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index], CS_Response=poll.answers[, CS.response.index])
->>>>>>> d353f0f89b73222e896482578f63ade9448f7875
-
+  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index], CS_Interest=poll.answers[, CS.response.index])
   name <- colnames(poll.answers)[i]
   f <- as.formula('CS_Choice ~ Treatment')
   fit <- aov(f, data=temp)
   fit.summary <- summary(fit)
   tukey <- HSD.test(fit, 'Treatment')
-<<<<<<< HEAD
   
-  temp2 <- aggregate(x = list(Quantity = temp$CS_Interest), by = list(CS_Interest = temp$CS_Interest, Treatment = temp$Treatment), FUN=length)
+  temp2 <- aggregate(x=list(Quantity=temp$CS_Interest), 
+                     by=list(CS_Interest=temp$CS_Interest, Treatment=temp$Treatment), FUN=length)
   ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS_Interest)) + 
     geom_bar(position="dodge", stat="identity") + 
-=======
-
-  temp2 <- aggregate(x=list(Quantity=temp$CS_Response),
-                     by=list(CS_Response=temp$CS_Response, Treatment=temp$Treatment),
-                     FUN=length)
-  ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS_Response)) +
-    geom_bar(position="dodge", stat="identity") +
->>>>>>> d353f0f89b73222e896482578f63ade9448f7875
     scale_fill_discrete(name='Treatment')
   ggsave(paste0(plot.dir, 'plot_', name, '.pdf'), width=5, height=3)
 
@@ -239,53 +226,27 @@ combinations <- t(combn(1:(ncol(temp) - 1), 2))
 for (i in 1:nrow(combinations)) {
   temp2 <- temp[, c(combinations[i, 1], combinations[i, 2], CS.choice.index)]
   temp2 <- temp2[!is.na(temp2[, 1]) & !is.na(temp2[, 2]),]
-<<<<<<< HEAD
-  temp2$interaction <- as.factor(paste0(temp2[, 1], "_x_", temp2[, 2]))
-  trt <- paste0(names(temp2)[1], "_x_", names(temp2)[2])
-=======
   temp2$interaction <- as.factor(paste0(temp2[, 1], '.', temp2[, 2]))
   trt <- paste0(names(temp2)[1], '.', names(temp2)[2])
->>>>>>> d353f0f89b73222e896482578f63ade9448f7875
   names(temp2)[4] <- trt
 
   f <- as.formula(paste("CS_Choice ~", trt))
   fit <- aov(f, data=temp2)
   fit.summary <- summary(fit)
   tukey <- HSD.test(fit, trt)
-<<<<<<< HEAD
-  
-  w = 4 + 2.6 *(nchar(trt) + nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])))/ 20
-  pdf(paste('../dexa/img/anova_table_', trt, '.pdf', sep = ''), height = 1, width = w)
-    grid.table(anova(fit))
-  ignore <- dev.off()
-  
-  pdf(paste('../dexa/img/anova_chart_', trt, '.pdf', sep = ''))
-=======
-
   w <- 4 + 2.6 *(nchar(trt) + nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])))/ 20
-  pdf(paste0(plot.dir, 'anova_table_interaction_', trt, '.pdf'), height=1, width=w)
+  pdf(paste0(plot.dir, 'anova_table_', trt, '.pdf'), height=1, width=w)
     grid.table(anova(fit))
   ignore <- dev.off()
 
-  pdf(paste0(plot.dir, 'anova_chart_interaction_', trt, '.pdf'))
->>>>>>> d353f0f89b73222e896482578f63ade9448f7875
-    # par(mfrow=c(2,2))
-    # plot(fit)
+  pdf(paste0(plot.dir, 'anova_chart_', trt, '.pdf'))
     interaction.plot(temp2[, 1], temp2[, 2], temp2[, 3], type='b')
   ignore <- dev.off()
-<<<<<<< HEAD
-  
-  h = 1.5 + 0.3 * length(levels(temp2[, 4]))
-  w = 1.5 + 0.1 * max(nchar(as.character(levels(temp2[, 4]))))
-  pdf(paste0('../dexa/img/tukey_', trt, '.pdf'), height=h, width=w)
-    grid.table(HSD.test(fit, trt)$groups, rows = NULL)
-=======
 
   h <- 1.5 + 0.3 * length(levels(temp2[, 4]))
   w <- 1.5 + 0.1 * max(nchar(as.character(levels(temp2[, 4]))))
-  pdf(paste0(plot.dir, 'tukey_interaction_', trt, '.pdf'), height=h, width=w)
+  pdf(paste0(plot.dir, 'tukey_', trt, '.pdf'), height=h, width=w)
     grid.table(HSD.test(fit, trt)$groups, rows=NULL)
->>>>>>> d353f0f89b73222e896482578f63ade9448f7875
   ignore <- dev.off()
 
   g <- tukey$groups
@@ -322,16 +283,9 @@ temp <- poll.answers[, -c(CS.choice.index, year.index)]
 # Mining rules
 
 # APRIORI
-<<<<<<< HEAD
 cs_rules = apriori(data = temp, 
-                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=3), 
-                   appearance = list(rhs = "CS_Interest=Yes", default = "lhs"))
-=======
-cs_rules <- apriori(data=temp,
-                    parameter=list(confidence=0.5, maxtime=300, maxlen=3),
-                    appearance=list(rhs='Fara_Computacao=Yes', default='lhs'))
->>>>>>> d353f0f89b73222e896482578f63ade9448f7875
-
+                   parameter = list(confidence=0.5, maxtime=300, maxlen=3), 
+                   appearance = list(rhs="CS_Interest=Yes", default="lhs"))
 cs_rules_ordered <- sort(cs_rules, by='lift')
 
 # plot
@@ -351,25 +305,14 @@ write(cs_rules_ordered, file='../data/apriori.csv', sep=';', row.names=FALSE)
 # df$itemset <- gsub("\\{|\\}", "", df$itemset)
 # itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", df$itemset), ",", 3))
 # names(itemsets) <- c("item1", "item2", "item3")
-<<<<<<< HEAD
-# itemsets[grepl("CS_Interest", itemsets$item2, fixed = TRUE), c("item1", "item2")] <- itemsets[grepl("CS_Interest", itemsets$item2, fixed = TRUE), c("item2", "item1")]
-# itemsets[grepl("CS_Interest", itemsets$item3, fixed = TRUE), c("item1", "item3")] <- itemsets[grepl("CS_Interest", itemsets$item3, fixed = TRUE), c("item3", "item1")] 
-# itemsets <- cbind(itemsets, value = df$support)
+# itemsets[grepl("CS_Interest", itemsets$item2, fixed=TRUE), c("item1", "item2")] <- itemsets[grepl("CS_Interest", itemsets$item2, fixed=TRUE), c("item2", "item1")]
+# itemsets[grepl("CS_Interest", itemsets$item3, fixed=TRUE), c("item1", "item3")] <- itemsets[grepl("CS_Interest", itemsets$item3, fixed=TRUE), c("item3", "item1")] 
+# itemsets <- cbind(itemsets, value=df$support)
 # itemsets <- itemsets[order(itemsets$item1, itemsets$item2, itemsets$item3),]
-# # complementary <- cast(data = itemsets[grepl("CS_Interest", itemsets$item1, fixed = TRUE),], formula = "item2+item3~item1", mean, fill = NA)
+# # complementary <- cast(data=itemsets[grepl("CS_Interest", itemsets$item1, fixed=TRUE),], formula="item2+item3~item1", mean, fill=NA)
 # uniques <- itemsets[itemsets$item2 == "" & itemsets$item3 == "",]
 # CS_plus_other <- itemsets[itemsets$item1 == "CS_Interest=Yes" & itemsets$item2 != "" & itemsets$item3 == "",]
 # 
-=======
-# itemsets[grepl("Fara_Computacao", itemsets$item2, fixed=TRUE), c("item1", "item2")] <- itemsets[grepl("Fara_Computacao", itemsets$item2, fixed=TRUE), c("item2", "item1")]
-# itemsets[grepl("Fara_Computacao", itemsets$item3, fixed=TRUE), c("item1", "item3")] <- itemsets[grepl("Fara_Computacao", itemsets$item3, fixed=TRUE), c("item3", "item1")]
-# itemsets <- cbind(itemsets, value=df$support)
-# itemsets <- itemsets[order(itemsets$item1, itemsets$item2, itemsets$item3),]
-# # complementary <- cast(data=itemsets[grepl("Fara_Computacao", itemsets$item1, fixed=TRUE),], formula="item2+item3~item1", mean, fill=NA)
-# uniques <- itemsets[itemsets$item2 == "" & itemsets$item3 == "",]
-# CS_plus_other <- itemsets[itemsets$item1 == "Fara_Computacao=Yes" & itemsets$item2 != "" & itemsets$item3 == "",]
-#
->>>>>>> d353f0f89b73222e896482578f63ade9448f7875
 # ## Rules A => B
 # # confidence (A => B) = support(A U B) / support(A)
 # # lift (A => B) = support(A U B) / support(A) * support(B)
@@ -379,13 +322,7 @@ write(cs_rules_ordered, file='../data/apriori.csv', sep=';', row.names=FALSE)
 # for (i in 1:nrow(CS_plus_other)) {
 #   item <- CS_plus_other$item2[i]
 #   A <- uniques$value[match(item, uniques$item1)]
-<<<<<<< HEAD
 #   B <- uniques$value[match("CS_Interest=Yes", uniques$item1)]
-#   
-=======
-#   B <- uniques$value[match("Fara_Computacao=Yes", uniques$item1)]
-#
->>>>>>> d353f0f89b73222e896482578f63ade9448f7875
 #   CS_plus_other$confidence[i] <- CS_plus_other$value[i] / A
 #   CS_plus_other$lift[i] <- CS_plus_other$value[i] / (A * B)
 # }
