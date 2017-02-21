@@ -6,10 +6,14 @@
 # the University of Brasília (http://meninas.cic.unb.br)
 
 # Dependencies
-for (pkg in c('agricolae', 'arules', 'arulesViz', 'ggplot2', 'gridExtra',
-              'readxl', 'reshape', 'stringr'))
-  if (!require(pkg, character.only=TRUE))
-    ignore <- install.packages(pkg)
+library(agricolae)
+library(arules)
+library(arulesViz)
+library(ggplot2)
+library(gridExtra)
+library(readxl)
+library(reshape)
+library(stringr)
 
 # Pretty printing
 options(digits=2, device='pdf', max.print=99999)
@@ -42,8 +46,8 @@ cat('Female respondents: ', nrow(poll.answers), '\n\n')
 
 # Results per year #############################################################
 respondents.per.year <- aggregate(x=list(Total=poll.answers$Year),
-                               by=list(Year=poll.answers$Year),
-                               FUN=length)
+                                  by=list(Year=poll.answers$Year),
+                                  FUN=length)
 
 p <- ggplot(data=respondents.per.year, aes(x='', y=Total, fill=Year)) +
      geom_bar(width=1, stat='identity') +
@@ -72,7 +76,9 @@ p <- ggplot(data=educational.stage, aes(x='', y=Percentage, fill=Educational_Sta
      scale_x_discrete() +
      xlab('') + ylab('') + labs(fill='') + # + labs(fill='Stage')
      # ggtitle('Respondents per Educational Stage') +
-     scale_fill_discrete(breaks=c('Middle School', 'High School (10th Grade)', 'High School (11th Grade)', 'High School (12th Grade)', 'Adult Education Program', 'College'))
+     scale_fill_discrete(breaks=c('Middle School', 'High School (10th Grade)',
+                                  'High School (11th Grade)', 'High School (12th Grade)',
+                                  'Adult Education Program', 'College'))
 ggsave(paste0(plot.dir, 'EducationalStage.pdf'), width=7, height=2)
 
 
@@ -123,9 +129,10 @@ p <- ggplot(data=interest.in.CS, aes(x='', y=Percentage, fill=CS_Interest)) +
      scale_fill_discrete(breaks=c('Yes', 'No', 'Maybe'))
 ggsave(paste0(plot.dir, 'InterestInCS.pdf'), width=7, height=2)
 
+
 # Variance analysis ############################################################
 
-# For girls who chose to
+# For girls who intend to take a CS course
 CS.choice <- data.frame(CS_Interest=levels(poll.answers$CS_Interest),
                         CS_Choice=0)
 CS.choice$CS_Choice[CS.choice$CS_Interest == 'No'] <- -1
@@ -141,52 +148,60 @@ treatments <- data.frame(treatment=NULL, f.value=NULL, max.mean=NULL, sup=NULL)
 
 # Analyze individual attributes
 for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
-  temp <- data.frame(Treatment=poll.answers[, i], CS_Choice=poll.answers[, CS.choice.index], CS_Interest=poll.answers[, CS.response.index])
-  name <- colnames(poll.answers)[i]
+  temp <- data.frame(Treatment=poll.answers[, i],
+                     CS_Choice=poll.answers[, CS.choice.index],
+                     CS_Interest=poll.answers[, CS.response.index])
+  attribute.name <- colnames(poll.answers)[i]
+
   f <- as.formula('CS_Choice ~ Treatment')
   fit <- aov(f, data=temp)
   fit.summary <- summary(fit)
   tukey <- HSD.test(fit, 'Treatment')
-  
-  temp2 <- aggregate(x=list(Quantity=temp$CS_Interest), 
-                     by=list(CS_Interest=temp$CS_Interest, Treatment=temp$Treatment), FUN=length)
-  ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS_Interest)) + 
-    geom_bar(position="dodge", stat="identity") + 
-    scale_fill_discrete(name='Treatment')
-  ggsave(paste0(plot.dir, 'plot_', name, '.pdf'), width=5, height=3)
 
+  temp2 <- aggregate(x=list(Quantity=temp$CS_Interest),
+                     by=list(CS_Interest=temp$CS_Interest, Treatment=temp$Treatment),
+                     FUN=length)
+  p <- ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS_Interest)) +
+       geom_bar(position="dodge", stat="identity") +
+       scale_fill_discrete(name='Treatment')
+  ggsave(paste0(plot.dir, 'plot_', attribute.name, '.pdf'), width=5, height=3)
+
+  # Qual a origem destes números mágicos (6 e 2.5)?
   w <- 6 + 2.5 * nchar(as.character(fit.summary[[1]][['Pr(>F)']][1])) / 20
-  pdf(paste0(plot.dir, 'anova_table_', name, '.pdf'), height=1, width=w)
+  pdf(paste0(plot.dir, 'anova_table_', attribute.name, '.pdf'), height=1, width=w)
     grid.table(anova(fit))
   ignore <- dev.off()
 
-  pdf(paste0(plot.dir, 'anova_chart_', name, '.pdf'))
+  pdf(paste0(plot.dir, 'anova_chart_', attribute.name, '.pdf'))
     par(mfrow=c(2,2))
     plot(fit)
   ignore <- dev.off()
 
+  # Qual a origem destes números mágicos (1.5 e 0.1)?
   h <- 1.5 + 0.1 * length(unique(temp$Treatment))
   w <- 1.5 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
-  pdf(paste0(plot.dir, 'tukey_', name, '.pdf'), height=h, width=w)
+  pdf(paste0(plot.dir, 'tukey_', attribute.name, '.pdf'), height=h, width=w)
     grid.table(tukey$groups, rows=NULL)
   ignore <- dev.off()
 
-  g <- tukey$groups
-  m <- tukey$means
-  max_m <- -9
+  groups <- tukey$groups
+  means <- tukey$means
+  sum.means <- sum(means$r)
+  # Qual a origem deste número mágico (9)?
+  max.mean <- -9
   s <- 0
-  for (j in 1:nrow(g)) {
-    if (g$means[j] > max_m) {
-      if (str_count(paste(g$M, collapse=''), as.character(g$M[j])) == 1) {
-        max_m <- g$means[j]
-        s <- m$r[row.names(m) == trimws(g$trt[j])] / sum(m$r)
+  for (j in 1:nrow(groups)) {
+    if (groups$means[j] > max.mean) {
+      if (str_count(paste(groups$M, collapse=''), as.character(groups$M[j])) == 1) {
+        max.mean <- groups$means[j]
+        s <- means$r[row.names(means) == trimws(groups$trt[j])] / sum.means
       }
     }
   }
 
-  df <-  data.frame(treatment=name,
+  df <-  data.frame(treatment=attribute.name,
                     f.value=fit.summary[[1]][['F value']][[1]],
-                    max.mean=max_m,
+                    max.mean=max.mean,
                     sup=s)
   treatments <- rbind(treatments, df)
 }
@@ -234,6 +249,8 @@ for (i in 1:nrow(combinations)) {
   fit <- aov(f, data=temp2)
   fit.summary <- summary(fit)
   tukey <- HSD.test(fit, trt)
+
+  # Qual a origem destes números mágicos (4 e 2.6)?
   w <- 4 + 2.6 *(nchar(trt) + nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])))/ 20
   pdf(paste0(plot.dir, 'anova_table_', trt, '.pdf'), height=1, width=w)
     grid.table(anova(fit))
@@ -243,35 +260,54 @@ for (i in 1:nrow(combinations)) {
     interaction.plot(temp2[, 1], temp2[, 2], temp2[, 3], type='b')
   ignore <- dev.off()
 
+  # Qual a origem destes números mágicos (1.5 e 0.3 e 0.1)?
   h <- 1.5 + 0.3 * length(levels(temp2[, 4]))
   w <- 1.5 + 0.1 * max(nchar(as.character(levels(temp2[, 4]))))
   pdf(paste0(plot.dir, 'tukey_', trt, '.pdf'), height=h, width=w)
     grid.table(HSD.test(fit, trt)$groups, rows=NULL)
   ignore <- dev.off()
 
-  g <- tukey$groups
-  m <- tukey$means
-  max_m <- -9
+  groups <- tukey$groups
+  means <- tukey$means
+  sum.means <- sum(means$r)
+  # Qual a origem deste número mágico?
+  max.mean <- -9
   s <- 0
-  for (j in 1:nrow(g)) {
-    if (g$means[j] > max_m) {
-      if (str_count(paste(g$M, collapse=''), as.character(g$M[j])) == 1) {
-        max_m <- g$means[j]
-        s <- m$r[row.names(m) == trimws(g$trt[j])] / sum(m$r)
+  for (j in 1:nrow(groups)) {
+    if (groups$means[j] > max.mean) {
+      if (str_count(paste(groups$M, collapse=''), as.character(groups$M[j])) == 1) {
+        max.mean <- groups$means[j]
+        s <- means$r[row.names(means) == trimws(groups$trt[j])] / sum.means
       }
     }
   }
 
   df <- data.frame(treatment=trt,
                    f.value=fit.summary[[1]][['F value']][[1]],
-                   max.mean=max_m,
+                   max.mean=max.mean,
                    sup=s)
   treatments <- rbind(treatments, df)
 }
 
+# Qual a origem deste número mágico? (0.1)
 treatments <- treatments[treatments$sup >= 0.1,]
 treatments <- treatments[order(treatments$max.mean, decreasing=TRUE),]
 write.table(treatments, '../data/anova.csv', row.names=FALSE, dec=',', sep=';')
+
+# Association rules will be done in future works
+quit()
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+
+
+
+
+
+
+
 
 # Association Rule Mining #############################################################
 
@@ -283,8 +319,8 @@ temp <- poll.answers[, -c(CS.choice.index, year.index)]
 # Mining rules
 
 # APRIORI
-cs_rules = apriori(data = temp, 
-                   parameter = list(confidence=0.5, maxtime=300, maxlen=3), 
+cs_rules = apriori(data = temp,
+                   parameter = list(confidence=0.5, maxtime=300, maxlen=3),
                    appearance = list(rhs="CS_Interest=Yes", default="lhs"))
 cs_rules_ordered <- sort(cs_rules, by='lift')
 
@@ -306,13 +342,13 @@ write(cs_rules_ordered, file='../data/apriori.csv', sep=';', row.names=FALSE)
 # itemsets <- as.data.frame(str_split_fixed(gsub("\\{|\\}", "", df$itemset), ",", 3))
 # names(itemsets) <- c("item1", "item2", "item3")
 # itemsets[grepl("CS_Interest", itemsets$item2, fixed=TRUE), c("item1", "item2")] <- itemsets[grepl("CS_Interest", itemsets$item2, fixed=TRUE), c("item2", "item1")]
-# itemsets[grepl("CS_Interest", itemsets$item3, fixed=TRUE), c("item1", "item3")] <- itemsets[grepl("CS_Interest", itemsets$item3, fixed=TRUE), c("item3", "item1")] 
+# itemsets[grepl("CS_Interest", itemsets$item3, fixed=TRUE), c("item1", "item3")] <- itemsets[grepl("CS_Interest", itemsets$item3, fixed=TRUE), c("item3", "item1")]
 # itemsets <- cbind(itemsets, value=df$support)
 # itemsets <- itemsets[order(itemsets$item1, itemsets$item2, itemsets$item3),]
 # # complementary <- cast(data=itemsets[grepl("CS_Interest", itemsets$item1, fixed=TRUE),], formula="item2+item3~item1", mean, fill=NA)
 # uniques <- itemsets[itemsets$item2 == "" & itemsets$item3 == "",]
 # CS_plus_other <- itemsets[itemsets$item1 == "CS_Interest=Yes" & itemsets$item2 != "" & itemsets$item3 == "",]
-# 
+#
 # ## Rules A => B
 # # confidence (A => B) = support(A U B) / support(A)
 # # lift (A => B) = support(A U B) / support(A) * support(B)
