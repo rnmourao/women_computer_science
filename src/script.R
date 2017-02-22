@@ -7,20 +7,22 @@
 
 # Dependencies
 library(agricolae)
+library(car)
 library(ggplot2)
 library(gridExtra)
+library(multcomp)
 library(readxl)
 library(stringr)
 
 # Pretty printing
-options(digits=2, device='pdf', max.print=99999)
+options(digits=2, device='pdf', max.print=99999, contrasts=c("contr.sum", "contr.poly"))
 cat('\n')
 
 # Cleaning up workspace
 rm(list=ls())
 
 #### Set working directory
-# setwd('/home/mourao/Documentos/women_computer_science/src/')
+# setwd('/home/f8676628/Documentos/women_computer_science/src/')
 plot.dir <- '../dexa/img/'
 
 # Get raw data
@@ -175,14 +177,7 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
     homoscedastic <- FALSE
   }
   
-  # cannot use aov for unbalanced designs...
-  if (any(is.na(v$variance))) { 
-    balanced <- FALSE
-  } else {
-    balanced <- TRUE
-  }
-  
-  if (symmetric & not_leptokurtic & independent & homoscedastic & balanced) {
+  if (symmetric & not_leptokurtic & independent & homoscedastic) {
     a <- 'Granted'
   } else {
     a <- 'Not Granted'
@@ -273,14 +268,20 @@ combinations <- t(combn(1:(ncol(temp) - 1), 2))
 for (i in 1:nrow(combinations)) {
   CS.choice.index <- match('CS_Choice', names(temp))
   temp2 <- temp[, c(combinations[i, 1], combinations[i, 2], CS.choice.index)]
-  temp2 <- temp2[!is.na(temp2[, 1]) & !is.na(temp2[, 2]),]
-  temp2$interaction <- as.factor(paste0(temp2[, 1], '_x_', temp2[, 2]))
+  trtA.name <- names(temp)[combinations[i, 1]]
+  trtB.name <- names(temp)[combinations[i, 2]]
+  
   trt <- paste0(names(temp2)[1], '_x_', names(temp2)[2])
-  names(temp2)[4] <- trt
+  
+  f <- as.formula(paste("CS_Choice ~", 
+                        trtA.name, 
+                        "*", 
+                        trtB.name))
 
-  f <- as.formula(paste("CS_Choice ~", trt))
-  fit <- aov(f, data=temp2)
-  fit.summary <- summary(fit)
+  # unbalanced designs need a different library to analyze interactions  
+  model <- lm(formula=f, data=temp2)
+  fit <- Anova(model, type="III")
+  fit.summary <- summary(model)
   
   ## checking anova assumptions
   
@@ -288,9 +289,9 @@ for (i in 1:nrow(combinations)) {
   # effects, we will test it using a rough test of Skewness and Kurtosis instead usual 
   # normality tests, e.g., Shapiro-Wilk and Kolmogorov-Smirnov.
   # using rule of thumb proposed by Bulmer, 1979.  
-  symmetric <- (abs(skewness(fit$residuals)) < 0.5)
+  symmetric <- (abs(skewness(model$residuals)) < 0.5)
   # using rule of thumb proposed by Vieira, 2006.
-  not_leptokurtic <- kurtosis(fit$residuals) <= 0
+  not_leptokurtic <- kurtosis(model$residuals) <= 0
   
   # Are samples independent each other? Yes, because each observation belongs to one student.
   independent <- TRUE
@@ -298,29 +299,23 @@ for (i in 1:nrow(combinations)) {
   # Are variances equal?
   # using rule of thumb proposed by Dean and Voss - Design and analysis of experiments, 1999.
   CS.choice.index <- match('CS_Choice', names(temp2))
-  Treatment.index <- match(trt, names(temp2))
+  trtA.index <- match(trtA.name, names(temp2))
+  trtB.index <- match(trtB.name, names(temp2))
   v <- aggregate(x=list(variance=temp2[, CS.choice.index]), 
-                 by=list(Treatment=temp2[, Treatment.index]), FUN=var)
+                 by=list(A=temp2[, trtA.index], B=temp2[, trtB.index]), FUN=var)
   if (max(v$variance, na.rm = TRUE) / min(v$variance, na.rm = TRUE) < 3) {
     homoscedastic <- TRUE
   } else {
     homoscedastic <- FALSE
   }
   
-  # cannot use aov for unbalanced designs...
-  if (any(is.na(v$variance))) { 
-    balanced <- FALSE
-  } else {
-    balanced <- TRUE
-  }
-    
-  if (symmetric & not_leptokurtic & independent & homoscedastic & balanced) {
+  if (symmetric & not_leptokurtic & independent & homoscedastic) {
     a <- 'Granted'
   } else {
     a <- 'Not Granted'
   }
   
-  tukey <- HSD.test(fit, trt)
+  # tukey <- HSD.test(model, trt)
 
   # width adjustments based on trial and error
   w <- 4 + 2.6 *(nchar(trt) + nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])))/ 20
