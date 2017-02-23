@@ -270,13 +270,11 @@ for (i in 1:nrow(combinations)) {
   temp2 <- temp[, c(combinations[i, 1], combinations[i, 2], CS.choice.index)]
   trtA.name <- names(temp)[combinations[i, 1]]
   trtB.name <- names(temp)[combinations[i, 2]]
+  names(temp2) <- c('A', 'B', 'CS_Choice')
   
   trt <- paste0(names(temp2)[1], '_x_', names(temp2)[2])
   
-  f <- as.formula(paste("CS_Choice ~", 
-                        trtA.name, 
-                        "*", 
-                        trtB.name))
+  f <- as.formula("CS_Choice ~ A * B")
 
   # unbalanced designs need a different library to analyze interactions  
   model <- lm(formula=f, data=temp2)
@@ -314,6 +312,13 @@ for (i in 1:nrow(combinations)) {
   } else {
     a <- 'Not Granted'
   }
+  
+  # temp2$interact <- with(temp2, interaction(temp2$A, temp2$B))
+  # cell <- lm('CS_Choice ~ interact - 1', data = temp2)
+  mcs <- summary(glht(model, linfct = mcp(A="Tukey")))
+  cld(mcs,
+      level=0.05,
+      decreasing=TRUE)
   
   # tukey <- HSD.test(model, trt)
 
