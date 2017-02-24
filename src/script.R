@@ -154,7 +154,7 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
   
   f <- as.formula("CS_Choice ~ Treatment - 1")
   
-  # unbalanced designs need a different library to analyze interactions  
+  # unbalanced designs need a different library
   model <- lm(formula=f, data=temp, contrasts=list(Treatment = contr.sum))
   fit <- Anova(model, type="III")
   fit.summary <- summary(model)  
@@ -231,14 +231,16 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
   max.mean <- -1
   for (j in 1:nrow(tukey.df)) {
     if (tukey.df$means[j] > max.mean) {
-      if (str_count(paste(tukey.df$M, collapse=''), 
+      if (str_count(as.character(tukey.df$M[j])) == 1 & 
+          str_count(paste(tukey.df$M, collapse=''), 
                     as.character(tukey.df$M[j])) == 1) {
         max.mean <- tukey.df$means[j]
+        trt <- tukey.df$trt[j]
       }
     }
   }
 
-  df <-  data.frame(treatment=attribute.name,
+  df <-  data.frame(treatment=paste0(attribute.name, "=", trt),
                     f.value=fit$`F value`[1],
                     max.mean=max.mean,
                     assumptions=a)
@@ -252,128 +254,123 @@ not_significant <- c(CS.response.index, year.index)
 temp <- poll.answers[, -not_significant]
 gotcha <- FALSE
 while(!gotcha | ncol(temp) <= 1) {
-  fit <- aov(CS_Choice ~ ., data=temp)
-
+  # checking which treatments are significants
+  model <- lm(formula='CS_Choice ~ . - 1', data=temp, contrasts=contr.sum)
+  # Type II Anova analyzes treatments ignoring interacions
+  fit <- Anova(model, type="II")
+  
   # Creating a data frame for p-values
-  values <- as.data.frame(summary(fit)[[1]][4:5])
-  names(values)[1] <- 'f'
-  names(values)[2] <- 'p'
-  values$attribute <- trimws(rownames(values))
+  values <- as.data.frame(fit)
+  values$Attribute <- trimws(rownames(values))
   rownames(values) <- seq(1, nrow(values))
-  values <- values[!is.na(values$p),]
-  values <- values[order(values$p, decreasing=TRUE),]
+  values <- values[!is.na(values$`Pr(>F)`),]
+  values <- values[order(values$`Pr(>F)`, decreasing=TRUE),]
 
   # remove attribute with greater p-value
-  if (values$p[1] >= 0.05) {
-    index <- match(values$attribute[1], names(poll.answers))
+  if (values$`Pr(>F)`[1] >= 0.05) {
+    index <- match(values$Attribute[1], names(poll.answers))
     not_significant <- c(not_significant, index)
     temp <- poll.answers[, -not_significant]
   } else {
-    print(summary(fit))
+    print(fit)
     break
   }
 }
 
-### Test interactions
-combinations <- t(combn(1:(ncol(temp) - 1), 2))
-for (i in 1:nrow(combinations)) {
-  CS.choice.index <- match('CS_Choice', names(temp))
-  temp2 <- temp[, c(combinations[i, 1], combinations[i, 2], CS.choice.index)]
-  trtA.name <- names(temp)[combinations[i, 1]]
-  trtB.name <- names(temp)[combinations[i, 2]]
-  names(temp2) <- c('A', 'B', 'CS_Choice')
+### Test interactions between Family_Approval and others attributes
+Family.index <- match('Family_Approval', names(temp))
+temp <- temp[, c(setdiff(1:ncol(temp), Family.index), Family.index)]
+Family.index <- ncol(temp)
+CS.choice.index <- match('CS_Choice', names(temp))
+for (i in 1:(CS.choice.index-1)) {
+  temp2 <- temp[, c(Family.index, i, CS.choice.index)]
+  FactorB.name <- names(temp2)[2]
   
   trt <- paste0(names(temp2)[1], '_x_', names(temp2)[2])
   
-  f <- as.formula("CS_Choice ~ A * B")
+  f <- as.formula(paste("CS_Choice ~ Family_Approval", "*", FactorB.name, "- 1"))
 
   # unbalanced designs need a different library to analyze interactions  
-  model <- lm(formula=f, data=temp2, contrasts=list(A = contr.sum, B = contr.sum))
+  model <- lm(formula=f, data=temp2, contrasts=contr.sum)
   fit <- Anova(model, type="III")
   fit.summary <- summary(model)
   
-  ## checking anova assumptions
-  
-  # Are residuals normal? Since normality assumption is not a big issue when treatments are fixed
-  # effects, we will test it using a rough test of Skewness and Kurtosis instead usual 
-  # normality tests, e.g., Shapiro-Wilk and Kolmogorov-Smirnov.
-  # using rule of thumb proposed by Bulmer, 1979.  
-  symmetric <- (abs(skewness(model$residuals)) < 0.5)
-  # using rule of thumb proposed by Vieira, 2006.
-  not_leptokurtic <- kurtosis(model$residuals) <= 0
-  
-  # Are samples independent each other? Yes, because each observation belongs to one student.
-  independent <- TRUE
-  
-  # Are variances equal?
-  # using rule of thumb proposed by Dean and Voss - Design and analysis of experiments, 1999.
-  CS.choice.index <- match('CS_Choice', names(temp2))
-  trtA.index <- match('A', names(temp2))
-  trtB.index <- match('B', names(temp2))
-  v <- aggregate(x=list(variance=temp2[, CS.choice.index]), 
-                 by=list(A=temp2[, trtA.index], B=temp2[, trtB.index]), FUN=var)
-  if (max(v$variance, na.rm = TRUE) / min(v$variance, na.rm = TRUE) < 3) {
-    homoscedastic <- TRUE
-  } else {
-    homoscedastic <- FALSE
-  }
-  
-  if (symmetric & not_leptokurtic & independent & homoscedastic) {
-    a <- 'Granted'
-  } else {
-    a <- 'Not Granted'
-  }
-  
-  # temp2$interact <- with(temp2, interaction(temp2$A, temp2$B))
-  # cell <- lm('CS_Choice ~ interact - 1', data = temp2)
-  mcs <- summary(glht(model, linfct = mcp(A="Tukey")))
-  cld(mcs,
-      level=0.05,
-      decreasing=TRUE)
-  
-  # tukey <- HSD.test(model, trt)
+  # if the interaction has significance (p-value < .05), proceed
+  p_value <- fit$`Pr(>F)`[3]
+  if (p_value < .05) {
+    ## construct a new model to test only the interaction
+    temp2$I <- interaction(temp2$Family_Approval, temp2[, 2], drop = TRUE, sep = "_x_")
+    
+    model <- lm(formula='CS_Choice ~ I', data=temp2, contrasts=contr.sum)
+    fit <- Anova(model, type="III")
+    fit.summary <- summary(model)
+    ## checking anova assumptions
+    
+    # Are residuals normal? Since normality assumption is not a big issue when treatments are fixed
+    # effects, we will test it using a rough test of Skewness and Kurtosis instead usual 
+    # normality tests, e.g., Shapiro-Wilk and Kolmogorov-Smirnov.
+    # using rule of thumb proposed by Bulmer, 1979.  
+    symmetric <- (abs(skewness(model$residuals)) < 0.5)
+    # using rule of thumb proposed by Vieira, 2006.
+    not_leptokurtic <- kurtosis(model$residuals) <= 0
+    
+    # Are samples independent each other? Yes, because each observation belongs to one student.
+    independent <- TRUE
+    
+    # Are variances equal?
+    # using rule of thumb proposed by Dean and Voss - Design and analysis of experiments, 1999.
+    v <- aggregate(x=list(variance=temp2$CS_Choice), 
+                   by=list(A=temp2$I), FUN=var)
+    if (max(v$variance, na.rm = TRUE) / min(v$variance, na.rm = TRUE) < 3) {
+      homoscedastic <- TRUE
+    } else {
+      homoscedastic <- FALSE
+    }
+    
+    if (symmetric & not_leptokurtic & independent & homoscedastic) {
+      a <- 'Granted'
+    } else {
+      a <- 'Not Granted'
+    }
 
-  # width adjustments based on trial and error
-  w <- 4 + 2.6 *(nchar(trt) + nchar(as.character(summary(fit)[[1]][['Pr(>F)']][1])))/ 20
-  pdf(paste0(plot.dir, 'anova_', trt, '.pdf'), height=1, width=w)
-    grid.table(anova(fit))
-  ignore <- dev.off()
-
-  pdf(paste0(plot.dir, 'conditions_', trt, '.pdf'))
-    par(mfrow=c(2,2))
-    plot(fit)
-  ignore <- dev.off()  
-  
-  pdf(paste0(plot.dir, 'interactions_', trt, '.pdf'))
-    interaction.plot(temp2[, 1], temp2[, 2], temp2[, 3], type='b')
-  ignore <- dev.off()
-
-  # height and width adjustments based on trial and error
-  h <- 1.5 + 0.3 * length(levels(temp2[, 4]))
-  w <- 1.5 + 0.1 * max(nchar(as.character(levels(temp2[, 4]))))
-  pdf(paste0(plot.dir, 'tukey_', trt, '.pdf'), height=h, width=w)
-    grid.table(HSD.test(fit, trt)$groups, rows=NULL)
-  ignore <- dev.off()
-
-  groups <- tukey$groups
-  means <- tukey$means
-  sum.means <- sum(means$r)
-  
-  # initialization: max.mean begins with lower possible value for mean of CS_Choice attribute
-  max.mean <- -1
-  for (j in 1:nrow(groups)) {
-    if (groups$means[j] > max.mean) {
-      if (str_count(paste(groups$M, collapse=''), as.character(groups$M[j])) == 1) {
-        max.mean <- groups$means[j]
+    mcs <- summary(glht(model, linfct = mcp(I="Tukey")))
+    tukey <- cld(mcs, level=0.05, decreasing=TRUE)
+    
+    # tukey-kramer post hoc test
+    pdf(paste0(plot.dir, 'tukey_Family_Approval_x_', FactorB.name, '.pdf'), height=h, width=w)
+    tukey.matrix <- as.matrix(unlist(tukey$mcletters$Letters))
+    tukey.df <- data.frame(trt=row.names(tukey.matrix), M=tukey.matrix[,1])
+    Mean <- aggregate(x=list(means=temp2$CS_Choice), by=list(trt=temp2$I), FUN=mean)
+    tukey.df <- merge(tukey.df, Mean)
+    tukey.df <- tukey.df[, c(1, 3, 2)]
+    tukey.df <- tukey.df[order(tukey.df$M),]
+    grid.table(tukey.df, rows=NULL)
+    ignore <- dev.off()
+    
+    # find the greatest mean value for CS_Choice which has significance.
+    # initialization: max.mean begins with lower possible value for mean of CS_Choice attribute
+    max.mean <- -1
+    for (j in 1:nrow(tukey.df)) {
+      if (tukey.df$means[j] > max.mean) {
+        if (str_count(as.character(tukey.df$M[j])) == 1 & 
+            str_count(paste(tukey.df$M, collapse=''), 
+                      as.character(tukey.df$M[j])) == 1) {
+          max.mean <- tukey.df$means[j]
+          trt <- tukey.df$trt[j]
+        }
       }
     }
+    
+    # pdf(paste0(plot.dir, 'interactions_', trt, '.pdf'))
+    #   interaction.plot(temp2[, 1], temp2[, 2], temp2[, 3], type='b')
+    # ignore <- dev.off()
+  
+    df <- data.frame(treatment=trt,
+                     f.value=p_value,
+                     max.mean=max.mean,
+                     assumptions=a)
+    treatments <- rbind(treatments, df)
   }
-
-  df <- data.frame(treatment=trt,
-                   f.value=fit.summary[[1]][['F value']][[1]],
-                   max.mean=max.mean,
-                   assumptions=a)
-  treatments <- rbind(treatments, df)
 }
 
 treatments <- treatments[order(treatments$max.mean, decreasing=TRUE),]
