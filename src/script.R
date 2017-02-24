@@ -15,14 +15,14 @@ library(readxl)
 library(stringr)
 
 # Pretty printing
-options(digits=2, device='pdf', max.print=99999, contrasts=c("contr.sum", "contr.poly"))
+options(digits=2, device='pdf', max.print=99999)
 cat('\n')
 
 # Cleaning up workspace
 rm(list=ls())
 
 #### Set working directory
-# setwd('/home/f8676628/Documentos/women_computer_science/src/')
+# setwd('/home/mourao/Documentos/women_computer_science/src/')
 plot.dir <- '../dexa/img/'
 
 # Get raw data
@@ -149,11 +149,17 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
   temp <- data.frame(Treatment=poll.answers[, i],
                      CS_Choice=poll.answers[, CS.choice.index],
                      CS_Interest=poll.answers[, CS.response.index])
+  temp <- temp[!is.na(temp$Treatment),]
   attribute.name <- colnames(poll.answers)[i]
   
-  f <- as.formula('CS_Choice ~ Treatment')
-  fit <- aov(f, data=temp)
-  fit.summary <- summary(fit)
+  f <- as.formula("CS_Choice ~ Treatment - 1")
+  
+  # unbalanced designs need a different library to analyze interactions  
+  model <- lm(formula=f, data=temp, contrasts=list(Treatment = contr.sum))
+  fit <- Anova(model, type="III")
+  fit.summary <- summary(model)  
+  mcs <- summary(glht(model, linfct = mcp(Treatment="Tukey")))
+  tukey <- cld(mcs, level=0.05, decreasing=TRUE)
   
   ## checking anova assumptions
   
@@ -161,9 +167,9 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
   # effects, we will test it using a rough test of Skewness and Kurtosis instead usual 
   # normality tests, e.g., Shapiro-Wilk and Kolmogorov-Smirnov.
   # using rule of thumb proposed by Bulmer, 1979.  
-  symmetric <- (abs(skewness(fit$residuals)) < 0.5)
+  symmetric <- (abs(skewness(model$residuals)) < 0.5)
   # using rule of thumb proposed by Vieira, 2006.
-  not_leptokurtic <- kurtosis(fit$residuals) <= 0
+  not_leptokurtic <- kurtosis(model$residuals) <= 0
   
   # Are samples independent each other? Yes, because each observation belongs to one student.
   independent <- TRUE
@@ -177,14 +183,15 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
     homoscedastic <- FALSE
   }
   
+  # Only an indicator to ease the attribute selection. 
+  # It is still necessary to check the residuals' charts.
   if (symmetric & not_leptokurtic & independent & homoscedastic) {
     a <- 'Granted'
   } else {
     a <- 'Not Granted'
   }
   
-  tukey <- HSD.test(fit, 'Treatment')
-
+  # barplot to show differences between treatments
   temp2 <- aggregate(x=list(Quantity=temp$CS_Interest),
                      by=list(CS_Interest=temp$CS_Interest, Treatment=temp$Treatment),
                      FUN=length)
@@ -193,50 +200,54 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
        scale_fill_discrete(name='Treatment')
   ggsave(paste0(plot.dir, 'plot_', attribute.name, '.pdf'), width=5, height=3)
 
-  # width adjustments based on trial and error
-  w <- 6 + 2.5 * nchar(as.character(fit.summary[[1]][['Pr(>F)']][1])) / 20
-  
-  pdf(paste0(plot.dir, 'anova_', attribute.name, '.pdf'), height=1, width=w)
-    grid.table(anova(fit))
+  # anova table
+  pdf(paste0(plot.dir, 'anova_', attribute.name, '.pdf'), height=1, width=8)
+    grid.table(fit)
   ignore <- dev.off()
 
+  # Residuals charts
   pdf(paste0(plot.dir, 'conditions_', attribute.name, '.pdf'))
-    par(mfrow=c(2,2))
-    plot(fit)
+    residualPlots(model, layout= c(2, 1))
+    qqPlot(model)
   ignore <- dev.off()
 
   # height and width adjustments based on trial and error
   h <- 1.5 + 0.1 * length(unique(temp$Treatment))
   w <- 1.5 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
-  
+
+  # tukey-kramer post hoc test
   pdf(paste0(plot.dir, 'tukey_', attribute.name, '.pdf'), height=h, width=w)
-    grid.table(tukey$groups, rows=NULL)
+    tukey.matrix <- as.matrix(unlist(tukey$mcletters$Letters))
+    tukey.df <- data.frame(trt=row.names(tukey.matrix), M=tukey.matrix[,1])
+    Mean <- aggregate(x=list(means=temp$CS_Choice), by=list(trt=temp$Treatment), FUN=mean)
+    tukey.df <- merge(tukey.df, Mean)
+    tukey.df <- tukey.df[, c(1, 3, 2)]
+    tukey.df <- tukey.df[order(tukey.df$M),]
+    grid.table(tukey.df, rows=NULL)
   ignore <- dev.off()
 
-  groups <- tukey$groups
-  means <- tukey$means
-  sum.means <- sum(means$r)
-  
+  # find the greatest mean value for CS_Choice which has significance.
   # initialization: max.mean begins with lower possible value for mean of CS_Choice attribute
   max.mean <- -1
-  for (j in 1:nrow(groups)) {
-    if (groups$means[j] > max.mean) {
-      if (str_count(paste(groups$M, collapse=''), as.character(groups$M[j])) == 1) {
-        max.mean <- groups$means[j]
+  for (j in 1:nrow(tukey.df)) {
+    if (tukey.df$means[j] > max.mean) {
+      if (str_count(paste(tukey.df$M, collapse=''), 
+                    as.character(tukey.df$M[j])) == 1) {
+        max.mean <- tukey.df$means[j]
       }
     }
   }
 
   df <-  data.frame(treatment=attribute.name,
-                    f.value=fit.summary[[1]][['F value']][[1]],
+                    f.value=fit$`F value`[1],
                     max.mean=max.mean,
                     assumptions=a)
   treatments <- rbind(treatments, df)
 }
 
-## Factorial Analysis
+## Attribute Selection using Factorial Analysis
 
-# Removing non-significant attributes using a top-down approach
+# Removing not-significant attributes using a top-down approach
 not_significant <- c(CS.response.index, year.index)
 temp <- poll.answers[, -not_significant]
 gotcha <- FALSE
@@ -277,7 +288,7 @@ for (i in 1:nrow(combinations)) {
   f <- as.formula("CS_Choice ~ A * B")
 
   # unbalanced designs need a different library to analyze interactions  
-  model <- lm(formula=f, data=temp2)
+  model <- lm(formula=f, data=temp2, contrasts=list(A = contr.sum, B = contr.sum))
   fit <- Anova(model, type="III")
   fit.summary <- summary(model)
   
@@ -297,8 +308,8 @@ for (i in 1:nrow(combinations)) {
   # Are variances equal?
   # using rule of thumb proposed by Dean and Voss - Design and analysis of experiments, 1999.
   CS.choice.index <- match('CS_Choice', names(temp2))
-  trtA.index <- match(trtA.name, names(temp2))
-  trtB.index <- match(trtB.name, names(temp2))
+  trtA.index <- match('A', names(temp2))
+  trtB.index <- match('B', names(temp2))
   v <- aggregate(x=list(variance=temp2[, CS.choice.index]), 
                  by=list(A=temp2[, trtA.index], B=temp2[, trtB.index]), FUN=var)
   if (max(v$variance, na.rm = TRUE) / min(v$variance, na.rm = TRUE) < 3) {
