@@ -131,6 +131,13 @@ p <- ggplot(data=interest.in.CS, aes(x='', y=Percentage, fill=CS_Interest)) +
      scale_fill_discrete(breaks=c('Yes', 'No', 'Maybe'))
 ggsave(paste0(plot.dir, 'InterestInCS.pdf'), width=7, height=2)
 
+# Grand Mean
+mean(poll.answers$CS_Choice)
+
+# Respondents By CS_Interest
+aggregate(x=list(Quantity=poll.answers$CS_Interest), 
+          by=list(CS_Interest=poll.answers$CS_Interest), 
+          FUN=length)
 
 # Variance analysis ############################################################
 
@@ -199,8 +206,10 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
   tukey.matrix <- as.matrix(unlist(tukey$mcletters$Letters))
   tukey.df <- data.frame(trt=row.names(tukey.matrix), M=tukey.matrix[,1])
   Mean <- aggregate(x=list(means=temp$CS_Choice), by=list(trt=temp$Treatment), FUN=mean)
+  SD <- aggregate(x=list(SD=temp$CS_Choice), by=list(trt=temp$Treatment), FUN=sd)
   tukey.df <- merge(tukey.df, Mean)
-  tukey.df <- tukey.df[, c(1, 3, 2)]
+  tukey.df <- merge(tukey.df, SD)
+  tukey.df <- tukey.df[, c(1, 3, 4, 2)]
   tukey.df <- tukey.df[order(tukey.df$M),]
 
   # find the greatest mean value for CS_Choice which has significance.
@@ -250,7 +259,7 @@ for (i in year.index:(CS.choice.index-1)) {  # CS.choice.index is the last one
   
   # height and width adjustments based on trial and error
   h <- 1.5 + 0.1 * length(unique(temp$Treatment))
-  w <- 1.5 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
+  w <- 2 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
   pdf(paste0(plot.dir, 'tukey_', attribute.name, '.pdf'), height=h, width=w)
     grid.table(tukey.df, rows=NULL)
   ignore <- dev.off()
@@ -354,8 +363,10 @@ for (i in 1:(CS.choice.index-1)) {
     tukey.matrix <- as.matrix(unlist(tukey$mcletters$Letters))
     tukey.df <- data.frame(trt=row.names(tukey.matrix), M=tukey.matrix[,1])
     Mean <- aggregate(x=list(means=temp2$CS_Choice), by=list(trt=temp2$I), FUN=mean)
+    SD <- aggregate(x=list(SD=temp2$CS_Choice), by=list(trt=temp2$I), FUN=sd)
     tukey.df <- merge(tukey.df, Mean)
-    tukey.df <- tukey.df[, c(1, 3, 2)]
+    tukey.df <- merge(tukey.df, SD)
+    tukey.df <- tukey.df[, c(1, 3, 4, 2)]
     tukey.df <- tukey.df[order(tukey.df$M),]
     
     # find the greatest mean value for CS_Choice which has significance.
@@ -406,7 +417,7 @@ for (i in 1:(CS.choice.index-1)) {
     
     # height and width adjustments based on trial and error
     h <- 2.5 + 0.1 * length(unique(temp2$I))
-    w <- 1.5 + 0.1 * max(nchar(as.character(levels(temp2$I))))
+    w <- 2 + 0.1 * max(nchar(as.character(levels(temp2$I))))
     pdf(paste0(plot.dir, 'tukey_', Interaction.name, '.pdf'), height=h, width=w)
       grid.table(tukey.df, rows=NULL)
     ignore <- dev.off()
