@@ -1,108 +1,138 @@
 \section{Experimental Results}\label{sec:results}%
 
-As described earlier, the data consists of a group of 3,161 questionnaires with 18 questions each. There was 3,707 questionnaires, but some were excluded for many reasons: some where answered by men, others where answered by College or Adult Education Program students. None of these were adequate for the study. 
+As described earlier, the three attributes that had treatments with mean were selected from the list {ref}: `Family.Approval', `Computer.Home', and `Computer.Digital.Inclusion.Centre.
 
-One of these questions is related to the intention of the respondent for applying to a Computer Science Undergraduate Course. The possible answers were No, Maybe and Yes. The answers for this question were converted to a scale where No received the value -1, Maybe received the value 0, and Yes receive the value 1. The name of this attribute is CS_Choice.
-
-The others questions were converted to another 35 attributes, as explained earlier.
-
-The first step was to remove all questionnaires of male respondents. After this, the attribute Gender was removed. The questionnaires answered by students of College and Adult Education Program were removed, too.
-
-Thus, the number of questionnaires was reduced to 3,161, with 745 students that answered No to intention in applying for a Computer Science Undergraduate Course, 1,238 students that marked Maybe, and 1,178 that would like to take a CS course. The grand mean, i.e., the genereal mean for the attribute CS_Choice was 0.14. This number shows a general uncertainty about the decision for application on a Computer Science Course. 
-
-The next step was to perform a One-Way ANOVA to compare the effect of each attribute on the students' intention of applying for a Computer Science Course.  
-
-% Bring_Prestige %
-The treatments extracted from the attribute Bring_Prestige are two: `Yes', indicating that the student believes that taking a Computer Science course would bring to her prestige; `No', indicating that the student believes that taking such course wouldn't bring prestige to her; and `Maybe', indicating that the student has doubts about the prestige of a career as computer scientist. Figure ~\ref{fig:PLOT_Bring_Prestige} shows the quantity of respondents for each treatment about the interest to apply for Computer Science.
+% Family.Approval %
+The treatments extracted from the attribute Family.Approval was three: `Yes', indicating that the student believes that her family may approve her application for a Computer Science Course; `No', indicating that the student believes in family disapproval; and  `Maybe' indicates that the students has doubts about her family's opinion. Figure ~\ref{fig:plot.Family.Approval} shows the quantity of respondents for each treatment about the interest to apply for Computer Science.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/plot_Bring_Prestige}%
-\caption{Amount of respondents by answer in Bring_Prestige and in CS_Interest.}%
-\label{fig:plot_Bring_Prestige}%
+\includegraphics[width=\textwidth]{img/{plot.Family.Approval}.pdf}%
+\caption{Amount of respondents by answer in Family.Approval and in CS.Interest.}%
+\label{fig:plot.Family.Approval}%
 \end{figure}%
 
-An analysis of variance ~\ref{fig:ANOVA_Bring_Prestige} showed that the effect the attribute Bring_Prestige was significant, F(3, 3053) = 42.65, p = .000.
+An analysis of variance ~\ref{fig:anova.Family.Approval} showed that the effect of the attribute Family.Approval was significant, with F value equal to 160.68 and the p-value less than 0.05.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/anova_Bring_Prestige}%
-\caption{One-Way ANOVA for the treatments related to the attribute Bring_Prestige.}%
-\label{fig:ANOVA_Bring_Prestige}%
+\includegraphics[width=\textwidth]{img/{anova.Family.Approval}.pdf}%
+\caption{One-Way ANOVA for the treatments related to the attribute Family.Approval.}%
+\label{fig:anova.Family.Approval}%
 \end{figure}%
 
-Post hoc comparisons using the Tukey-Kramer test ~\ref{fig:ANOVA_Bring_Prestige} indicated that the mean score for the answer `Yes' (M = 0.20, SD = 0.75) was significantly different than answer `Maybe' (M = 0.01, SD = 0.76). However, the answer `No'  (M = 0.09, SD = 0.86) did not significantly differ from the answers `Yes' and `Maybe'.  
+Post hoc comparisons using the Tukey-Kramer test ~\ref{fig:tukey.Family.Approval} indicated that the mean score for the perspective of family approval (M = 0.50, SD = 0.69) was significantly different than the perspective of family's disapproval (M = -0.19, SD = 0.78) and different than the doubt about fammily's approval or disapproval (M = 0.11, SD = 0.70).  
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/tukey_Bring_Prestige}%
-\caption{Tukey test for the treatments related to the attribute Bring_Prestige.}%
-\label{fig:TUKEY_Bring_Prestige}%
+\includegraphics[width=\textwidth]{img/{tukey.Family.Approval}.pdf}%
+\caption{Tukey test for the treatments related to the attribute Family.Approval.}%
+\label{fig:tukey.Family.Approval}%
 \end{figure}%
-% \Bring_Prestige %
 
-% Computer_Digital_Inclusion_Centre %
-The treatments extracted from the attribute Computer_Digital_Inclusion_Centre are two: `Yes', indicating that the student goes to digital inclusion centres to access computers; `No', indicating that the student doesn't go to digital inclusion centres. Figure ~\ref{fig:PLOT_Computer_Digital_Inclusion_Centre} shows the quantity of respondents for each treatment about the interest to apply for Computer Science.
+% Computer.Home %
+The treatments extracted from the attribute Computer.Home are two: `Yes', indicating that the student uses computer in her house; `No', indicating that the student doesn't use computer in house. Figure ~\ref{fig:plot.Computer.Home} shows the quantity of respondents for each treatment about the interest to apply for Computer Science.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/plot_Computer_Digital_Inclusion_Centre}%
-\caption{Amount of respondents by answer in Computer_Digital_Inclusion_Centre and in CS_Interest.}%
-\label{fig:plot_Computer_Digital_Inclusion_Centre}%
+\includegraphics[width=\textwidth]{img/{plot.Computer.Home}.pdf}%
+\caption{Amount of respondents by answer in Computer.Home and in CS.Interest.}%
+\label{fig:plot.Computer.Home}%
 \end{figure}%
 
-An analysis of variance ~\ref{fig:ANOVA_Computer_Digital_Inclusion_Centre} showed that the effect of the attribute Computer_Digital_Inclusion_Centre was significant, F(2, 3159) = 61.28, p = .000.
+An analysis of variance ~\ref{fig:anova.Computer.Home} showed that the effect of the attribute Computer.Home was significant, with the F value equal to 75.88 and the p-value less than 0.05.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/anova_Computer_Digital_Inclusion_Centre}%
-\caption{One-Way ANOVA for the treatments related to the attribute Computer_Digital_Inclusion_Centre.}%
-\label{fig:ANOVA_Computer_Digital_Inclusion_Centre}%
+\includegraphics[width=\textwidth]{img/{anova.Computer.Home}.pdf}%
+\caption{One-Way ANOVA for the treatments related to the attribute Computer.Home.}%
+\label{fig:anova.Computer.Home}%
 \end{figure}%
 
-The analysis indicated that the mean score for the answer `Yes' (M = 0.37, SD = 0.74) was significantly different than the answer `No' (M = 0.12, SD = 0.77) for the attribute Computer_Digital_Inclusion_Centre.
-% \Computer_Digital_Inclusion_Centre %
+The analysis indicated that the mean score for the answer `Yes' (M = 0.11, SD = 0.77) was significantly different than the answer `No' (M = 0.47, SD = 0.69) for the attribute Computer.Home.
 
-% Computer_Friends %
-The treatments extracted from the attribute Computer_Friends are two: `Yes', indicating that the student uses computer in her friends' house; `No', indicating that the student doesn't use computer in her friends' house. Figure ~\ref{fig:PLOT_Computer_Friends} shows the quantity of respondents for each treatment about the interest to apply for Computer Science.
+% Computer.Digital.Inclusion.Centre %
+The treatments extracted from the attribute Computer.Digital.Inclusion.Centre was two: `Yes', indicating that the student goes to digital inclusion centres to use computers; `No', indicating that the student doesn't go to digital inclusion centres. Figure ~\ref{fig:plot.Computer.Digital.Inclusion.Centre} shows the quantity of respondents for each treatment about the interest to apply for Computer Science.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/plot_Computer_Friends}%
-\caption{Amount of respondents by answer in Computer_Friends and in CS_Interest.}%
-\label{fig:plot_Computer_Friends}%
+\includegraphics[width=\textwidth]{img/{plot.Computer.Digital.Inclusion.Centre}.pdf}%
+\caption{Amount of respondents by answer in Computer.Digital.Inclusion.Centre and in CS.Interest.}%
+\label{fig:plot.Computer.Digital.Inclusion.Centre}%
 \end{figure}%
 
-An analysis of variance ~\ref{fig:ANOVA_Computer_Friends} showed that the effect of the attribute Computer_Friends was significant, F(2, 3159) = 53.41, p = .000.
+An analysis of variance ~\ref{fig:anova.Computer.Digital.Inclusion.Centre} showed that the effect of the attribute Computer.Digital.Inclusion.Centre was significant, with the F value equal to 61.28 and the p-value less than 0.05.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/anova_Computer_Friends}%
-\caption{One-Way ANOVA for the treatments related to the attribute Computer_Friends.}%
-\label{fig:ANOVA_Computer_Friends}%
+\includegraphics[width=\textwidth]{img/{anova.Computer.Digital.Inclusion.Centre}.pdf}%
+\caption{One-Way ANOVA for the treatments related to the attribute Computer.Digital.Inclusion.Centre.}%
+\label{fig:anova.Computer.Digital.Inclusion.Centre}%
 \end{figure}%
 
-The analysis indicated that the mean score for the answer `Yes' (M = 0.11, SD = 0.76) was significantly different than the answer `No' (M = 0.19, SD = 0.79) for the attribute Computer_Friends.
-% \Computer_Friends %
+The analysis indicated that the mean score for the answer `Yes' (M = 0.37, SD = 0.74) was significantly different than the answer `No' (M = 0.12, SD = 0.77) for the attribute Computer.Digital.Inclusion.Centre.
 
-% Family_Approval %
-The treatments extracted from the attribute Family_Approval are three: `Yes', indicating that the student believes that her family may approve her application for a Computer Science Course; `No', indicating that the student believes in family disapproval; and  `Maybe' indicates that the students has doubts about her family's opinion. Figure ~\ref{fig:PLOT_Family_Approval} shows the quantity of respondents for each treatment about the interest to apply for Computer Science.
+% Interactions %
+The following analysis tested the interactions between these three attributes, i.e., tested if any two of these combined could cause significant differences on means.
+
+% Family.Approval x Computer.Home %
+The analysis of variance revealed no interaction between the treatments generated by the attributes Family.Approval and Computer.Home, with F value equal to 1.11 and the p-value equal to 0.33, as shown in figure ~\ref{fig:anova.interaction.01}.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/plot_Family_Approval}%
-\caption{Amount of respondents by answer in Family_Approval and in CS_Interest.}%
-\label{fig:plot_Family_Approval}%
+\includegraphics[width=\textwidth]{img/{anova.complete.Family.Approval.x.Computer.Home}.pdf}%
+\caption{Two-Way ANOVA with interaction for the treatments related to the attributes Family.Approval and  Computer.Home.}%
+\label{fig:anova.interaction.01}%
 \end{figure}%
 
-An analysis of variance ~\ref{fig:ANOVA_Family_Approval} showed that the effect of the attribute Family_Approval was significant, F(3, 3070) = 160.68, p = .000.
+The interaction plot ~\ref{fig:plot.interaction.01} did not show reasons to believe in any interaction between the treatments derived from Family.Approval and Computer.Home.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/anova_Family_Approval}%
-\caption{One-Way ANOVA for the treatments related to the attribute Family_Approval.}%
-\label{fig:ANOVA_Family_Approval}%
+\includegraphics[width=\textwidth]{img/{interactions.Family.Approval.x.Computer.Home}.pdf}%
+\caption{Interaction plot for the treatments related to the attributes Family.Approval and  Computer.Home.}%
+\label{fig:plot.interaction.01}%
 \end{figure}%
 
-Post hoc comparisons using the Tukey-Kramer test ~\ref{fig:ANOVA_Family_Approval} indicated that the mean score for the perspective of family approval (M = 0.50, SD = 0.69) was significantly different than the perspective of family's disapproval (M = -0.19, SD = 0.78) and different than the doubt about fammily's approval or disapproval (M = 0.11, SD = 0.70).  
+% Family.Approval x Computer.Digital.Inclusion.Centre %
+The analysis of variance revealed no interaction between the treatments generated by the attributes Family.Approval and Computer.Digital.Inclusion.Centre, with F value equal to 0.97 and the p-value equal to 0.38, as shown in figure ~\ref{fig:anova.interaction.02}.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/tukey_Family_Approval}%
-\caption{Tukey test for the treatments related to the attribute Family_Approval.}%
-\label{fig:TUKEY_Family_Approval}%
+\includegraphics[width=\textwidth]{img/{anova.complete.Family.Approval.x.Computer.Digital.Inclusion.Centre}.pdf}%
+\caption{Two-Way ANOVA with interaction for the treatments related to the attributes Family.Approval and  Computer.Digital.Inclusion.Centre.}%
+\label{fig:anova.interaction.02}%
 \end{figure}%
-% \Family_Approval %
+
+The interaction plot ~\ref{fig:plot.interaction.02} did not show reasons to believe in any interaction between the treatments derived from Family.Approval and Computer.Digital.Inclusion.Centre.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{interactions.Family.Approval.x.Computer.Digital.Inclusion.Centre}.pdf}%
+\caption{Interaction plot for the treatments related to the attributes Family.Approval and  Computer.Digital.Inclusion.Centre.}%
+\label{fig:plot.interaction.02}%
+\end{figure}%
+
+% Computer.Home x Computer.Digital.Inclusion.Centre %
+The analysis of variance revealed a small interaction between the treatments generated by the attributes Computer.Home and Computer.Digital.Inclusion.Centre, with F value equal to 3.45 and the p-value equal to 0.06, as shown in figure ~\ref{fig:anova.interaction.03}.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{anova.complete.Computer.Home.x.Computer.Digital.Inclusion.Centre}.pdf}%
+\caption{Two-Way ANOVA with interaction for the treatments related to the attributes Computer.Home and  Computer.Digital.Inclusion.Centre.}%
+\label{fig:anova.interaction.03}%
+\end{figure}%
+
+The interaction plot ~\ref{fig:plot.interaction.03} showed reasons to believe that are interactions between the treatments derived from Computer.Home and Computer.Digital.Inclusion.Centre.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{interactions.Computer.Home.x.Computer.Digital.Inclusion.Centre}.pdf}%
+\caption{Interaction plot for the treatments related to the attributes Computer.Home and  Computer.Digital.Inclusion.Centre.}%
+\label{fig:plot.interaction.03}%
+\end{figure}%
+
+A Tukey-Kramer test ~\ref{fig:tukey.interaction.03} was performed in order to discover which treatments are different each other. However, the test did not revealed significance for the treatments. 
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{tukey.Computer.Home.x.Computer.Digital.Inclusion.Centre}.pdf}%
+\caption{Tukey test for the treatments related to the attributes Computer.Home and  Computer.Digital.Inclusion.Centre.}%
+\label{fig:tukey.interaction.03}%
+\end{figure}%
 
 \subsection{Discussion}\label{subsec:discussion}%
-Análise dos Resultados (Maristela, Roberto e Guilherme
+
+The results of the One-Way ANOVA for the treatments related the family's opinion about the girl's interest in applying to a Computer Science course suggest that the family's aval is very relevant when the girl decides to choose a CS course. In the same way, the results suggest that a family disapproval could make the girl decide not to apply to Computer Science. A course of action to increase the interest for Computer Science could be a series of lectures directed both to parents and daughters, explaining the computer scientist's career.
+
+The results of the One-Way ANOVA for the treatmens related to the use of a domestic computer suggest that girls that don't use computers at home have interest in apply to a Computer Science course. A hipothesis is that the absence of the equipment at home may cause curiosity about the theme computer science.
+
+The One-Way ANOVA for the treatments derived from the use of digital inclusion centres suggest that the visit of such centres increase the girls' interest for applying to a Computer Science course. Again, the absence of a computer at home could be related with the visit of digital inclusion centres. 
+
+The Two-Way ANOVA for the the treatments extracted from both the use of computer at home and the use of digital inclusion centres, did not show any relevant difference between the treatments. Maybe a poll made on this centres could explain better this relation.
