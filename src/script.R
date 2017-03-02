@@ -22,7 +22,7 @@ cat('\n')
 rm(list=ls())
 
 #### Set working directory
-# setwd('/home/mourao/Documentos/women_computer_science/src/')
+# setwd('/home/f8676628/Documentos/women_computer_science/src/')
 plot.dir <- '../dexa/img/'
 
 # Get raw data
@@ -37,6 +37,9 @@ cat('Number of respondents: ', nrow(poll.answers), '\n\n')
 # Girls only
 poll.answers <- subset(poll.answers, poll.answers$Gender == 'F')
 poll.answers$Gender <- NULL
+
+# Remove 2011's questionnaires
+poll.answers <- subset(poll.answers, poll.answers$Year != 2011)
 
 # Only Middle and High Schools
 poll.answers <- subset(poll.answers, 
@@ -185,22 +188,26 @@ while(!gotcha | ncol(temp) <= 1) {
   }
 }
 
-# turning back with Cs.Interest for additional analysis
+# turning back with CS.Interest for additional analysis
 not.significant <- setdiff(not.significant, CS.interest.index)
 
 # Analyze individual attributes
 poll.answers <- poll.answers[, -not.significant]
-for (i in year.index:ncol(poll.answers)) {  
+CS.choice.index <- match('CS.Choice', names(poll.answers))
+for (i in (CS.choice.index+1):ncol(poll.answers)) {  
   temp <- data.frame(Treatment=poll.answers[, i],
                      CS.Choice=poll.answers[, CS.choice.index],
                      CS.Interest=poll.answers[, CS.interest.index])
-  # temp <- temp[!is.na(temp$Treatment),]
-  attribute.name <- colnames(poll.answers)[i]
   
-  f <- as.formula("CS.Choice ~ Treatment - 1")
+  attribute.name <- colnames(poll.answers)[i]
+  names(temp)[1] <- attribute.name
+  
+  f <- as.formula(paste("CS.Choice ~", attribute.name, "- 1"))
   
   # unbalanced designs need a different library
-  model <- lm(formula=f, data=temp, contrasts=list(Treatment = contr.sum))
+  lst <- list(A='contr.sum')
+  names(lst) <- c(attribute.name)
+  model <- lm(formula=f, data=temp, contrasts=lst)
   fit <- Anova(model, type="III")
   fit.summary <- summary(model)  
   
@@ -219,7 +226,7 @@ for (i in year.index:ncol(poll.answers)) {
   
   # Are variances equal?
   # using rule of thumb proposed by Dean and Voss - Design and analysis of experiments, 1999.
-  v <- aggregate(x=list(variance=temp$CS.Choice), by=list(Treatment=temp$Treatment), FUN=var)
+  v <- aggregate(x=list(variance=temp$CS.Choice), by=list(Treatment=temp[, 1]), FUN=var)
   if (max(v$variance, na.rm = TRUE) / min(v$variance, na.rm = TRUE) < 3) {
     homoscedastic <- TRUE
   } else {
@@ -235,27 +242,33 @@ for (i in year.index:ncol(poll.answers)) {
   }
 
   # tukey-kramer post hoc test
-  mcs <- summary(glht(model, linfct = mcp(Treatment="Tukey")))
+  o <- mcp(Treatment="Tukey")
+  attributes(o) <- list(names=attribute.name, 
+                        interaction_average=FALSE, 
+                        covariate_average=FALSE, 
+                        class="mcp")
+  mcs <- summary(glht(model, linfct=o))
   tukey <- cld(mcs, level=0.05, decreasing=TRUE)
   tukey.matrix <- as.matrix(unlist(tukey$mcletters$Letters))
   tukey.df <- data.frame(trt=row.names(tukey.matrix), M=tukey.matrix[,1])
-  Mean <- aggregate(x=list(means=temp$CS.Choice), by=list(trt=temp$Treatment), FUN=mean)
-  SD <- aggregate(x=list(SD=temp$CS.Choice), by=list(trt=temp$Treatment), FUN=sd)
+  Mean <- aggregate(x=list(means=temp$CS.Choice), by=list(trt=temp[, 1]), FUN=mean)
+  SD <- aggregate(x=list(SD=temp$CS.Choice), by=list(trt=temp[, 1]), FUN=sd)
   tukey.df <- merge(tukey.df, Mean)
   tukey.df <- merge(tukey.df, SD)
   tukey.df <- tukey.df[, c(1, 3, 4, 2)]
   tukey.df <- tukey.df[order(tukey.df$M),]
+  names(tukey.df) <- c(attribute.name, "Means", "Std.Dev", "Tukey")
 
   # find the greatest mean value for CS.Choice which has significance.
   # initialization: max.mean begins with lower possible value for mean of CS.Choice attribute
   max.mean <- -1
   for (j in 1:nrow(tukey.df)) {
-    if (tukey.df$means[j] > max.mean) {
-      if (str_count(as.character(tukey.df$M[j])) == 1 & 
-          str_count(paste(tukey.df$M, collapse=''), 
-                    as.character(tukey.df$M[j])) == 1) {
-        max.mean <- tukey.df$means[j]
-        trt <- tukey.df$trt[j]
+    if (tukey.df$Means[j] > max.mean) {
+      if (str_count(as.character(tukey.df$Tukey[j])) == 1 & 
+          str_count(paste(tukey.df$Tukey, collapse=''), 
+                    as.character(tukey.df$Tukey[j])) == 1) {
+        max.mean <- tukey.df$Means[j]
+        trt <- tukey.df[j, 1]
       }
     }
   }
@@ -271,11 +284,11 @@ for (i in year.index:ncol(poll.answers)) {
   ## Charts
   # barplot to show differences between treatments
   temp2 <- aggregate(x=list(Quantity=temp$CS.Interest),
-                     by=list(CS.Interest=temp$CS.Interest, Treatment=temp$Treatment),
+                     by=list(CS.Interest=temp$CS.Interest, Treatment=temp[, 1]),
                      FUN=length)
   p <- ggplot(temp2, aes(fill=Treatment, y=Quantity, x=CS.Interest)) +
     geom_bar(position="dodge", stat="identity") +
-    scale_fill_discrete(name='Treatment')
+    scale_fill_discrete(name=attribute.name)
   ggsave(paste0(plot.dir, 'plot.', attribute.name, '.pdf'), width=5, height=3)
   
   # Residuals charts
@@ -295,7 +308,7 @@ for (i in year.index:ncol(poll.answers)) {
   
   # height and width adjustments based on trial and error
   h <- 1.5 + 0.1 * length(unique(temp$Treatment))
-  w <- 2 + 0.1 * max(nchar(as.character(levels(temp$Treatment))))
+  w <- 1.0 + 0.1 * sum(nchar(paste0(names(tukey.df))))
   pdf(paste0(plot.dir, 'tukey.', attribute.name, '.pdf'), height=h, width=w)
     grid.table(tukey.df, rows=NULL)
   ignore <- dev.off()
@@ -328,7 +341,9 @@ for (i in 1:nrow(combinations)) {
   f <- as.formula(paste("CS.Choice ~",  combinations[i, 1], "*", combinations[i, 2], "- 1"))
 
   # unbalanced designs need a different library to analyze interactions  
-  model <- lm(formula=f, data=temp2, contrasts=contr.sum)
+  lst <- list(A="contr.sum", B="contr.sum")
+  names(lst) <- c(combinations[i, 1], combinations[i, 2])
+  model <- lm(formula=f, data=temp2, contrasts=lst)
   fit <- Anova(model, type="III")
   fit.summary <- summary(model)
   
@@ -354,13 +369,13 @@ for (i in 1:nrow(combinations)) {
                      response=temp2$CS.Choice, 
                      type='b',
                      xlab=combinations[i, 1],
-                     ylab=combinations[i, 2],
+                     ylab="CS.Choice",
                      trace.label=combinations[i, 2]) 
   ignore <- dev.off()
   
   ##### Post hoc test for interactions
   # Creating a model to test only the interaction
-  model <- lm(formula='CS.Choice ~ I', data=temp2, contrasts=contr.sum)
+  model <- lm(formula='CS.Choice ~ I - 1', data=temp2, contrasts=contr.sum)
   fit <- Anova(model, type="III")
   fit.summary <- summary(model)
   
@@ -375,6 +390,7 @@ for (i in 1:nrow(combinations)) {
   tukey.df <- merge(tukey.df, SD)
   tukey.df <- tukey.df[, c(1, 3, 4, 2)]
   tukey.df <- tukey.df[order(tukey.df$M),]
+  names(tukey.df) <- c(interaction.name, "Means", "Std.Dev", "Tukey")
   
   ##  Charts
   # Residuals charts
@@ -394,7 +410,7 @@ for (i in 1:nrow(combinations)) {
   
   # height and width adjustments based on trial and error
   h <- 2.5 + 0.1 * length(unique(temp2$I))
-  w <- 2 + 0.1 * max(nchar(as.character(levels(temp2$I))))
+  w <- 1.0 + 0.1 * sum(nchar(paste0(names(tukey.df))))
   pdf(paste0(plot.dir, 'tukey.', interaction.name, '.pdf'), height=h, width=w)
     grid.table(tukey.df, rows=NULL)
   ignore <- dev.off()
