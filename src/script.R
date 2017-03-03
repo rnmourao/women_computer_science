@@ -156,9 +156,6 @@ year.index <- match('Year', names(poll.answers))
 # Grand Mean
 mean(poll.answers$CS.Choice)
 
-# a table to organize treatments by its means
-treatments <- data.frame(Attribute=NULL, F.Value=NULL, Assumptions=NULL, Max.Mean=NULL)
-
 #################### Attribute Selection using Factorial Analysis ########################
 # Removing not-significant attributes using a top-down approach
 not.significant <- c(CS.interest.index)
@@ -192,8 +189,12 @@ while(!gotcha | ncol(temp) <= 1) {
 not.significant <- setdiff(not.significant, CS.interest.index)
 
 ############################# Analyze individual attributes ##############################
+# a table to organize treatments by its means
+treatments <- data.frame(Attribute=NULL, F.Value=NULL, Max.Mean=NULL)
+
 poll.answers <- poll.answers[, -not.significant]
 CS.choice.index <- match('CS.Choice', names(poll.answers))
+
 for (i in (CS.choice.index+1):ncol(poll.answers)) {  
   temp <- data.frame(Treatment=poll.answers[, i],
                      CS.Choice=poll.answers[, CS.choice.index],
@@ -234,11 +235,9 @@ for (i in (CS.choice.index+1):ncol(poll.answers)) {
   }
   
   # Only an indicator to ease the attribute selection. 
-  # It is still necessary to check the residuals' charts.
+  # To confirm the assumptions, it is recommended to check the residuals' charts.
   if (symmetric & not.leptokurtic & independent & homoscedastic) {
-    a <- 'Granted'
-  } else {
-    a <- 'Not Granted'
+    print(paste(attribute.name, 'OK'))
   }
 
   # tukey-kramer post hoc test
@@ -276,7 +275,6 @@ for (i in (CS.choice.index+1):ncol(poll.answers)) {
   if (max.mean != -1) {
     df <-  data.frame(Attribute=attribute.name,
                       F.Value=fit$`F value`[1],
-                      Assumptions=a,
                       Max.Mean=max.mean)
     treatments <- rbind(treatments, df)
   }
@@ -310,34 +308,31 @@ for (i in (CS.choice.index+1):ncol(poll.answers)) {
   ignore <- dev.off()
 }
 
-# Sort significant treatments by F value. 
+# Sort significant treatments by Mean. 
 treatments <- treatments[order(treatments$Max.Mean, decreasing=TRUE),]
-pdf(paste0(plot.dir, 'significant.pdf'), height = 5, width = 6)
+pdf(paste0(plot.dir, 'significant.main.effects.pdf'), height = 5, width = 6)
   grid.table(treatments, rows=NULL)
 ignore <- dev.off()
 
-
 ################################ Test interactions #############################
-# Select the three attributes which has treatments with higher mean.
-interactions <- as.character(treatments$Attribute[1:3]) 
-
-# create a table with the three selected attributes, CS.Interest and CS.Choice
-temp <- poll.answers[, c("CS.Interest", "CS.Choice", interactions)]
+# a table to organize treatments by its means
+interactions <- data.frame(Interaction=NULL, F.Value=NULL, Max.Mean=NULL)
 
 # create combinations 
-combinations <- t(combn(names(temp)[3:5], 2))
+combinations <- t(combn(names(poll.answers)[3:ncol(poll.answers)], 2))
 for (i in 1:nrow(combinations)) {
-  temp2 <- temp[, c("CS.Interest", "CS.Choice", combinations[i, 1], combinations[i, 2])]
+  temp <- poll.answers[, c("CS.Interest", "CS.Choice", combinations[i, 1], combinations[i, 2])]
   interaction.name <- paste0(combinations[i, 1], '.x.', combinations[i, 2])
-  ## construct a new model to test only the interaction
-  A.index <- match(combinations[i, 1], names(temp2))
-  B.index <- match(combinations[i, 2], names(temp2))
-  temp2$Interaction <- interaction(temp2[, A.index], temp2[, B.index], drop = TRUE, sep = ".x.")
+  
+  ## build a new model to test only the interaction
+  A.index <- match(combinations[i, 1], names(temp))
+  B.index <- match(combinations[i, 2], names(temp))
+  temp$Interaction <- interaction(temp[, A.index], temp[, B.index], drop = TRUE, sep = ".x.")
 
   #####  Test interaction
   # Creating a model to test only the interaction
   model <- lm(formula='CS.Choice ~ Interaction - 1', 
-              data=temp2, 
+              data=temp, 
               contrasts=list(Interaction='contr.sum'))
   fit <- Anova(model, type="III")
   fit.summary <- summary(model)
@@ -347,20 +342,41 @@ for (i in 1:nrow(combinations)) {
   tukey <- cld(mcs, level=0.05, decreasing=TRUE)
   tukey.matrix <- as.matrix(unlist(tukey$mcletters$Letters))
   tukey.df <- data.frame(trt=row.names(tukey.matrix), M=tukey.matrix[,1])
-  Mean <- aggregate(x=list(means=temp2$CS.Choice), by=list(trt=temp2$Interaction), FUN=mean)
-  SD <- aggregate(x=list(SD=temp2$CS.Choice), by=list(trt=temp2$Interaction), FUN=sd)
+  Mean <- aggregate(x=list(means=temp$CS.Choice), by=list(trt=temp$Interaction), FUN=mean)
+  SD <- aggregate(x=list(SD=temp$CS.Choice), by=list(trt=temp$Interaction), FUN=sd)
   tukey.df <- merge(tukey.df, Mean)
   tukey.df <- merge(tukey.df, SD)
   tukey.df <- tukey.df[, c(1, 3, 4, 2)]
   tukey.df <- tukey.df[order(tukey.df$M),]
   names(tukey.df) <- c(interaction.name, "Means", "Std.Dev", "Tukey")
   
+  # find the greatest mean value for CS.Choice which has significance.
+  # initialization: max.mean begins with lower possible value for mean of CS.Choice attribute
+  max.mean <- -1
+  for (j in 1:nrow(tukey.df)) {
+    if (tukey.df$Means[j] > max.mean) {
+      if (str_count(as.character(tukey.df$Tukey[j])) == 1 & 
+          str_count(paste(tukey.df$Tukey, collapse=''), 
+                    as.character(tukey.df$Tukey[j])) == 1) {
+        max.mean <- tukey.df$Means[j]
+        trt <- tukey.df[j, 1]
+      }
+    }
+  }
+  
+  if (max.mean != -1) {
+    df <-  data.frame(Interaction=interaction.name,
+                      F.Value=fit$`F value`[1],
+                      Max.Mean=max.mean)
+    interactions <- rbind(interactions, df)
+  }  
+  
   ## Charts
   # barplot to show differences between treatments
-  temp3 <- aggregate(x=list(Quantity=temp2$CS.Interest),
-                     by=list(CS.Interest=temp2$CS.Interest, Interaction=temp2$Interaction),
+  temp2 <- aggregate(x=list(Quantity=temp$CS.Interest),
+                     by=list(CS.Interest=temp$CS.Interest, Interaction=temp$Interaction),
                      FUN=length)
-  p <- ggplot(temp3, aes(fill=Interaction, y=Quantity, x=CS.Interest)) +
+  p <- ggplot(temp2, aes(fill=Interaction, y=Quantity, x=CS.Interest)) +
     geom_bar(position="dodge", stat="identity") +
     scale_fill_discrete(name=interaction.name)
   ggsave(paste0(plot.dir, 'plot.', interaction.name, '.pdf'), width=8, height=5)
@@ -373,16 +389,15 @@ for (i in 1:nrow(combinations)) {
   
   # interaction chart
   pdf(paste0(plot.dir, 'interactions.', interaction.name, '.pdf'))
-    interaction.plot(x.factor=temp2[, A.index], 
-                     trace.factor=temp2[, B.index], 
-                     response=temp2$CS.Choice, 
+    interaction.plot(x.factor=temp[, A.index],
+                     trace.factor=temp[, B.index],
+                     response=temp$CS.Choice,
                      type='b',
                      xlab=combinations[i, 1],
                      ylab="CS.Choice",
-                     trace.label=combinations[i, 2]) 
+                     trace.label=combinations[i, 2])
+    # boxplot(as.formula('CS.Choice ~ Interaction'), data=temp)  
   ignore <- dev.off()
-  
-  ##  Charts
   # Residuals charts
   pdf(paste0(plot.dir, 'assumptions.', interaction.name, '.pdf'))
     par(mfrow=c(2,2))
@@ -390,9 +405,15 @@ for (i in 1:nrow(combinations)) {
   ignore <- dev.off()  
   
   # height and width adjustments based on trial and error
-  h <- 2.5 + 0.1 * length(unique(temp2$Interaction))
+  h <- 2.5 + 0.1 * length(unique(temp$Interaction))
   w <- 1.0 + 0.1 * sum(nchar(paste0(names(tukey.df))))
   pdf(paste0(plot.dir, 'tukey.', interaction.name, '.pdf'), height=h, width=w)
     grid.table(tukey.df, rows=NULL)
   ignore <- dev.off()
 }
+
+# Sort significant interactions by Mean. 
+interactions <- interactions[order(interactions$Max.Mean, decreasing=TRUE),]
+pdf(paste0(plot.dir, 'significant.interactions.pdf'), height = 4, width = 6)
+  grid.table(interactions, rows=NULL)
+ignore <- dev.off()
