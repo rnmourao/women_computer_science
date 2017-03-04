@@ -3,17 +3,130 @@
 
 Data mining can be defined as the process of discovering insightful patterns and predictive models from data~\cite{Zaki2014}, trying to make sense of usually large amounts of data in some domain~\cite{Cios2007}. \gnramos{In this work, the main interest is the gender gap in the fields of the ``hard sciences'', so we attempt to understand the profiles of women intending to enroll in undergraduate studies, specially those interested in Computer Science.}
 
-From 2011 to 2014, 3707 people were polled, responding a questionnaire\footnote{\url{https://github.com/rnmourao/women\_computer\_science/blob/master/data/questionnaire.pdf}}. The idea was to obtain information on their perceptions of their future undergraduate studies.
+From 2012 to 2014, 1709 people were polled, responding a questionnaire\footnote{\url{https://github.com/rnmourao/women\_computer\_science/blob/master/data/questionnaire.pdf}}. The idea was to obtain information on their perceptions of their future undergraduate studies.
 
 \subsection{Poll}\label{sec:mining:poll}%
-The poll had 14 questions which translated into 36 variables.
+The poll had 18 questions which translated into 36 variables. The first two questions were used to determine the respondents' gender and educational stage. The subsequent questions and their possible answers were: 
+
+\begin{itemize}
+	\item Which is your Field of Interest?
+		\begin{itemize}
+			\item Biology-Health Sciences 
+			\item Human Sciences
+			\item Exact Sciences	
+		\end{itemize}
+	\item Are you intend to apply for a Computer Science course?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}
+	\item Mark all places where you use computers:
+		\begin{itemize}
+			\item Home
+			\item Relatives' House
+			\item Friends's House
+			\item School
+			\item Work
+			\item Lan House
+			\item Library
+			\item Digital Inclusion Centre
+		\end{itemize}
+	\item Mark all softwares or activities you use or do with  a computer:
+		\begin{itemize}
+			\item Text Editor (Microsoft Word, etc)
+			\item Image Editor
+			\item Spreadsheet
+			\item Database
+			\item Web Browser (Search Engines, News, etc)
+			\item Social Networks (Facebook, Orkut, etc)
+			\item E-mail
+			\item Games
+			\item Create Web Pages
+			\item Create Softwares
+			\item Other Softwares
+		\end{itemize}
+	\item Does a Computer Science course only teaches how to use softwares?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}
+	\item Does a Computer Science course uses easy Math?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}	
+	\item Does the majority of Computer Science's students are male?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}
+	\item Is it necessary to know how to use computers to apply for a Computer Science course?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}							
+	\item Is it necessary to graduate in Computer Science to work in the area?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}		
+	\item Would your family like you to apply for a Computer Science course?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}				
+	\item It is difficult to get a job after undergraduate in Computer Science?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}		
+	\item Who works with Computer Science has few hours of leisure?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}	
+	\item Does working with Computer Science allow you to exercise creativity?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}
+	\item Does working with Computer Science brings prestige?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}	
+	\item Does working with Computer Science allow you to earn a good salary?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}
+	\item Does working with Computer Science allow you to work in other fields?
+		\begin{itemize}
+			\item Yes
+			\item No
+			\item Maybe
+		\end{itemize}									
+\end{itemize}
+
 \gnramos{descrição das perguntas, motivações, tipos de respostas (categoricas, numericas...)}
 
 \subsection{Statistical Analysis}\label{sec:mining:stat}%
 The usual pre-processing tasks were quickly done; all questionnaires were created and processed by CESPE\footnote{\url{http://www.cespe.unb.br/}}, a specialized research center, and the results given in simple spreadsheets. The data for all years was consolidated in a single spreadsheet\footnote{\url{https://github.com/rnmourao/women\_computer\_science/blob/master/data/raw.xlsx}}
 which was then processed in the \texttt{R} programming language.
 
-The script cleans up the data (empty columns, whitespaces, etc.) and begins to process it for analysis. The first step is to consider only the data for the 3680 female respondents. The data is distributed throughout the years as illustrated in Figure~\ref{fig:RespondentsPerYear}. \gnramos{Descrição desta informação}.
+The script cleans up the data (empty columns, whitespaces, etc.) and begins to process it for analysis. The first step is to consider only the data for the 1709 female respondents. The data is distributed throughout the years as illustrated in Figure~\ref{fig:RespondentsPerYear}. \gnramos{Descrição desta informação}.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/RespondentsPerYear}%
@@ -29,7 +142,7 @@ Figure~\ref{fig:EducationalStage} shows how the respondents were distributed by 
 \label{fig:EducationalStage}%
 \end{figure}%
 
-Figure~\ref{fig:FieldOfInterest} shows the respondents' interest in different fields of study. This results indicate that, throughout the years, the percentages for each choice remains more or less the same with an average of $41\%$ for \emph{Biology-Health Sciences}, $22\%$ for \emph{Exact Sciences} and $33\%$ for \emph{Human Sciences}.
+Figure~\ref{fig:FieldOfInterest} shows the respondents' interest in applying for a Computer Science course. This results indicate that $31\%$  \emph{have interest}, $28\%$  \emph{have no interest}, and $41\%$  \emph{have doubt}.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/FieldOfInterest}%
@@ -46,7 +159,7 @@ Figure~\ref{fig:InterestInCS.pdf} shows the respondents' interest in different f
 \end{figure}%
 
 % ANOVA %%%%%%%%%%%
-As described earlier, the data consisted of a group of 3,161 questionnaires with 18 questions each. There was 3,707 questionnaires, but some were excluded for many reasons: some where answered by men, others where answered by College or Adult Education Program students. None of these were adequate for the study. 
+As described earlier, the data consisted of a group of 1,709 questionnaires with 18 questions each. There were 3,707 questionnaires, but some were excluded for many reasons: some were answered by men, others were answered by College or Adult Education Program students. None of these were adequate for the study. The questionnaires from 2011 were excluded because the poll was conducted differently of the others years.
 
 One of questionnaires' questions was related to the intention of the respondent for applying to a Computer Science Undergraduate Course. The possible answers were `No', `Maybe' and `Yes'. The answers for this question were converted to a scale, where `No' received the value -1, `Maybe' received the value 0, and `Yes' receive the value 1. The attribute received the name `CS.Choice'.
 
