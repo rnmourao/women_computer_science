@@ -6,9 +6,23 @@ Data mining can be defined as the process of discovering insightful patterns and
 From 2012 to 2014, 1709 people were polled, responding a questionnaire\footnote{\url{https://github.com/rnmourao/women\_computer\_science/blob/master/data/questionnaire.pdf}}. The idea was to obtain information on their perceptions of their future undergraduate studies.
 
 \subsection{Poll}\label{sec:mining:poll}%
-The poll had 18 questions which translated into 36 variables. The first two questions were used to determine the respondents' gender and educational stage. The subsequent questions and their possible answers were: 
+The poll had 18 questions, decribed below:
 
-\begin{itemize}
+\begin{enumerate}
+	\item Gender:
+		\begin{enumerate}
+			\item Female
+			\item Male
+		\end{enumerate}
+	\item Educational Stage:
+		\begin{enumerate}
+			\item Middle School
+			\item High School (10th Grade)
+			\item High School (11th Grade)
+			\item High School (12th Grade)	
+			\item Adult Education Program
+			\item College		
+		\end{enumerate}
 	\item Which is your Field of Interest?
 		\begin{itemize}
 			\item Biology-Health Sciences 
@@ -118,7 +132,9 @@ The poll had 18 questions which translated into 36 variables. The first two ques
 			\item No
 			\item Maybe
 		\end{itemize}									
-\end{itemize}
+\end{enumerate}
+
+The questions were translated into 36 variables, as following: Gender, Educational.Stage, Field.Interest, Interest.CS, Computer.Home, Computer.Relatives, Computer.Friends, Computer.School, Computer.Work, Computer.Lan.House, Computer.Library, Computer.Digital.Inclusion.Centre, Use.Text.Editor, Use.Image.Editor, Use.Spreadsheet, Use.Database, Use.Internet, Use.Social.Network, Use.Email, Use.Games, Create.Web.Pages, Create.Softwares, Use.Other.Softwares, Only.Teaches.Software, Has.Low.Math, Man.Majority, Need.Know.Computer, Need.Higher.Education, Family.Approval, Low.Employability, Low.Leisure, Use.Creativity, Bring.Prestige, Good.Salary, Interdisciplinarity, and Year.
 
 \gnramos{descrição das perguntas, motivações, tipos de respostas (categoricas, numericas...)}
 
@@ -161,19 +177,17 @@ Figure~\ref{fig:InterestInCS.pdf} shows the respondents' interest in different f
 % ANOVA %%%%%%%%%%%
 As described earlier, the data consisted of a group of 1,709 questionnaires with 18 questions each. There were 3,707 questionnaires, but some were excluded for many reasons: some were answered by men, others were answered by College or Adult Education Program students. None of these were adequate for the study. The questionnaires from 2011 were excluded because the poll was conducted differently of the others years.
 
-One of questionnaires' questions was related to the intention of the respondent for applying to a Computer Science Undergraduate Course. The possible answers were `No', `Maybe' and `Yes'. The answers for this question were converted to a scale, where `No' received the value -1, `Maybe' received the value 0, and `Yes' receive the value 1. The attribute received the name `CS.Choice'.
+The \emph{CS.Interest} attribute, related to the intention of the respondent for applying to a Computer Science Undergraduate Course, was used to create a numeric variable, named as \emph{CS.Choice}. When there was `No' in CS.Interest, CS.Choice was filled with the value -1; when `Maybe', CS.Choice got 0, and when CS.Interest was `Yes', CS.Choice received the value 1. In this study, the attribute \emph{CS.Choice} was used as response variable~\cite{moore2009practice}. The others 35 attributes were used as explanatory variables, turning in a treatment each possible answer for each variable.
 
-The others questions were converted to another 35 attributes, as explained earlier.
+The grand mean, i.e., the general mean for the attribute CS.Choice was 0.03. This number shows a general uncertainty about the decision for application on a Computer Science Course. 
 
-The first step was to remove all questionnaires of male respondents. After this, the attribute Gender was removed. The questionnaires answered by students of College and Adult Education Program were removed, too.
+The next step was to perform a One-Way ANOVA with the treatments of all attributes, removing one by one, based on the treatments' significance~\cite{Chambers1990}. Since the data was naturally unbalanced, the ANOVA used the `Type III' Sum of Squares. 
 
-Thus, the number of questionnaires was reduced to 3,161, with 745 students that answered `No' to intention in applying for a Computer Science Undergraduate Course, 1,238 students that marked `Maybe', and 1,178 that would like to take a CS course. The grand mean, i.e., the genereal mean for the attribute CS.Choice was 0.14. This number shows a general uncertainty about the decision for application on a Computer Science Course. 
+A series of One-Way ANOVAs was performed to compare the effect of each remaining attribute on the students' intention to applying for a Computer Science Course. A Tukey HSD test was used for the cases when there was more than two treatments.
+ 
+Then, it was executed a Two-Way ANOVA to evaluate the interactions between the attributes' treatments.
 
-The next step was to perform a One-Way ANOVA with the treatments of all attributes, removing one by one, based on the treatments' significance~\cite{Chambers1990}. The remained attributes where Computer.Digital.Inclusion.Centre, Computer.Friends, Computer.Home, Computer.Lan.House, Computer.School, Create.Softwares, Educational.Stage, Family.Approval, Field.Interest, Has.Low.Math, Man.Majority, Need.Higher.Education, Only.Teaches.Software, Play.Games, Use.Database, and Year.
+After analyze each treatment, there was selected the treatment with significance, and higher mean for the CS.Choice attribute.
 
-After this, a One-Way ANOVA was performed to compare the effect of each attribute on the students' intention of applying for a Computer Science Course. It was selected three attributes based on the treatments with highest means: Family.Approval, Computer.Home, and Computer.Digital.Inclusion.Centre.
 
-Lastly, was executed a Two-Way ANOVA to evaluate the interactions between the attributes' treatments, taking the attributes two by two.   
-
-A Tukey-Kramer post hoc test was used after each ANOVA, for the cases when there was more than two treatments.
 
