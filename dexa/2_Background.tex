@@ -13,8 +13,13 @@ Data analysis includes, among other things, procedures for analyzing data and te
 \gnramos{Breve relação das técnicas utilizadas}%
 ANOVA ~\cite{Hastie2009}
 
+A useful statistical technique is Analysis of Variance, also known as ANOVA. The ANOVA tests if two or more treatments have the same mean. This assumption is called \emph{null hipothesis}. The \emph{alternate hipothesis} declares that the treatments have different means \cite{Vieira2006}.
+
+Despite its significance power, i.e., the ability to indicate that are differences between the treatments, ANOVA doesn't say which treatments are different each other. In the case of only two treatments, the answer is trivial, But it is necessary to execute one more test when there are three or more treatments. The \emph{Tukey HSD} test does \emph{multiple comparisons} between the treatments and determine which treatments have the same means and which don't \cite{moore2009practice}.
 
 Frequently, data may be usefully and accurately treated by the analysis of variance (through separation of the variance attributes to a group of causes from that attributed to other groups)~\cite{Fisher1934}. This \emph{analysis of variance} (ANOVA)can be achieved through several approaches, for example through a hypothesis test comparing the two models, considering the null hypothesis that both models fit the data equally well in contrast to  the full model is superior~\cite{James2013}.
+
+When the treatments have different sizes of replications, the ANOVA is quite more complex\cite{ott2008introduction}, because this relative weight of the treatments may disturb their significance levels \cite{schuessler1971analyzing}. Yates \cite{herr_history_1986} create an alternative formula called Standard Parametric (STP), which removes the effects of unequal sample sizes from the treatments.
 
 \gnramos{Trabalhos correlacionados}%
 
