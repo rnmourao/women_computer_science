@@ -158,7 +158,7 @@ Figure~\ref{fig:EducationalStage} shows how the respondents were distributed by 
 \label{fig:EducationalStage}%
 \end{figure}%
 
-Figure~\ref{fig:FieldOfInterest} shows the respondents' interest in applying for a Computer Science course. This results indicate that $31\%$  \emph{have interest}, $28\%$  \emph{have no interest}, and $41\%$  \emph{have doubt}.
+Figure~\ref{fig:FieldOfInterest} shows the respondents' interest in different fields of study. This results indicate that, throughout the years, the percentages for each choice remains more or less the same with an average of $41\%$ for \emph{Biology-Health Sciences}, $22\%$ for \emph{Exact Sciences} and $33\%$ for \emph{Human Sciences}.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/FieldOfInterest}%
@@ -166,7 +166,7 @@ Figure~\ref{fig:FieldOfInterest} shows the respondents' interest in applying for
 \label{fig:FieldOfInterest}%
 \end{figure}%
 
-Figure~\ref{fig:InterestInCS.pdf} shows the respondents' interest in different fields of study. This results indicate that, throughout the years, the percentages for each choice remains more or less the same with an average of $41\%$ for \emph{Biology-Health Sciences}, $22\%$ for \emph{Exact Sciences} and $33\%$ for \emph{Human Sciences}.
+Figure~\ref{fig:InterestInCS.pdf} shows the respondents' interest in applying for a Computer Science course. This results indicate that $31\%$  \emph{have interest}, $28\%$  \emph{have no interest}, and $41\%$  \emph{have doubt}
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/InterestInCS.pdf}%
@@ -174,20 +174,7 @@ Figure~\ref{fig:InterestInCS.pdf} shows the respondents' interest in different f
 \label{fig:InterestInCS.pdf}%
 \end{figure}%
 
-% ANOVA %%%%%%%%%%%
+% APRIORI %%%%%%%%%%%
 As described earlier, the data consisted of a group of 1,709 questionnaires with 18 questions each. There were 3,707 questionnaires, but some were excluded for many reasons: some were answered by men, others were answered by College or Adult Education Program students. None of these were adequate for the study. The questionnaires from 2011 were excluded because the poll was conducted differently of the others years.
 
-The \emph{CS.Interest} attribute, related to the intention of the respondent for applying to a Computer Science Undergraduate Course, was used to create a standardized scale, named as \emph{CS.Choice}. When there was `No' in CS.Interest, CS.Choice was filled with the value -1; when `Maybe', CS.Choice got 0, and when CS.Interest was `Yes', CS.Choice received the value 1. In this study, the attribute \emph{CS.Choice} was used as response variable~\cite{moore2009practice}. The others 35 attributes were used as explanatory variables, turning in a treatment each possible answer for each variable.
-
-The grand mean, i.e., the general mean for the attribute CS.Choice was 0.03.
-
-The next step was to perform a One-Way ANOVA with the treatments of all attributes, removing one by one, based on the treatments' significance~\cite{Chambers1990}. Since the data was naturally unbalanced, the ANOVA used the `Type III' Sum of Squares. 
-
-A series of One-Way ANOVAs was performed to compare the effect of each remaining attribute on the students' intention to applying for a Computer Science Course. A Tukey HSD test was used for the cases when there was more than two treatments.
- 
-Then, it was executed a Two-Way ANOVA to evaluate the interactions between the attributes' treatments.
-
-After analyze each treatment, there was selected the treatment with significance, and higher mean for the CS.Choice attribute.
-
-
-
+An Apriori's association rule mining algorithm was performed on the data, with the minimum confidence level equal to 50\%, and with a maximum number of 3 items in an itemset. A filter was applied to select only the rules involving the variable \emph{CS.Interest} on the rules' right-hand sides. The rules were analyzed considering support, confidence and lift metrics.
