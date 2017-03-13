@@ -15,6 +15,7 @@ library(arules)
 library(arulesViz)
 library(ggplot2)
 library(gridExtra)
+library(methods)
 library(readxl)
 
 # Pretty printing
@@ -72,7 +73,7 @@ cat('Female interested in CS: ', nrow(poll.answers[poll.answers$CS.Interest=='Ye
 
 # APRIORI
 cs.rules = apriori(data = poll.answers, 
-                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=15), 
+                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=5), 
                    appearance = list(rhs = list("CS.Interest=Yes",
                                                 "CS.Interest=No"), default = "lhs"))
 
