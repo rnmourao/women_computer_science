@@ -1,0 +1,11 @@
+"rules";"support";"confidence";"lift"
+"{Family.Approval=Yes,Computer.Work=No} => {CS.Interest=Yes}";0.10122878876536;0.58843537414966;1.90101333539087
+"{Family.Approval=Yes,Use.Creativity=Yes} => {CS.Interest=Yes}";0.104739613809245;0.584967320261438;1.88980935789565
+"{Family.Approval=Yes} => {CS.Interest=Yes}";0.119953188999415;0.572625698324022;1.8499382201054
+"{Family.Approval=Yes,Use.Internet=Yes} => {CS.Interest=Yes}";0.102984201287303;0.571428571428571;1.84607075344315
+"{Family.Approval=No,Computer.Lan.House=No,Use.Text.Editor=Yes} => {CS.Interest=No}";0.100643651258046;0.502923976608187;1.82483455631293
+"{Family.Approval=Yes,Use.Social.Network=Yes} => {CS.Interest=Yes}";0.10825043885313;0.564024390243902;1.82215062935128
+"{Family.Approval=No,Computer.Lan.House=No,Use.Internet=Yes} => {CS.Interest=No}";0.102984201287303;0.5;1.81422505307856
+"{Family.Approval=Yes,Computer.Home=Yes} => {CS.Interest=Yes}";0.108835576360445;0.560240963855422;1.80992780194502
+"{Family.Approval=Yes,Computer.Digital.Inclusion.Centre=No} => {CS.Interest=Yes}";0.107665301345816;0.559270516717325;1.80679265230607
+"{Family.Approval=Yes,Computer.Home=Yes,Use.Social.Network=Yes} => {CS.Interest=Yes}";0.100643651258046;0.55663430420712;1.7982760413799

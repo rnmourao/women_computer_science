@@ -8,7 +8,7 @@
 ################################## Environment ######################################################
 
 ## Adapt this command to script's path
-setwd('/home/mourao/Documentos/women_computer_science/src/')
+# setwd('/home/mourao/Documentos/women_computer_science/src/')
 
 # Dependencies
 library(arules)
@@ -31,7 +31,7 @@ plot.dir <- '../dexa/img/'
 ################################# Data Preparation ##########################################
 
 # Get raw data
-poll.answers <- read_excel('../data/raw.xlsx', sheet='answers_2', col_types=rep("text", 38), na='')
+poll.answers <- read_excel('../data/raw.xlsx', sheet='answers', col_types=rep("text", 38), na='')
 
 # Cleanup data
 poll.answers$Q1 <- NULL
@@ -72,7 +72,7 @@ cat('Female interested in CS: ', nrow(poll.answers[poll.answers$CS.Interest=='Ye
 
 # APRIORI
 cs.rules = apriori(data = poll.answers, 
-                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=3), 
+                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=15), 
                    appearance = list(rhs = list("CS.Interest=Yes",
                                                 "CS.Interest=No"), default = "lhs"))
 
@@ -97,7 +97,7 @@ pdf(paste0(plot.dir, 'plot.apriori.pdf'))
 ignore <- dev.off()
 
 # df
-pdf(paste0(plot.dir, 'apriori.pdf'), width=8, height=2)
+pdf(paste0(plot.dir, 'apriori.pdf'), width=10, height=4)
   grid.table(rules.df, rows=NULL)
 ignore <- dev.off()
 
