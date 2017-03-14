@@ -28,6 +28,25 @@ rm(list=ls())
 #### Set working directory
 plot.dir <- '../dexa/img/'
 
+#### Functions
+
+# frequencies tables
+freq.table <- function(...) {
+  columns <- list(...)
+  column.names <- names(list(...))
+  mytable <- table(A=columns[[1]], B=columns[[2]])
+  Total <- margin.table(mytable, 1)
+  mytable <- cbind(mytable, Total)
+  Total <- margin.table(mytable, 2)
+  mytable <- rbind(mytable, Total)
+  mytable <- cbind(matrix(ncol=1, nrow=nrow(mytable)), mytable)
+  mytable <- rbind(matrix(nrow=1, ncol=ncol(mytable)), mytable)
+  rownames(mytable)[1] <- column.names[1]
+  colnames(mytable)[1] <- column.names[2]
+  mytable <- as.data.frame(mytable)
+  mytable[is.na(mytable)] <- " "
+  return(mytable)
+}
 
 ################################# Data Preparation ##########################################
 
@@ -75,6 +94,17 @@ cat('Female respondents: ', nrow(poll.answers), '\n\n')
 
 cat('Female interested in CS: ', nrow(poll.answers[poll.answers$CS.Interest=='Yes',]), '\n\n')
 
+## Frequency Tables
+for (i in 2:ncol(poll.answers)) {
+  attribute.name <- names(poll.answers)[i]
+  
+  ft <- freq.table(a=poll.answers[, i], CS.Interest=poll.answers$CS.Interest)
+  rownames(ft)[1] <- attribute.name
+  
+  cat("\n")
+  print(ft)
+}
+
 ############################# Association Rule Mining #################################
 
 # Mining rules
@@ -110,41 +140,6 @@ pdf(paste0(plot.dir, 'apriori.pdf'), width=10, height=4)
   grid.table(rules.df, rows=NULL)
 ignore <- dev.off()
 
-# frequencies tables
-freq.table <- function(...) {
-  columns <- list(...)
-  column.names <- names(list(...))
-  mytable <- table(A=columns[[1]], B=columns[[2]])
-  Total <- margin.table(mytable, 1)
-  mytable <- cbind(mytable, Total)
-  Total <- margin.table(mytable, 2)
-  mytable <- rbind(mytable, Total)
-  mytable <- cbind(matrix(ncol=1, nrow=nrow(mytable)), mytable)
-  mytable <- rbind(matrix(nrow=1, ncol=ncol(mytable)), mytable)
-  rownames(mytable)[1] <- column.names[1]
-  colnames(mytable)[1] <- column.names[2]
-  mytable <- as.data.frame(mytable)
-  mytable[is.na(mytable)] <- " "
-  return(mytable)
-}
-
-# Family.Approval
-freq.table(Family.Approval=poll.answers$Family.Approval, 
-           CS.Interest=poll.answers$CS.Interest)
-
-# Computer.Home
-freq.table(Computer.Home=poll.answers$Computer.Home, 
-           CS.Interest=poll.answers$CS.Interest)
-
-# Use.Creativity
-freq.table(Use.Creativity=poll.answers$Use.Creativity, 
-           CS.Interest=poll.answers$CS.Interest)
-
-# Use.Internet
-freq.table(Use.Internet=poll.answers$Use.Internet, 
-           CS.Interest=poll.answers$CS.Interest)
-
-# ...
 
 ############################################## Charts ###############################################
 ### Results per year 
