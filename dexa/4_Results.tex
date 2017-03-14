@@ -2,7 +2,7 @@
 
 % Family.Approval, Use.Creativity %
 
-The association rule mining resulted in 5 rules involving the students' interest in Computer Science. Figure \ref{fig:apriori} shows rules' left-hand side (lhs), rules' right-hand side (rhs), and support, confidence and lift metrics.
+The association rule mining resulted in 10 rules involving the students' interest in Computer Science. Figure \ref{fig:apriori} shows rules' left-hand side (lhs), rules' right-hand side (rhs), support, confidence and lift metrics.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/apriori.pdf}%
@@ -10,7 +10,7 @@ The association rule mining resulted in 5 rules involving the students' interest
 \label{fig:apriori}%
 \end{figure}%
 
-All rules found have as the right-hand side the value \emph{Yes} for the \emph{CS.Interest} attribute. Thus, the rules with items \emph{CS.Interest=No} and \emph{CS.Interest=Maybe} did not achieve the minimum prerequisites of confidence. Also, the rules found have confidence levels very close, between 0.56 and 0.58. The lift metric is similar, too, from 1.8 to 1.9. Figure \ref{fig:plot.apriori} shows in a chart this conclusions.
+The rules found had very close levels of confidence, between 0.56 and 0.59. The lift metric was similar, with values between 1.8 and 1.9. Figure \ref{fig:plot.apriori} shows in a chart this conclusions.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/{plot.apriori}.pdf}%
@@ -18,13 +18,21 @@ All rules found have as the right-hand side the value \emph{Yes} for the \emph{C
 \label{fig:plot.apriori}%
 \end{figure}%
 
-
 % Family.Approval %
-Another general result is the presence of \emph{Family.Approval=Yes} item in all rules. The values found in \emph{Family.Approval} attribute were three: \emph{Yes}, indicating the student believes that her family may approve her application for a Computer Science course; \emph{No}, stating that the student believes in family disapproval; and  \emph{Maybe} indicates that the students have doubts about her family's opinion. Figure \ref{fig:plot.Family.Approval} shows the number of respondents by answer involving \emph{Family.Approval} and \emph{CS.Interest} attributes.
+A general result was the presence of \emph{Family.Approval=Yes} item in all rules. The values found in \emph{Family.Approval} attribute were three: \emph{Yes}, indicating the student believes that her family may approve her application for a Computer Science course; \emph{No}, stating that the student believes in family disapproval; and  \emph{Maybe} indicates that the students have doubts about her family's opinion. Figure \ref{fig:plot.Family.Approval} shows the number of respondents by answer involving \emph{Family.Approval} and \emph{CS.Interest} attributes.
 
-The first rule on figure \ref{fig:apriori} has the highest confidence level and lift. The confidence metric, in this case,  states that 58\% of times a respondent believes that has family's approval and believes that CS uses creativity, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the perception of creativity in CS and the interest to apply for a CS course are correlated.
+Support metrics found in Figure \ref{fig:apriori} are varying from 10 to 12\%. This percentage is significant when compared to the total of respondents interested in CS (31\%).
 
-Although the support metric for the first rule on figure \ref{fig:apriori} indicates that the rule is found only in 10\% of data, this percentage is significant when compared to the total of respondents interested in CS (31\%). 
+% Confidence varied from 50 to 59\%. %
+
+% Lift varies from 1.8 to 1.9. This metric %
+
+
+The first rule on figure \ref{fig:apriori} had the highest confidence level. The confidence metric, in this case,  states that 59\% of times a respondent believes that has family's approval and doesn't use computer at home, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the lack of use of computer at home and the interest to apply for a CS course are correlated. 
+
+The second rule on figure \ref{fig:apriori} states that 58\% of times a respondent believes that has family's approval and believes that CS uses creativity, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the perception of creativity in CS and the interest to apply for a CS course are correlated.
+
+The third rule 
 
 The second rule in figure \ref{fig:apriori} indicates that family's approval is, per si, an important rule. Confidence and lift are only a bit smaller than their first rule pairs. The figure \ref{fig:plot.Family.Approval} has the number of respondents per girl's guess of family's opinion and own answer about interest in CS.
 
@@ -41,5 +49,3 @@ While the \emph{Family.Approval} attribute appears as an isolated rule in figure
 \caption{Amount of respondents by answer in Use.Creativity and in CS.Interest.}%
 \label{fig:plot.Use.Creativity}%
 \end{figure}%
-
-The other rules found in Figure \ref{fig:apriori} have confidence equal or lesser than the isolated \emph{Family.Approval} rule. The complimentary attributes don't appear isolated in other rules, too, quite similar to what happened to \emph{Use.Creativity} attribute.
