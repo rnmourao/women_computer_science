@@ -6,15 +6,31 @@
 Middle School: Ensino Fundamental II
 High School: Ensino Médio
 
+
 \subsection{Data Analysis}\label{subsec:background:data}%
 
 Data analysis includes, among other things, procedures for analyzing data and techniques for interpreting their results~\cite{Tukey1962}.
 
+The \emph{Apriori} algorithm provides a computationally feasible solution for finding association rules within data~\cite{Hastie2009}, with a clever approach to do less passes in the database: it generate candidate itemsets using only the itemsets found large in the previous pass~\cite{Agrawal1994}. The goal is to find the rules with the highest confidence, despite their number of occurrences (\emph{support}).
+
+\gnramos{Inserir detalhes do algoritmo?}
+
+
+
+A estratégia de abordagem na execução do algoritmo Apriori é encontrar regras que tenham o maior grau de confiança possível, a despeito de seu nível de suporte. Suspeito que tais regras sejam denominadas regras de exceção, já que temos um pequeno percentual de estudantes que desejam fazer ciência da computação.
+
+
 \gnramos{Breve relação das técnicas utilizadas}%
 
 
-\gnramos{Trabalhos correlacionados}%
+\subsection{Related Works}\label{sec:background:related}%
 
-Papastergiou~\cite{papastergiou_are_2008} investigated 358 male and female greek high school students' intentions and motivation towards and against pursuing academic studies in Computer Science (CS). The research pertained the influence of the family and the scholastic environment on students' career choices, the students' perceptions of CS profession as well as students' attendance at CS courses at school, the computer use in the home and the self-efficacy beliefs regarding computers. The study revealed that lack of opportunities for early use of computer in home and school seems to be the main factor of discouragement to boys and girls decide to study CS, having a much greater impact on girls; employability seems to be the main reason why Greek students decide to study CS; girls' motivation towards studying CS is related to extrinsic factors, e.g., enhanced employment prospects, rather than intrinsic ones, e.g., personal interest in CS; the majority of the students were not found to be explicitly encouraged to or deterred from studying CS by their family, friends, CS teachers or other adults; the students of the sample do not consider CS and the IT profession as masculine fields; within the home environment, girls were found to be less likely than boys to use a computer.
+In~\cite{papastergiou_are_2008}, 358 Greek high school students' intentions and motivation for pursuing academic studies in Computer Science were investigated. This research looked into the influence of family and academic environment on their career choices, their perception of a professional career in CS, the attendance in school courses related to the field, the use of a computer at home, and their self-efficacy beliefs regarding computers. The analysis showed that lack of an early use of a computer at home and in school seems to be the main factor discouraging students decide to study CS, and this is very clear considering only the girls' data.
 
-Anderson et al.~\cite{anderson_because_2008}, during three years, studied possible factors related to  low participation rates by females in education pathways leading to professional level information and communications technology (ICT) professions. The survey was offered to 1,453 senior high school girls, and used binary options, e.g., "I am very interested in computers" and "I am not interested in computers". The study identified that are two factors associated with women's aversion toward a ICT profession: the perception that these subjects are boring, and a strongly aversion to computers. 
+The main reason why Greek students decide to study CS is employability; and the girls' motivation is more closely related to extrinsic factors, such as improved employment prospects, than to intrinsic ones (like a personal interest in the field). The majority of students were not explicitly encouraged to or deterred from studying CS by others (including family and friends); they do not consider CS or IT related professions as a mainly masculine options.
+
+In~\cite{anderson_because_2008}, a study of possible factors related to low rates of female participation in education pathways leading to information and communications technology (ICT) professions was done considering data from a three-year period. The survey using binary options, such as ``I am very interested in computers'' and ``I am not interested in computers'', was presented to 1,453 high school girls in their Senior year. The study identified two factors associated with a woman's aversion to an ICT profession: the perception that the subject is boring, and a strong dislike of computers.
+
+\gnramos{Qual o mérito deste trabalho?}
+
+Our work searches for insights on students' motivation for academic studies in Computer Science, with a clear gender bias (looking and girls only) and analyzing a larger data set of Brazilian students.
