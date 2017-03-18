@@ -101,8 +101,16 @@ for (i in 2:ncol(poll.answers)) {
   ft <- freq.table(a=poll.answers[, i], CS.Interest=poll.answers$CS.Interest)
   rownames(ft)[1] <- attribute.name
   
-  cat("\n")
-  print(ft)
+  # turn bold rownames' font 
+  t1 <- ttheme_minimal(rowhead=list(fg_params=list(fontface=c(rep("bold", nrow(ft))))))
+  
+  # size of image
+  w <- .7 * ncol(ft) + .1 * max(nchar(row.names(ft)))
+  h <- 1 + nrow(ft) * .2 
+  
+  pdf(paste0(plot.dir, 'freq.', attribute.name, '.pdf'), width=w, height=h)
+    grid.table(ft, theme=t1)
+  ignore <- dev.off()
 }
 
 ############################# Association Rule Mining #################################
@@ -113,6 +121,7 @@ for (i in 2:ncol(poll.answers)) {
 cs.rules = apriori(data = poll.answers, 
                    parameter = list(confidence = 0.5, maxtime = 300, maxlen=5), 
                    appearance = list(rhs = list("CS.Interest=Yes",
+                                                "CS.Interest=Maybe",
                                                 "CS.Interest=No"), default = "lhs"))
 
 cs.rules.ordered <- sort(cs.rules, by = 'lift')
@@ -126,6 +135,7 @@ rules.df$rhs <- substr(rules.df$rules,
                        nchar(as.character(rules.df$rules)))
 rules.df$rules <- NULL
 rules.df <- rules.df[, c(4, 5, 1, 2, 3)]
+rules.df <- subset(rules.df, rules.df$lift >= 1.8)
 
 # Saving rules on disk
 write(cs.rules.ordered, file='../data/apriori.csv', sep=";", row.names = FALSE)
