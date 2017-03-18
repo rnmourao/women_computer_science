@@ -135,7 +135,7 @@ rules.df$rhs <- substr(rules.df$rules,
                        nchar(as.character(rules.df$rules)))
 rules.df$rules <- NULL
 rules.df <- rules.df[, c(4, 5, 1, 2, 3)]
-rules.df <- subset(rules.df, rules.df$lift >= 1.8)
+rules.df <- subset(rules.df, rules.df$lift >= 1.5)
 
 # Saving rules on disk
 write(cs.rules.ordered, file='../data/apriori.csv', sep=";", row.names = FALSE)

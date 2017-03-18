@@ -1,8 +1,6 @@
 \section{Experimental Results}\label{sec:results}%
 
-% Family.Approval, Use.Creativity %
-
-The association rule mining resulted in 1,171 rules involving the students' interest in Computer Science. Rules with lift less than 1.8 were excluded. Figure \ref{fig:apriori} shows rules' left-hand side (lhs), rules' right-hand side (rhs), support, confidence and lift metrics.
+The association rule mining resulted in 1,171 rules involving the students' interest in Computer Science. Rules with lift less than 50\% were excluded, remaining only ten rules. Figure \ref{fig:apriori} shows rules' left-hand side (LHS), rules' right-hand side (RHS), support, confidence and lift metrics.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/apriori.pdf}%
@@ -10,7 +8,7 @@ The association rule mining resulted in 1,171 rules involving the students' inte
 \label{fig:apriori}%
 \end{figure}%
 
-The rules found had very close levels of confidence, between 0.56 and 0.59. The lift metric was similar, with values between 1.8 and 1.9. Figure \ref{fig:plot.apriori} shows in a chart this conclusions.
+The rules with the highest lift, between 80\% and 90\%, had support between 10\% and 12\%, confidence between 56\% and 59\%. Figure \ref{fig:plot.apriori} shows in a chart this conclusions.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/{plot.apriori}.pdf}%
@@ -19,22 +17,7 @@ The rules found had very close levels of confidence, between 0.56 and 0.59. The 
 \end{figure}%
 
 % Family.Approval %
-A general result was the presence of \emph{Family.Approval=Yes} item in all rules. The values found in \emph{Family.Approval} attribute were three: \emph{Yes}, indicating the student believes that her family may approve her application for a Computer Science course; \emph{No}, stating that the student believes in family disapproval; and  \emph{Maybe} indicates that the students have doubts about her family's opinion. Figure \ref{fig:plot.Family.Approval} shows the number of respondents by answer involving \emph{Family.Approval} and \emph{CS.Interest} attributes.
-
-Support metrics found in Figure \ref{fig:apriori} are varying from 10 to 12\%. This percentage is significant when compared to the total of respondents interested in CS (31\%).
-
-% Confidence varied from 50 to 59\%. %
-
-% Lift varies from 1.8 to 1.9. This metric %
-
-
-The first rule on figure \ref{fig:apriori} had the highest confidence level. The confidence metric, in this case,  states that 59\% of times a respondent believes that has family's approval and doesn't use computer at home, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the lack of use of computer at home and the interest to apply for a CS course are correlated. 
-
-The second rule on figure \ref{fig:apriori} states that 58\% of times a respondent believes that has family's approval and believes that CS uses creativity, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the perception of creativity in CS and the interest to apply for a CS course are correlated.
-
-The third rule 
-
-The second rule in figure \ref{fig:apriori} indicates that family's approval is, per si, an important rule. Confidence and lift are only a bit smaller than their first rule pairs. The figure \ref{fig:plot.Family.Approval} has the number of respondents per girl's guess of family's opinion and own answer about interest in CS.
+A general result was the presence of \emph{Family.Approval} attribute in all rules. The values found in \emph{Family.Approval} attribute were three: \emph{Yes}, indicating the student believes that her family may approve her application for a Computer Science course; \emph{No}, stating that the student believes in family disapproval; and  \emph{Maybe} indicates that the students have doubts about her family's opinion. Figure \ref{fig:plot.Family.Approval} shows the number of respondents by answer involving \emph{Family.Approval} and \emph{CS.Interest} attributes.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/{plot.Family.Approval}.pdf}%
@@ -42,10 +25,64 @@ The second rule in figure \ref{fig:apriori} indicates that family's approval is,
 \label{fig:plot.Family.Approval}%
 \end{figure}%
 
-While the \emph{Family.Approval} attribute appears as an isolated rule in figure \ref{fig:apriori}, it is noticeable that this does not happen for \emph{Use.Creativity}. The absence of such rule indicates that creativity alone is not a strong stimulus to respondents decide for Computer Science. Figure \ref{fig:plot.Use.Creativity} shows the number of respondents per girl's opinion about the use of creativity in CS and the interest in applying for a Computer Science course.
+The first rule on figure \ref{fig:apriori} had the highest confidence level, wich states, in this case, that 59\% of times a respondent believes that has family's approval and doesn't use a computer at work, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the lack of use of a computer at work and the interest to apply for a CS course are correlated. A problem with this rule is the percentage of students who work. A survey~\ref{ibge_mais_2002} performed by IBGE in 2007 revealed that 10.6\% of children and teenagers at Brazil work. The Figure \ref{fig:plot.Computer.Work} shows the discrepancy of students who work and don't work is similar to the different answers about interest in Computer Science.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{plot.Computer.Work}.pdf}%
+\caption{Amount of respondents by answer in Computer.Work and in CS.Interest.}%
+\label{fig:plot.Computer.Work}%
+\end{figure}%
+
+The second rule on figure \ref{fig:apriori} states that 58\% of times a respondent believes that has family's approval and believes that CS uses creativity, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the perception of creativity in CS and the interest to apply for a CS course are correlated. Figure \ref{fig:plot.Use.Creativity} shows that there are no great differences between students' opinion about creativity in Computer Science and their interest in CS courses. Thus, Use.Creativity and Computer.Work attributes have no significance compared to the Family.Approval attribute.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/{plot.Use.Creativity}.pdf}%
 \caption{Amount of respondents by answer in Use.Creativity and in CS.Interest.}%
 \label{fig:plot.Use.Creativity}%
+\end{figure}%
+
+The third rule in figure \ref{fig:apriori} indicates that family's approval is, per si, an important rule. Confidence and lift are only a bit smaller than their first rule pairs. The figure \ref{fig:freq.Family.Approval} has the number of respondents per girl's guess of family's opinion and own answer about interest in CS.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{freq.Family.Approval}.pdf}%
+\caption{Amount of respondents by answer in Family.Approval and in CS.Interest.}%
+\label{fig:freq.Family.Approval}%
+\end{figure}%
+
+Other attributes shown in Figure \ref{fig:apriori} had significance lowered, as Computer.Work and Use.Creativity, as shown in figures \ref{fig:plot.Computer.Digital.Inclusion.Centre}~\ref{fig:plot.Computer.Home}~\ref{fig:plot.Computer.Lan.House}~\ref{fig:plot.Use.Internet}~\ref{fig:plot.Use.Social.Network}~\ref{fig:plot.Use.Text.Editor}. 
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{plot.Computer.Digital.Inclusion.Centre}.pdf}%
+\caption{Amount of respondents by answer in Computer.Digital.Inclusion.Centre and in CS.Interest.}%
+\label{fig:plot.Computer.Digital.Inclusion.Centre}%
+\end{figure}%
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{plot.Computer.Home}.pdf}%
+\caption{Amount of respondents by answer in Computer.Home and in CS.Interest.}%
+\label{fig:plot.Computer.Home}%
+\end{figure}%
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{plot.Computer.Lan.House}.pdf}%
+\caption{Amount of respondents by answer in Computer.Lan.House and in CS.Interest.}%
+\label{fig:plot.Computer.Lan.House}%
+\end{figure}%
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{plot.Use.Internet}.pdf}%
+\caption{Amount of respondents by answer in Use.Internet and in CS.Interest.}%
+\label{fig:plot.Use.Internet}%
+\end{figure}%
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{plot.Use.Social.Network}.pdf}%
+\caption{Amount of respondents by answer in Use.Social.Network and in CS.Interest.}%
+\label{fig:plot.Use.Social.Network}%
+\end{figure}%
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{img/{plot.Use.Text.Editor}.pdf}%
+\caption{Amount of respondents by answer in Use.Text.Editor and in CS.Interest.}%
+\label{fig:plot.Use.Text.Editor}%
 \end{figure}%
