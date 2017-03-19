@@ -11,17 +11,22 @@ High School: Ensino Médio
 
 Data analysis includes, among other things, procedures for analyzing data and techniques for interpreting their results~\cite{Tukey1962}.
 
-The \emph{Apriori} algorithm provides a computationally feasible solution for finding association rules within data~\cite{Hastie2009}, with a clever approach to do less passes in the database: it generate candidate itemsets using only the itemsets found large in the previous pass~\cite{Agrawal1994}. The goal is to find the rules with the highest confidence, despite their number of occurrences (\emph{support}).
+The \emph{Apriori} algorithm provides a computationally feasible solution for finding association rules within data~\cite{Hastie2009}, with a clever approach to do less passes in the database: it generate candidate itemsets using only the itemsets found large in the previous pass~\cite{Agrawal1994}. The goal is to find the rules with the highest \emph{confidence}, despite their number of occurrences (\emph{support}) \cite{taniar_exception_2008}. 
+
+The equation \ref{eq:eq.Rule} denotes a rule, and it is read as: "if A occurred, then B occurs". The itemsets before the arrow are called \emph{antecedent}. Analogously, the itemsets after the arrow are called \emph{consequent}~\cite{Hastie2009}.
+
+\begin{equation}
+{A} => {B}
+\label{eq:eq.Rule}%
+\end{equation}
+
+The confidence is the conditional probability P(B|A), i.e., the probability of \emph{A} will occur, since \emph{B} occurred~\cite{Hastie2009}.
+
+Another measure used in this paper, in order to select interesting rules, was \emph{lift}, which computes the ratio between the rule's confidence and the support of the itemset in the rule consequent. It represents the level of association between the antecedent and the consequent.~\cite{tan2006introduction}
 
 \gnramos{Inserir detalhes do algoritmo?}
 
-
-
-A estratégia de abordagem na execução do algoritmo Apriori é encontrar regras que tenham o maior grau de confiança possível, a despeito de seu nível de suporte. Suspeito que tais regras sejam denominadas regras de exceção, já que temos um pequeno percentual de estudantes que desejam fazer ciência da computação.
-
-
 \gnramos{Breve relação das técnicas utilizadas}%
-
 
 \subsection{Related Works}\label{sec:background:related}%
 

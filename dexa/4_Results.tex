@@ -1,6 +1,6 @@
 \section{Experimental Results}\label{sec:results}%
 
-The association rule mining resulted in 1,171 rules involving the students' interest in Computer Science. Rules with lift less than 50\% were excluded, remaining only ten rules. Figure \ref{fig:apriori} shows rules' left-hand side (LHS), rules' right-hand side (RHS), support, confidence and lift metrics.
+The association rule mining resulted in 1,171 rules involving the students' interest in Computer Science. Rules with lift less than 50\% were excluded, remaining only ten rules. Figure \ref{fig:apriori} shows rules' antecedent or left-hand side (LHS), rules' consequent or right-hand side (RHS), support, confidence and lift metrics.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/apriori.pdf}%
@@ -25,7 +25,7 @@ A general result was the presence of \emph{Family.Approval} attribute in all rul
 \label{fig:plot.Family.Approval}%
 \end{figure}%
 
-The first rule on figure \ref{fig:apriori} had the highest confidence level, wich states, in this case, that 59\% of times a respondent believes that has family's approval and doesn't use a computer at work, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the lack of use of a computer at work and the interest to apply for a CS course are correlated. A problem with this rule is the percentage of students who work. A survey~\ref{ibge_mais_2002} performed by IBGE in 2007 revealed that 10.6\% of children and teenagers at Brazil work. The Figure \ref{fig:plot.Computer.Work} shows the discrepancy of students who work and don't work is similar to the different answers about interest in Computer Science.
+The first rule on figure \ref{fig:apriori} had the highest confidence level, wich states, in this case, that 59\% of times a respondent believes that has family's approval and doesn't use a computer at work, then she will have an interest in CS. The 1.9 lift indicates that there are 90\% of chance that the family's approval, the lack of use of a computer at work and the interest to apply for a CS course are correlated. A problem with this rule is the percentage of students who work. A survey~\cite{ibge2007} performed by IBGE in 2007 revealed that 10.6\% of children and teenagers at Brazil work. The Figure \ref{fig:plot.Computer.Work} shows the discrepancy of students who work and don't work is similar to the different answers about interest in Computer Science.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/{plot.Computer.Work}.pdf}%
@@ -49,7 +49,7 @@ The third rule in figure \ref{fig:apriori} indicates that family's approval is, 
 \label{fig:freq.Family.Approval}%
 \end{figure}%
 
-Other attributes shown in Figure \ref{fig:apriori} had significance lowered, as Computer.Work and Use.Creativity, as shown in figures \ref{fig:plot.Computer.Digital.Inclusion.Centre}~\ref{fig:plot.Computer.Home}~\ref{fig:plot.Computer.Lan.House}~\ref{fig:plot.Use.Internet}~\ref{fig:plot.Use.Social.Network}~\ref{fig:plot.Use.Text.Editor}. 
+Other attributes shown in Figure \ref{fig:apriori} have low significance, like Computer.Work and Use.Creativity, as shown in figures \ref{fig:plot.Computer.Digital.Inclusion.Centre}~\ref{fig:plot.Computer.Home}~\ref{fig:plot.Computer.Lan.House}~\ref{fig:plot.Use.Internet}~\ref{fig:plot.Use.Social.Network}~\ref{fig:plot.Use.Text.Editor}. 
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/{plot.Computer.Digital.Inclusion.Centre}.pdf}%
