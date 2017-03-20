@@ -11,7 +11,8 @@ The association rule mining resulted in 1,171 rules involving the students' inte
 The rules with the highest lift, between 80\% and 90\%, had support between 10\% and 12\%, confidence between 56\% and 59\%. Figure \ref{fig:plot.apriori} shows in a chart this conclusions.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/{plot.apriori}.pdf}%
+\centering
+\includegraphics[scale=0.5]{img/{plot.apriori}.pdf}%
 \caption{Rules with higher confidence, ordered by lift.}%
 \label{fig:plot.apriori}%
 \end{figure}%
@@ -44,12 +45,13 @@ The second rule on figure \ref{fig:apriori} states that 58\% of times a responde
 The third rule in figure \ref{fig:apriori} indicates that family's approval is, per si, an important rule. Confidence and lift are only a bit smaller than their first rule pairs. The figure \ref{fig:freq.Family.Approval} has the number of respondents per girl's guess of family's opinion and own answer about interest in CS.
 
 \begin{figure}%
-\includegraphics[width=\textwidth]{img/{freq.Family.Approval}.pdf}%
+\centering
+\includegraphics[scale=0.8]{img/{freq.Family.Approval}.pdf}%
 \caption{Amount of respondents by answer in Family.Approval and in CS.Interest.}%
 \label{fig:freq.Family.Approval}%
 \end{figure}%
 
-Other attributes shown in Figure \ref{fig:apriori} have low significance, like Computer.Work and Use.Creativity, as shown in figures \ref{fig:plot.Computer.Digital.Inclusion.Centre}~\ref{fig:plot.Computer.Home}~\ref{fig:plot.Computer.Lan.House}~\ref{fig:plot.Use.Internet}~\ref{fig:plot.Use.Social.Network}~\ref{fig:plot.Use.Text.Editor}. 
+Other attributes shown in Figure \ref{fig:apriori} have low significance, like Computer.Work and Use.Creativity, as shown in figures \ref{fig:plot.Computer.Digital.Inclusion.Centre}~\ref{fig:plot.Computer.Home}~\ref{fig:plot.Computer.Lan.House}~\ref{fig:plot.Use.Internet}~\ref{fig:plot.Use.Social.Network}~\ref{fig:plot.Use.Text.Editor}. Consequently, all these results indicate that the family's opinion is the most important factor to these girls, in order to decide to apply (or not) for a CS course.
 
 \begin{figure}%
 \includegraphics[width=\textwidth]{img/{plot.Computer.Digital.Inclusion.Centre}.pdf}%
@@ -86,3 +88,5 @@ Other attributes shown in Figure \ref{fig:apriori} have low significance, like C
 \caption{Amount of respondents by answer in Use.Text.Editor and in CS.Interest.}%
 \label{fig:plot.Use.Text.Editor}%
 \end{figure}%
+
+
