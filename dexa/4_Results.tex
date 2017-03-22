@@ -1,4 +1,5 @@
 \section{Experimental Results}\label{sec:results}%
+In order to try to understand the profiles of girls intending to enroll in undergraduate studies, especially those interested in Computer Science, we applied Apriori's association rule algorithm to the data, with the minimum confidence level equal to 50\%, and with a maximum number of 3 items in an itemset. A filter was applied to select only the rules involving the variable \emph{CS.Interest} on the rules' right-hand sides. The rules were analyzed considering support, confidence and lift metrics.
 
 The association rule mining resulted in 1,171 rules involving the students' interest in Computer Science. Rules with lift less than 50\% were excluded, remaining only ten rules. Figure \ref{fig:apriori} shows rules' antecedent or left-hand side (LHS), rules' consequent or right-hand side (RHS), support, confidence and lift metrics.
 

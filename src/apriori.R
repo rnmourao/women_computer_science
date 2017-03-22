@@ -57,22 +57,31 @@ poll.answers <- read_excel('../data/raw.xlsx', sheet='answers', col_types=rep("t
 poll.answers$Q1 <- NULL
 poll.answers$Q2 <- NULL
 
-cat('Number of respondents: ', nrow(poll.answers), '\n\n')
+cat('---------------------------------------------------\n')
+cat('                Total number of respondents: |', nrow(poll.answers), '\n')
+
+# Remove 2011's questionnaires
+poll.answers <- subset(poll.answers, poll.answers$Year != 2011)
+
+cat('    Number of respondents from 2012 to 2014: |', nrow(poll.answers), '\n')
 
 # Girls only
 poll.answers <- subset(poll.answers, poll.answers$Gender == 'F')
 poll.answers$Gender <- NULL
 
-# Remove 2011's questionnaires
-poll.answers <- subset(poll.answers, poll.answers$Year != 2011)
+cat('          Number of girls from 2012 to 2014: |', nrow(poll.answers), '\n')
+
 
 # Only Middle and High Schools
-poll.answers <- subset(poll.answers, 
-                       poll.answers$Educational.Stage != 'College' & 
+poll.answers <- subset(poll.answers,
+                       poll.answers$Educational.Stage != 'College' &
                          poll.answers$Educational.Stage != 'Adult Education Program')
+
+cat('               Middle and High School girls: |', nrow(poll.answers), '\n')
 
 # Remove NA from CS.Interest
 poll.answers <- subset(poll.answers, !is.na(poll.answers$CS.Interest))
+cat(' Girls who answered if any interest in CS  : |', nrow(poll.answers), '\n')
 
 # transform variables type to factor
 poll.answers <- as.data.frame(lapply(poll.answers, as.factor))
@@ -82,7 +91,7 @@ for (i in 1:ncol(poll.answers)) {
   if (length(levels(poll.answers[, i])) == 3 &
       names(poll.answers)[i] != 'Year' &
       names(poll.answers)[i] != 'Field.Interest') {
-    poll.answers[, i] <- factor(poll.answers[, i], 
+    poll.answers[, i] <- factor(poll.answers[, i],
                                        levels=c("No", "Maybe", "Yes"))
   }
 }
@@ -90,24 +99,24 @@ for (i in 1:ncol(poll.answers)) {
 # Ordering columns
 poll.answers <- poll.answers[, c('CS.Interest', setdiff(names(poll.answers), 'CS.Interest'))]
 
-cat('Female respondents: ', nrow(poll.answers), '\n\n')
+cat('                  Girls with interest in CS: |', nrow(poll.answers[poll.answers$CS.Interest=='Yes',]), '\n')
+cat('---------------------------------------------------\n')
 
-cat('Female interested in CS: ', nrow(poll.answers[poll.answers$CS.Interest=='Yes',]), '\n\n')
 
 ## Frequency Tables
 for (i in 2:ncol(poll.answers)) {
   attribute.name <- names(poll.answers)[i]
-  
+
   ft <- freq.table(a=poll.answers[, i], CS.Interest=poll.answers$CS.Interest)
   rownames(ft)[1] <- attribute.name
-  
-  # turn bold rownames' font 
+
+  # turn bold rownames' font
   t1 <- ttheme_minimal(rowhead=list(fg_params=list(fontface=c(rep("bold", nrow(ft))))))
-  
+
   # size of image
   w <- .7 * ncol(ft) + .1 * max(nchar(row.names(ft)))
-  h <- 1 + nrow(ft) * .2 
-  
+  h <- 1 + nrow(ft) * .2
+
   pdf(paste0(plot.dir, 'freq.', attribute.name, '.pdf'), width=w, height=h)
     grid.table(ft, theme=t1)
   ignore <- dev.off()
@@ -118,8 +127,8 @@ for (i in 2:ncol(poll.answers)) {
 # Mining rules
 
 # APRIORI
-cs.rules = apriori(data = poll.answers, 
-                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=5), 
+cs.rules = apriori(data = poll.answers,
+                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=5),
                    appearance = list(rhs = list("CS.Interest=Yes",
                                                 "CS.Interest=Maybe",
                                                 "CS.Interest=No"), default = "lhs"))
@@ -127,11 +136,11 @@ cs.rules = apriori(data = poll.answers,
 cs.rules.ordered <- sort(cs.rules, by = 'lift')
 
 rules.df <- cbind(as(cs.rules.ordered, "data.frame"))
-rules.df$lhs <- substr(rules.df$rules, 
-                       1, 
+rules.df$lhs <- substr(rules.df$rules,
+                       1,
                        regexpr(' =>', as.character(rules.df$rules), fixed=TRUE))
-rules.df$rhs <- substr(rules.df$rules, 
-                       regexpr('=>', as.character(rules.df$rules), fixed=TRUE) + 3, 
+rules.df$rhs <- substr(rules.df$rules,
+                       regexpr('=>', as.character(rules.df$rules), fixed=TRUE) + 3,
                        nchar(as.character(rules.df$rules)))
 rules.df$rules <- NULL
 rules.df <- rules.df[, c(4, 5, 1, 2, 3)]
@@ -152,7 +161,7 @@ ignore <- dev.off()
 
 
 ############################################## Charts ###############################################
-### Results per year 
+### Results per year
 respondents.per.year <- aggregate(x=list(Total=poll.answers$Year),
                                   by=list(Year=poll.answers$Year),
                                   FUN=length)
@@ -165,8 +174,7 @@ p <- ggplot(data=respondents.per.year, aes(x='', y=Total, fill=Year)) +
   # ggtitle('Respondents per Year') +
   ggsave(paste0(plot.dir, 'RespondentsPerYear.pdf'), width=7, height=2)
 
-
-### Results per educational stage 
+### Results per educational stage
 educational.stage <- aggregate(x=list(total=poll.answers$Educational.Stage),
                                by=list(Year=poll.answers$Year, Educational.Stage=poll.answers$Educational.Stage),
                                FUN=length)
@@ -186,7 +194,7 @@ p <- ggplot(data=educational.stage, aes(x='', y=Percentage, fill=Educational.Sta
                                'High School (11th Grade)', 'High School (12th Grade)'))
 ggsave(paste0(plot.dir, 'EducationalStage.pdf'), width=7, height=2)
 
-### Results per interest in undergraduate field of study 
+### Results per interest in undergraduate field of study
 field.of.interest <- aggregate(x=list(NumRespondents=poll.answers$Field.Interest),
                                by=list(Year=poll.answers$Year, FieldOfInterest=poll.answers$Field.Interest),
                                FUN=length)

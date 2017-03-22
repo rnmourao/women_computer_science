@@ -1,155 +1,13 @@
-\section{Data Mining}\label{sec:mining}%
-%3. Teoria sobre a análise dos Dados (Roberto e Guilherme).%
+\section{Data on Brazilian Middle and High School Girls}\label{sec:mining}%
 
-Data mining is the process of discovering insightful patterns and predictive models from data~\cite{Zaki2014}, trying to make sense of usually large amounts of information in some domain~\cite{Cios2007}. \gnramos{In this work, the primary interest is the gender gap in the fields of the "hard sciences," so we attempt to understand the profiles of women intending to enroll in undergraduate studies, especially those interested in Computer Science.}
-
-From 2012 to 2014, 1709 people were polled, responding a questionnaire\footnote{\url{https://github.com/rnmourao/women\_computer\_science/blob/master/data/questionnaire.pdf}}. The idea was to obtain information on their perceptions of their future undergraduate studies.
-
-\subsection{Poll}\label{sec:mining:poll}%
-The poll had 18 questions, decribed below:
-
-\begin{enumerate}
-    \item Gender:
-        \begin{enumerate}
-            \item Female
-            \item Male
-        \end{enumerate}
-    \item Educational Stage:
-        \begin{enumerate}
-            \item Middle School
-            \item High School (10th Grade)
-            \item High School (11th Grade)
-            \item High School (12th Grade)    
-            \item Adult Education Program
-            \item College        
-        \end{enumerate}
-    \item Which is your Field of Interest?
-        \begin{itemize}
-            \item Biology-Health Sciences 
-            \item Human Sciences
-            \item Exact Sciences    
-        \end{itemize}
-    \item Are you intend to apply for a Computer Science course?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}
-    \item Mark all places where you use computers:
-        \begin{itemize}
-            \item Home
-            \item Relatives' House
-            \item Friends's House
-            \item School
-            \item Work
-            \item Lan House
-            \item Library
-            \item Digital Inclusion Centre
-        \end{itemize}
-    \item Mark all softwares or activities you use or do with  a computer:
-        \begin{itemize}
-            \item Text Editor (Microsoft Word, etc.)
-            \item Image Editor
-            \item Spreadsheet
-            \item Database
-            \item Web Browser (Search Engines, News, etc.)
-            \item Social Networks (Facebook, Orkut, etc.)
-            \item E-mail
-            \item Games
-            \item Create Web Pages
-            \item Create Softwares
-            \item Other Softwares
-        \end{itemize}
-    \item Does a Computer Science course only teaches how to use software?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}
-    \item Does a Computer Science course uses easy Math?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}    
-    \item Does the majority of Computer Science's students are male?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}
-    \item Is it necessary to know how to use computers to apply for a Computer Science course?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}                            
-    \item Is it necessary to graduate in Computer Science to work in the area?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}        
-    \item Would your family like you to apply for a Computer Science course?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}                
-    \item It is difficult to get a job after undergraduate in Computer Science?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}        
-    \item Who works with Computer Science has few hours of leisure?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}    
-    \item Does working with Computer Science allow you to exercise creativity?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}
-    \item Does working with Computer Science brings prestige?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}    
-    \item Does working with Computer Science allow you to earn a good salary?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}
-    \item Does working with Computer Science allow you to work in other fields?
-        \begin{itemize}
-            \item Yes
-            \item No
-            \item Maybe
-        \end{itemize}                                    
-\end{enumerate}
-
-The questions were translated into 36 variables, as following: Gender, Educational.Stage, Field.Interest, Interest.CS, Computer.Home, Computer.Relatives, Computer.Friends, Computer.School, Computer.Work, Computer.Lan.House, Computer.Library, Computer.Digital.Inclusion.Centre, Use.Text.Editor, Use.Image.Editor, Use.Spreadsheet, Use.Database, Use.Internet, Use.Social.Network, Use.Email, Use.Games, Create.Web.Pages, Create.Softwares, Use.Other.Softwares, Only.Teaches.Software, Has.Low.Math, Man.Majority, Need.Know.Computer, Need.Higher.Education, Family.Approval, Low.Employability, Low.Leisure, Use.Creativity, Bring.Prestige, Good.Salary, Interdisciplinarity, and Year.
-
-\gnramos{descrição das perguntas, motivações, tipos de respostas (categoricas, numericas...)}
+From 2011 to 2014, 3707 people were polled, responding a questionnaire\footnote{\url{http://goo.gl/Df6nEi}}. The idea was to obtain information on their perceptions of their future undergraduate studies. The poll had 18 questions, concerning gender, education, academic interests, possibilities before, during and after the pursuit of a degree in Computer Science, and how computers were used. These were translated into 36 variables and the data was investigated.
 
 \subsection{Statistical Analysis}\label{sec:mining:stat}%
-The usual pre-processing tasks were quickly done; all questionnaires were created and processed by CESPE\footnote{\url{http://www.cespe.unb.br/}}, a specialized research center, and the results given in simple spreadsheets. The data for all years was consolidated in a single spreadsheet\footnote{\url{https://github.com/rnmourao/women\_computer\_science/blob/master/data/raw.xlsx}}, which was then processed in the \texttt{R} programming language.
+The usual pre-processing tasks were quickly done; all questionnaires were created and processed by CESPE\footnote{\url{http://www.cespe.unb.br}}, a specialized research center, and the results given in simple spreadsheets. The data for all years was consolidated in a single spreadsheet\footnote{\url{http://goo.gl/RORYAa}}, which was then processed in the \texttt{R} programming language.
 
-The script cleans up the data (empty columns, whitespaces, etc.) and begins to process it for analysis. The first step is to consider only the data for the 1709 female respondents. The data is distributed throughout the years as illustrated in Figure~\ref{fig:RespondentsPerYear}. \gnramos{Descrição desta informação}.
+The script cleans up the data (empty columns, whitespaces, etc.) and begins to process it for analysis. The first step was to remove the data for the year 2011 because the poll for that year had different questions than those of the following years. Then we selected the data subset for group of interest: Middle or High School girls who have answered if they have interest in a CS major. This resulted in data for 1709 respondents of which 878 in the year 2012, 469 in 2013, and 362 in 2014.
 
-\begin{figure}[h!]%
-\includegraphics[width=\textwidth]{img/RespondentsPerYear}%
-\caption{Number of respondents per year.}%
-\label{fig:RespondentsPerYear}%
-\end{figure}%
-
-Figure~\ref{fig:EducationalStage} shows how the respondents were distributed by educational stage, indicates that \gnramos{qual a relevância desta informação?},
+The amount of data from 2012 is roughly twice the size of the other years, \gnramos{Qual o motivo de haver mais dados de 2012?}. Nevertheless, the answers have a similar distribution throughout the years, as can be seen in the following figures, such as Figure~\ref{fig:EducationalStage} which shows how they were distributed by educational stage, indicates that \gnramos{qual a relevância desta informação?},
 
 \begin{figure}[h!]%
 \includegraphics[width=\textwidth]{img/EducationalStage}%
@@ -165,15 +23,10 @@ Figure~\ref{fig:FieldOfInterest} shows the respondents' interest in different fi
 \label{fig:FieldOfInterest}%
 \end{figure}%
 
-Figure~\ref{fig:InterestInCS.pdf} shows the respondents' interest in applying for a Computer Science course. This results indicate that $31\%$  \emph{have interest}, $28\%$  \emph{have no interest}, and $41\%$  \emph{have doubt}
+Figure~\ref{fig:InterestInCS} shows the respondents' interest in enrolling in a Computer Science major. In average, the data shows that $31\%$ of the girls \emph{have interest} while $28\%$ \emph{have no interest} and $41\%$ \emph{have doubt}.
 
 \begin{figure}[h!]%
-\includegraphics[width=\textwidth]{img/InterestInCS.pdf}%
+\includegraphics[width=\textwidth]{img/InterestInCS}%
 \caption{Respondents interested in Computer Science.}%
-\label{fig:InterestInCS.pdf}%
+\label{fig:InterestInCS}%
 \end{figure}%
-
-% APRIORI %%%%%%%%%%%
-As described earlier, the data consisted of a group of 1,709 questionnaires with 18 questions each. There were 3,707 surveys, but some were excluded for many reasons: some were answered by men, others were answered by College or Adult Education Program students. None of these were adequate for the study. The questionnaires from 2011 were excluded because the poll was conducted differently of the others years.
-
-An Apriori's association rule mining algorithm was performed on the data, with the minimum confidence level equal to 50\%, and with a maximum number of 3 items in an itemset. A filter was applied to select only the rules involving the variable \emph{CS.Interest} on the rules' right-hand sides. The rules were analyzed considering support, confidence and lift metrics.
