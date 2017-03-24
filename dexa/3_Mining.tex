@@ -6,7 +6,9 @@ Association rules are easy to understand, for example:``\emph{if A occurred, the
 \label{eq:eq.Rule}%
 \end{equation}
 
-The confidence is the conditional probability $P(B|A)$, i.e., the probability of \emph{A} will occur, since \emph{B} occurred~\cite{Hastie2009}. Another measure used in this paper, in order to select interesting rules, is \emph{lift}, which computes the ratio between the rule's confidence and the support of the itemset in the rule consequent. It represents the level of association between the antecedent and the consequent~\cite{tan2006introduction}. \gnramos{For example, when inquiring students for their perspectives in an undergraduate course, one might find a rule such as ``\emph{if the student knows a CS professional has a good salary, then he/she will consider applying for a CS degree}''}.
+The confidence is the conditional probability $P(B|A)$, i.e., the probability of \emph{A} will occur, since \emph{B} occurred~\cite{Hastie2009}. \gnramos{Therefore, when inquiring students for their perspectives in an undergraduate course, one might find a rule such as ``\emph{if the student knows a CS professional has good wages, then he/she will consider applying for a CS degree}''}.
+
+Another measure used in this paper, in order to select interesting rules, is \emph{lift}, which computes the ratio between the rule's confidence and the support of the itemset in the rule consequent. It represents the level of association between the antecedent and the consequent~\cite{tan2006introduction}, thus rules with greater lift are more interesting for knowledge discovery.
 
 From 2011 to 2014, 3707 people were polled, responding a questionnaire\footnote{\url{http://goo.gl/Df6nEi}}. The goal was to obtain information on their perceptions of their future undergraduate studies. The poll had 18 questions, concerning gender, education, academic interests, possibilities before, during and after the pursuit of a degree in Computer Science, and how computers were used. These were translated into 36 variables and the data was investigated.
 
@@ -31,10 +33,10 @@ Figure~\ref{fig:FieldOfInterest} shows the respondents' interest in different fi
 \label{fig:FieldOfInterest}%
 \end{figure}%
 
-Figure~\ref{fig:InterestInCS} shows the respondents' interest in enrolling in a Computer Science major. In average, the data shows that $31\%$ of the girls \emph{have interest} while $28\%$ \emph{have no interest} and $41\%$ \emph{have doubt}.
+Figure~\ref{fig:WouldEnrollInCS} shows the respondents' interest in enrolling in a Computer Science major. In average, the data shows that $31\%$ of the girls \emph{have interest} while $28\%$ \emph{have no interest} and $41\%$ \emph{have doubt}.
 
 \begin{figure}[h!]%
-\includegraphics[width=\textwidth]{img/InterestInCS}%
+\includegraphics[width=\textwidth]{img/WouldEnrollInCS}%
 \caption{Respondents interested in Computer Science.}%
-\label{fig:InterestInCS}%
+\label{fig:WouldEnrollInCS}%
 \end{figure}%

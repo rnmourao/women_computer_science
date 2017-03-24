@@ -1,4 +1,4 @@
-# file: script.R
+# file: apriori.R
 # authors: Guilherme N. Ramos (gnramos@unb.br)
 #          Roberto N. Mourão
 #
@@ -50,26 +50,26 @@ freq.table <- function(...) {
 
 ################################# Data Preparation ##########################################
 
-# Get raw data
-poll.answers <- read_excel('../data/raw.xlsx', sheet='answers', col_types=rep("text", 38), na='')
+# Get data from spreadsheet.
+poll.answers <- read_excel('../data/answers.xlsx', sheet='answers', col_types=rep("text", 38), na='')
 
 # Cleanup data
 poll.answers$Q1 <- NULL
 poll.answers$Q2 <- NULL
 
-cat('---------------------------------------------------\n')
-cat('                Total number of respondents: |', nrow(poll.answers), '\n')
+cat('------------------------------------------------------\n')
+cat('                   Total number of respondents: |', nrow(poll.answers), '\n')
 
 # Remove 2011's questionnaires
 poll.answers <- subset(poll.answers, poll.answers$Year != 2011)
 
-cat('    Number of respondents from 2012 to 2014: |', nrow(poll.answers), '\n')
+cat('       Number of respondents from 2012 to 2014: |', nrow(poll.answers), '\n')
 
 # Girls only
 poll.answers <- subset(poll.answers, poll.answers$Gender == 'F')
 poll.answers$Gender <- NULL
 
-cat('          Number of girls from 2012 to 2014: |', nrow(poll.answers), '\n')
+cat('             Number of girls from 2012 to 2014: |', nrow(poll.answers), '\n')
 
 
 # Only Middle and High Schools
@@ -77,11 +77,11 @@ poll.answers <- subset(poll.answers,
                        poll.answers$Educational.Stage != 'College' &
                          poll.answers$Educational.Stage != 'Adult Education Program')
 
-cat('               Middle and High School girls: |', nrow(poll.answers), '\n')
+cat('                  Middle and High School girls: |', nrow(poll.answers), '\n')
 
-# Remove NA from CS.Interest
-poll.answers <- subset(poll.answers, !is.na(poll.answers$CS.Interest))
-cat(' Girls who answered if any interest in CS  : |', nrow(poll.answers), '\n')
+# Remove NA from Would.Enroll.In.CS
+poll.answers <- subset(poll.answers, !is.na(poll.answers$Would.Enroll.In.CS))
+cat('Girls who answered if they might enroll in CS : |', nrow(poll.answers), '\n')
 
 # transform variables type to factor
 poll.answers <- as.data.frame(lapply(poll.answers, as.factor))
@@ -90,24 +90,24 @@ poll.answers <- as.data.frame(lapply(poll.answers, as.factor))
 for (i in 1:ncol(poll.answers)) {
   if (length(levels(poll.answers[, i])) == 3 &
       names(poll.answers)[i] != 'Year' &
-      names(poll.answers)[i] != 'Field.Interest') {
+      names(poll.answers)[i] != 'Field.Of.Interest') {
     poll.answers[, i] <- factor(poll.answers[, i],
                                        levels=c("No", "Maybe", "Yes"))
   }
 }
 
 # Ordering columns
-poll.answers <- poll.answers[, c('CS.Interest', setdiff(names(poll.answers), 'CS.Interest'))]
+poll.answers <- poll.answers[, c('Would.Enroll.In.CS', setdiff(names(poll.answers), 'Would.Enroll.In.CS'))]
 
-cat('                  Girls with interest in CS: |', nrow(poll.answers[poll.answers$CS.Interest=='Yes',]), '\n')
-cat('---------------------------------------------------\n')
+cat('                  Girls who would enroll in CS: |', nrow(poll.answers[poll.answers$Would.Enroll.In.CS=='Yes',]), '\n')
+cat('------------------------------------------------------\n')
 
 
 ## Frequency Tables
 for (i in 2:ncol(poll.answers)) {
   attribute.name <- names(poll.answers)[i]
 
-  ft <- freq.table(a=poll.answers[, i], CS.Interest=poll.answers$CS.Interest)
+  ft <- freq.table(a=poll.answers[, i], Would.Enroll.In.CS=poll.answers$Would.Enroll.In.CS)
   rownames(ft)[1] <- attribute.name
 
   # turn bold rownames' font
@@ -129,33 +129,37 @@ for (i in 2:ncol(poll.answers)) {
 # APRIORI
 cs.rules = apriori(data = poll.answers,
                    parameter = list(confidence = 0.5, maxtime = 300, maxlen=5),
-                   appearance = list(rhs = list("CS.Interest=Yes",
-                                                "CS.Interest=Maybe",
-                                                "CS.Interest=No"), default = "lhs"))
+                   appearance = list(rhs = list("Would.Enroll.In.CS=Yes",
+                                                "Would.Enroll.In.CS=Maybe",
+                                                "Would.Enroll.In.CS=No"), default = "lhs"))
 
 cs.rules.ordered <- sort(cs.rules, by = 'lift')
 
-rules.df <- cbind(as(cs.rules.ordered, "data.frame"))
-rules.df$lhs <- substr(rules.df$rules,
-                       1,
-                       regexpr(' =>', as.character(rules.df$rules), fixed=TRUE))
-rules.df$rhs <- substr(rules.df$rules,
-                       regexpr('=>', as.character(rules.df$rules), fixed=TRUE) + 3,
-                       nchar(as.character(rules.df$rules)))
-rules.df$rules <- NULL
-rules.df <- rules.df[, c(4, 5, 1, 2, 3)]
-rules.df <- subset(rules.df, rules.df$lift >= 1.5)
-
 # Saving rules on disk
-write(cs.rules.ordered, file='../data/apriori.csv', sep=";", row.names = FALSE)
+write(cs.rules.ordered, file='../data/apriori.csv', sep=";", row.names=FALSE)
 
 # plot
 pdf(paste0(plot.dir, 'plot.apriori.pdf'))
   plot(cs.rules.ordered)
 ignore <- dev.off()
 
+
+rules.df <- cbind(as(cs.rules.ordered, "data.frame"))
+
+rules.df$lhs <- substr(rules.df$rules,
+                       1,
+                       regexpr(' =>', as.character(rules.df$rules), fixed=TRUE))
+rules.df$lhs <- gsub(',', ',\n', rules.df$lhs)
+
+rules.df$rhs <- substr(rules.df$rules,
+                       regexpr('=>', as.character(rules.df$rules), fixed=TRUE) + 3,
+                       nchar(as.character(rules.df$rules)))
+rules.df$rules <- NULL
+rules.df <- rules.df[, c(4, 5, 1, 2, 3)]
+rules.df <- subset(rules.df, rules.df$lift >= 1.5) # greater than 50%
+
 # df
-pdf(paste0(plot.dir, 'apriori.pdf'), width=10, height=4)
+pdf(paste0(plot.dir, 'apriori.pdf'), width=8, height=6)
   grid.table(rules.df, rows=NULL)
 ignore <- dev.off()
 
@@ -195,10 +199,10 @@ p <- ggplot(data=educational.stage, aes(x='', y=Percentage, fill=Educational.Sta
 ggsave(paste0(plot.dir, 'EducationalStage.pdf'), width=7, height=2)
 
 ### Results per interest in undergraduate field of study
-field.of.interest <- aggregate(x=list(NumRespondents=poll.answers$Field.Interest),
-                               by=list(Year=poll.answers$Year, FieldOfInterest=poll.answers$Field.Interest),
+field.of.interest <- aggregate(x=list(NumRespondents=poll.answers$Field.Of.Interest),
+                               by=list(Year=poll.answers$Year, FieldOfInterest=poll.answers$Field.Of.Interest),
                                FUN=length)
-by.year <- aggregate(x=list(TotalRespondents=poll.answers$Field.Interest),
+by.year <- aggregate(x=list(TotalRespondents=poll.answers$Field.Of.Interest),
                      by=list(Year=poll.answers$Year),
                      FUN=length)
 field.of.interest <- merge(field.of.interest, by.year)
@@ -219,16 +223,16 @@ aggregate(x=list(Percentage=field.of.interest$Percentage),
 cat('\n')
 
 ### Results for interest in Computer Science
-interest.in.CS <- aggregate(x=list(Quantidade=poll.answers$CS.Interest),
-                            by=list(Year=poll.answers$Year, CS.Interest=poll.answers$CS.Interest),
+would.enroll.in.CS <- aggregate(x=list(Quantidade=poll.answers$Would.Enroll.In.CS),
+                            by=list(Year=poll.answers$Year, Would.Enroll.In.CS=poll.answers$Would.Enroll.In.CS),
                             FUN=length)
-by.year <- aggregate(x=list(Total=poll.answers$CS.Interest),
+by.year <- aggregate(x=list(Total=poll.answers$Would.Enroll.In.CS),
                      by=list(Year=poll.answers$Year),
                      FUN=length)
-interest.in.CS <- merge(interest.in.CS, by.year)
-interest.in.CS$Percentage <- (interest.in.CS$Quantidade * 100) / interest.in.CS$Total
+would.enroll.in.CS <- merge(would.enroll.in.CS, by.year)
+would.enroll.in.CS$Percentage <- (would.enroll.in.CS$Quantidade * 100) / would.enroll.in.CS$Total
 
-p <- ggplot(data=interest.in.CS, aes(x='', y=Percentage, fill=CS.Interest)) +
+p <- ggplot(data=would.enroll.in.CS, aes(x='', y=Percentage, fill=Would.Enroll.In.CS)) +
   geom_bar(width=1, stat='identity') +
   facet_grid(facets=. ~ Year) +
   coord_polar(theta='y', start=0) +
@@ -236,28 +240,28 @@ p <- ggplot(data=interest.in.CS, aes(x='', y=Percentage, fill=CS.Interest)) +
   xlab('') + ylab('') + labs(fill='') + # labs(fill='Year')
   # ggtitle('Respondents Interested in CS')
   scale_fill_discrete(breaks=c('Yes', 'No', 'Maybe'))
-ggsave(paste0(plot.dir, 'InterestInCS.pdf'), width=7, height=2)
+ggsave(paste0(plot.dir, 'WouldEnrollInCS.pdf'), width=7, height=2)
 
 
-### Show relation between CS.Interest and others Variables
+### Show relation between Would.Enroll.In.CS and others Variables
 for (i in 2:ncol(poll.answers)) {
   attribute.name <- names(poll.answers)[i]
-  temp <- aggregate(x=list(Quantity=poll.answers$CS.Interest),
-                    by=list(CS.Interest=poll.answers$CS.Interest, Treatment=poll.answers[, i]),
+  temp <- aggregate(x=list(Quantity=poll.answers$Would.Enroll.In.CS),
+                    by=list(Would.Enroll.In.CS=poll.answers$Would.Enroll.In.CS, Treatment=poll.answers[, i]),
                     FUN=length)
-  p <- ggplot(temp, aes(fill=Treatment, y=Quantity, x=CS.Interest)) +
+  p <- ggplot(temp, aes(fill=Treatment, y=Quantity, x=Would.Enroll.In.CS)) +
     geom_bar(position="dodge", stat="identity") +
     scale_fill_discrete(name=attribute.name)
   ggsave(paste0(plot.dir, 'plot.', attribute.name, '.pdf'), width=5, height=3)
 }
 
-### Show relation between CS.Interest and others Variables
+### Show relation between Would.Enroll.In.CS and others Variables
 for (i in 2:ncol(poll.answers)) {
   attribute.name <- names(poll.answers)[i]
-  temp <- aggregate(x=list(Quantity=poll.answers$CS.Interest),
-                    by=list(CS.Interest=poll.answers$CS.Interest, Treatment=poll.answers[, i]),
+  temp <- aggregate(x=list(Quantity=poll.answers$Would.Enroll.In.CS),
+                    by=list(Would.Enroll.In.CS=poll.answers$Would.Enroll.In.CS, Treatment=poll.answers[, i]),
                     FUN=length)
-  p <- ggplot(temp, aes(fill=Treatment, y=Quantity, x=CS.Interest)) +
+  p <- ggplot(temp, aes(fill=Treatment, y=Quantity, x=Would.Enroll.In.CS)) +
     geom_bar(position="dodge", stat="identity") +
     scale_fill_discrete(name=attribute.name)
   ggsave(paste0(plot.dir, 'plot.', attribute.name, '.pdf'), width=5, height=3)
