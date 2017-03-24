@@ -1,27 +1,6 @@
 \section{Experimental Results}\label{sec:results}%
 In order to try to understand the profiles of girls intending to enroll in undergraduate courses, especially those interested in Computer Science, we applied Apriori's association rule algorithm to the data, with the minimum confidence level equal to 50\%, and with a maximum number of 3 items in an itemset. A filter was applied to select only the rules involving the variable \emph{CS.Interest}, which indicates the respondent is interested in pursuing a CS degree, on the rules' right-hand sides. The rules were analyzed considering \emph{support}, \emph{confidence} and \emph{lift} metrics.
-
-
-
-
-
-Equation~\ref{eq:eq.Rule} denotes such a rule, and it is read as: ``\emph{if A occurred, then B occurs}''. The itemsets before the arrow are called \emph{antecedent}. Analogously, the itemsets after the arrow are called \emph{consequent}~\cite{Hastie2009}.
-
-\begin{equation}
-{A} => {B}
-\label{eq:eq.Rule}%
-\end{equation}
-
-The confidence is the conditional probability $P(B|A)$, i.e., the probability of \emph{A} will occur, since \emph{B} occurred~\cite{Hastie2009}.
-
-Another measure used in this paper, in order to select interesting rules, is \emph{lift}, which computes the ratio between the rule's confidence and the support of the itemset in the rule consequent. It represents the level of association between the antecedent and the consequent~\cite{tan2006introduction}.
-
-
-
-\gnramos{Qual o mérito deste trabalho?}
-
-
-
+%%%%%%%%%%%
 
 The association rule mining resulted in 1,171 rules involving the students' interest in Computer Science. Rules with lift less than 50\% were excluded, remaining only ten rules. Figure \ref{fig:apriori} shows rules' antecedent or left-hand side (LHS), rules' consequent or right-hand side (RHS), support, confidence and lift metrics.
 
