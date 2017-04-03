@@ -124,7 +124,7 @@ for (i in 2:ncol(respostas)) {
 ############################# Mineração de Regras de Associação #################################
 # APRIORI
 regras   = apriori(data = respostas,
-                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=3),
+                   parameter = list(confidence = 0.5, maxtime = 300, maxlen=5),
                    appearance = list(rhs = list("Fara.Computacao=Sim",
                                                 "Fara.Computacao=Nao sei ainda",
                                                 "Fara.Computacao=Nao"), default = "lhs"))
@@ -151,10 +151,10 @@ regras.df$rhs <- substr(regras.df$rules,
                        nchar(as.character(regras.df$rules)))
 regras.df$rules <- NULL
 regras.df <- regras.df[, c(4, 5, 1, 2, 3)]
-regras.df <- subset(regras.df, regras.df$lift > 1.5) # maior que 50%
+regras.df <- subset(regras.df, regras.df$lift >= 1.5) # maior que 50%
 
 # Tabela
-pdf(paste0(plot.dir, 'tabela.regras.pdf'), width=8, height=4)
+pdf(paste0(plot.dir, 'tabela.regras.pdf'), width=8, height=6)
   grid.table(regras.df, rows=NULL)
 ignore <- dev.off()
 

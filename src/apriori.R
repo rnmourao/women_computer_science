@@ -114,7 +114,7 @@ for (i in 2:ncol(poll.answers)) {
   t1 <- ttheme_minimal(rowhead=list(fg_params=list(fontface=c(rep("bold", nrow(ft))))))
 
   # size of image
-  w <- .7 * ncol(ft) + .1 * max(nchar(row.names(ft)))
+  w <- 1 * ncol(ft) + .1 * max(nchar(row.names(ft)))
   h <- 1 + nrow(ft) * .2
 
   pdf(paste0(plot.dir, 'freq.', attribute.name, '.pdf'), width=w, height=h)
