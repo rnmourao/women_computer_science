@@ -25,7 +25,7 @@ cat('\n')
 rm(list=ls())
 
 #### Definindo pasta para gravação gráficos e tabelas
-plot.dir <- '../dexa/img/'
+plot.dir <- '../CIHB/img/'
 
 #### Funções
 

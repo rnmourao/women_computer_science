@@ -26,7 +26,7 @@ cat('\n')
 rm(list=ls())
 
 #### Set working directory
-plot.dir <- '../dexa/img/'
+plot.dir <- '../CIHB/img/'
 
 #### Functions
 
