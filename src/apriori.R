@@ -81,7 +81,7 @@ cat('                  Middle and High School girls: |', nrow(poll.answers), '\n
 
 # Remove NA from Would.Enroll.In.CS
 poll.answers <- subset(poll.answers, !is.na(poll.answers$Would.Enroll.In.CS))
-cat('Girls who answered if they might enroll in CS : |', nrow(poll.answers), '\n')
+cat(' Girls who answered if they might enroll in CS: |', nrow(poll.answers), '\n')
 
 # transform variables type to factor
 poll.answers <- as.data.frame(lapply(poll.answers, as.factor))
@@ -242,18 +242,6 @@ p <- ggplot(data=would.enroll.in.CS, aes(x='', y=Percentage, fill=Would.Enroll.I
   scale_fill_discrete(breaks=c('Yes', 'No', 'Maybe'))
 ggsave(paste0(plot.dir, 'WouldEnrollInCS.pdf'), width=7, height=2)
 
-
-### Show relation between Would.Enroll.In.CS and others Variables
-for (i in 2:ncol(poll.answers)) {
-  attribute.name <- names(poll.answers)[i]
-  temp <- aggregate(x=list(Quantity=poll.answers$Would.Enroll.In.CS),
-                    by=list(Would.Enroll.In.CS=poll.answers$Would.Enroll.In.CS, Treatment=poll.answers[, i]),
-                    FUN=length)
-  p <- ggplot(temp, aes(fill=Treatment, y=Quantity, x=Would.Enroll.In.CS)) +
-    geom_bar(position="dodge", stat="identity") +
-    scale_fill_discrete(name=attribute.name)
-  ggsave(paste0(plot.dir, 'plot.', attribute.name, '.pdf'), width=5, height=3)
-}
 
 ### Show relation between Would.Enroll.In.CS and others Variables
 for (i in 2:ncol(poll.answers)) {
