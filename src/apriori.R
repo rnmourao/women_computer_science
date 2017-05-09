@@ -246,11 +246,21 @@ ggsave(paste0(plot.dir, 'WouldEnrollInCS.pdf'), width=7, height=2)
 ### Show relation between Would.Enroll.In.CS and others Variables
 for (i in 2:ncol(poll.answers)) {
   attribute.name <- names(poll.answers)[i]
+
   temp <- aggregate(x=list(Quantity=poll.answers$Would.Enroll.In.CS),
                     by=list(Would.Enroll.In.CS=poll.answers$Would.Enroll.In.CS, Treatment=poll.answers[, i]),
                     FUN=length)
   p <- ggplot(temp, aes(fill=Treatment, y=Quantity, x=Would.Enroll.In.CS)) +
-    geom_bar(position="dodge", stat="identity") +
-    scale_fill_discrete(name=attribute.name)
+       geom_bar(position="dodge", stat="identity") +
+       scale_fill_discrete(name='') +
+       ggtitle(attribute.name) + theme(plot.title=element_text(hjust=0.5))
+
+  if(attribute.name == 'Educational.Stage') {
+    # Sort legend
+    p <- p + scale_fill_discrete(breaks=c('Middle School',
+                                          'High School (10th Grade)',
+                                          'High School (11th Grade)',
+                                          'High School (12th Grade)'))
+  }
   ggsave(paste0(plot.dir, 'plot.', attribute.name, '.pdf'), width=5, height=3)
 }
