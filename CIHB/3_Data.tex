@@ -1,0 +1,38 @@
+\section{Data Collection and Analysis}\label{sec:data}
+The enrollment of female students in Computer Science majors is decreasing every year and one of the biggest challenges in addressing this is to discover what motivates girls to avoid a CS major. Some issues have been outlined in the literature, such the impact of associated stereotypes; but our research intends to further investigate the women's perceptions of the Computer Science field by looking at the prospective enrollees: girls in high school. There is a significant lack of research on this subject in Brazil, and we believe such analysis could aid in the proposal of policies for increasing female participation in the field.
+
+\subsection{Survey}
+The members of the \texttt{Meninas.comp} from the University of Brasilia developed a questionnaire to inquire about female high school students' perceptions of the Computer Science field. It included personal profile questions, such as sex, school year, field of interest for a college education, interest in a career in CS, and others; as well as more general questions related to computers, such as: where the student uses computers and for what kind of tasks.
+
+From 2011 to 2014, the questionnaires were given to female high school students in the Federal District, during during Brazil's Ministry of Science and Technology's National Science and Technology Week\footnote{\url{http://semanact.mcti.gov.br/}} activities.
+
+% Finally, the questionnaire comprised specific (yes, no, maybe) questions regarding the prestige of working with computers and wages earned working with computers, among others:
+% Does a university computer science course only teach how to use software?;
+% Does a university computer science course require few math skills?;
+% Are the majority of Computer Science majors male?;
+% Is it necessary to know how to use a computer to enroll in a university computer course?;
+% Is it necessary to work in computer sciences to enroll in a computer course?;
+% Would your family like you to take the college entrance exam for Computer Sciences?;
+% Is it difficult to find work in computer sciences after graduating?;
+% Do people who work in computer sciences have little leisure time?;
+% Does working in computer sciences allow you to exercise your creativity?;
+% Is working in computer sciences prestigious?; and
+% Does working in computer sciences pay well?.
+
+
+% \subsubsection{Research Data}%
+
+There were 1,821 responses in 2011, 944 in 2012, 517 in 2013, and 425 in 2014; adding up to a total of 3,707 completed questionnaires. The decrease of respondents in the period is due to the project's context, the amount of work possible is directly affected by the number of volunteers working on it. In 2011, there were 5 Professors and 10 students members, but they dwindles to only 1 Professor and 5 students (working few hours) in 2014. The collected data was consolidated in a spreadsheet and analyzed.
+
+% Subsequently, in the data preparation phase, we received the collection data in 4 spreadsheets, one by year. Then, the columns of the spreadsheets were reorganized. This reorganization was applied to the 4 spreadsheets, corresponding to 2011, 2012, 2013, and 2014. The organization of the answers were tabulated and served as the source for the creation of a single table, comprising 35 attributes. The main attributes used in the analysis of this paper were: Bring\_Prestige, Computer\_Friends, Computer\_Lan\_House, Computer\_Relatives , CS\_Interest, Family\_Approval, Good\_Salary, Low\_Leisure, Use\_Creativity, Computer\_Home, Computer\_Library, Computer\_School,  CS\_Choice, Educational\_Stage, Field\_Interest, Has\_Low\_Math, Low\_Employability, Man\_Majority and Year.
+
+% Finally, the data were filtered so that of the 3,707 questionnaires,  researchers excluded those answered by students who: were already in higher education;  were male;  failed to answer the key question: \textit{Are you interested in doing a major in Computer Sciences?}. This left 3,161 questionnaires to be analyzed.
+
+
+\subsection{Data Analysis}\label{sec:analysis:related}%
+
+Data analysis includes, among other things, procedures for analyzing data and techniques for interpreting their results~\cite{Tukey1962}, while Data Mining is the process of discovering insightful patterns and predictive models from data~\cite{Zaki2014}, in an effort to make sense of usually large amounts of information in some domain~\cite{Cios2007}. Our primary focus is the gender gap in pSTEM careers, so our study aims to characterize the profiles of girls who intend to enroll in undergraduate studies, especially those interested in Computer Science.
+
+One of the possible approaches to finding interesting relationships in data is \emph{association rules mining}~\cite{Cios2007}, which produces easily understandable results as rules states as ``\emph{if A occurred, then B occurs}''. For example, it is likely that a rule ``\emph{if a girls sees the CS field as boring, she will not enroll in a CS major}'' is found. This processing may require a lot of resources, and a computationally feasible solution is the \emph{Apriori} algorithm, which uses only the itemsets found large in the previous pass to generate candidate itemsets~\cite{Agrawal1994}, and produces the rules with the highest \emph{confidence} (how often the rule has been found to be true), despite their \emph{support} (number of occurrences)~\cite{taniar_exception_2008}. The confidence is the conditional probability $P(B|A)$, i.e., the probability of \emph{A} will occur, since \emph{B} occurred~\cite{Hastie2009}. In order to select  which rules are more interesting rules, we consider their \emph{lift}, which represents the level of association between the antecedent and the consequent~\cite{tan2006introduction}.
+
+Thus, we search for insights on students' motivation for academic studies in Computer Science, with a clear gender bias (looking at only females) and analyzing a large data set of Brazilian students.

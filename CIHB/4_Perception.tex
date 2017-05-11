@@ -1,0 +1,167 @@
+\newcommand{\subfig}[1]{%
+    \begin{subfigure}[t]{0.48\textwidth}%
+		\includegraphics[width=\textwidth]{{Would.Enroll.In.CSx#1}.pdf}%
+		\caption{}%
+		\label{fig:#1}%
+	\end{subfigure}%
+}%
+\newcommand{\fig}[5]{%
+	\begin{figure}[h!]%
+		\centering%
+		\subfig{#2}%
+		~
+		\subfig{#3}%
+
+		\subfig{#4}%
+		~
+		\subfig{#5}%
+		\caption{Relations between \emph{Would.Enroll.In.CS} attributes and other variables.}%
+		\label{fig:#1}%
+	\end{figure}%
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{High School Girls' Perceptions On Computer Science}\label{sec:perception}%
+
+We took two approaches for analysis: statistical analysis for a better understanding of the data collected and association rules mining searching for interesting relationships between the data and the girl's interest in pursuing a CS major.
+
+\subsection{Statistical Analysis}\label{sec:perception:stat}%
+The data for all years was consolidated in a single spreadsheet, which was then processed in the \texttt{R} programming language. The questionnaires, data and script used on this work are freely available online\footnote{\url{http://goo.gl/oJYrjh}}.
+
+The preprocessing step cleans up the data (empty columns, whitespaces, etc.) and discards the data not in our subset of interest: Middle or High School girls who have answered whether they are interested in a CS major.
+
+Figure~\ref{fig:Field.Of.Interest} shows the respondents' interests in different scientific fields of undergraduate studies. The data indicates that, throughout the years, the percentages for each choice remains more or less the same, roughly around a value of $41\%$ for \emph{Biology-Health Sciences}, $22\%$ for \emph{Exact Sciences} and $33\%$ for \emph{Human Sciences}. It is clear that the field related to Computer Science (Exact Sciences) is the least interesting for all years.
+
+\begin{figure}[h!]%
+\includegraphics[width=\textwidth]{{Field.Of.Interest}.pdf}%
+\caption{Respondents' interests in scientific fields.}%
+\label{fig:Field.Of.Interest}%
+\end{figure}%
+
+Figure~\ref{fig:Would.Enroll.In.CS} shows the respondents' interests in enrolling in a Computer Science major. On average, the data shows that $31\%$ of the girls \emph{have interest} while $28\%$ \emph{have no interest} and $41\%$ \emph{have doubt}. The data for the year 2011 differs a little from the others because the respondents for that year included Middle school students of all ages (from 5th to 9th graders). In the other years, only students from 9th grade or higher were surveyed due to limited human resources.
+
+\begin{figure}[h!]%
+\includegraphics[width=\textwidth]{{Would.Enroll.In.CS}.pdf}%
+\caption{Respondents interested in Computer Science.}%
+\label{fig:Would.Enroll.In.CS}%
+\end{figure}%
+
+In order to investigate the profile of the students who are interested in Computer Sciences, we look at how the answers to the question \textit{Would you major in Computer Science?} relate to the other questions. Figure~\ref{fig:Educational.Stage} presents how students in different grades responded. The data shows that 12th graders had the lowest ratio of positive responses and that middle schoolers had the highest. \gnramos{This indicates an interesting research question: \emph{why do girls lose interest in CS as they grow older?}}
+
+\begin{figure}[h!]%
+\centering%
+\includegraphics[width=.6\textwidth]{{Would.Enroll.In.CSxEducational.Stage}.pdf}%
+\caption{Results to the question \textit{Would you major in Computer Sciences?}, by Grade level.}%
+\label{fig:Educational.Stage}%
+\end{figure}%
+
+Figures~\ref{fig:CS-relations:1} to~\ref{fig:CS-relations:2} present the relationships of several variables observed. The titles indicate the question asked, and the legend on the right side the answers given; the plotted bars indicated how these answers relate do the respondents interest in enrolling in a CS Major.
+
+\fig{CS-relations:1}
+    {CS.Only.Teaches.To.Use.Software}
+    {CS.Uses.Little.Math}
+    {Most.CS.Students.Are.Male}
+    {CS.Requires.Knowledge.In.Computers}%
+
+Figure~\ref{fig:CS.Only.Teaches.To.Use.Software} and~\ref{fig:CS.Uses.Little.Math} show that the girls clearly know that CS majors teach more than just using softwares and requires Mathematical knowledge. Figure~\ref{fig:Most.CS.Students.Are.Male} shows that the majority of girls perceived that there are more boys than girls in CS majors. Within the group of girls that are not considering a CS major (\texttt{Would.Enroll.In.CS = no}), it is quite clear that they perceive the field to be dominated by men. \gnramos{This indicates an interesting research question: \emph{are girls not interested in CS because most students are boys?}} Figure~\ref{fig:CS.Requires.Knowledge.In.Computers} indicates that most of them perceive previous knowledge in using computers as a requirement for enrolling in a CS major, \gnramos{presenting another interesting question: \emph{how much knowledge using computers is required to enroll?}}
+
+\fig{CS-relations:2}
+    {Higher.Education.Required.To.Work.In.CS}
+    {Family.Approves.CS.Major}
+    {CS.Has.Low.Employability}
+    {CS.Work.Has.Long.Hours}%
+
+Figure~\ref{fig:Higher.Education.Required.To.Work.In.CS} shows that the girls believe that a degree is required for a career in Computer Science. Figure~\ref{fig:Family.Approves.CS.Major} emphasizes the importance of family approval. Among the girls who answered that they would be interested in enrolling a major in CS, the majority reported having their family's approval (\texttt{Family.Approves.CS.Major = yes}); and the girls who reported not being interested had the highest rate of negative responses. Looking at Figures~\ref{fig:CS.Has.Low.Employability} and~\ref{fig:CS.Work.Has.Long.Hours}, and considering the data for girls who did not say they wish to enroll, we wonder \gnramos{\emph{why won't they pursue a career without long hours that they believe is full of opportunities?}}
+Interestingly, the group of girls who reported being interested in CS, responded positively to \emph{long hours} at a higher ratio than the other groups.
+
+\fig{CS-relations:3}
+    {CS.Fosters.Creativity}
+    {CS.Is.Prestigious}
+    {CS.Provides.Good.Wages}
+    {CS.Enables.Interdisciplinary.Experiences}%
+
+Figures~\ref{fig:CS.Fosters.Creativity} and \ref{fig:CS.Enables.Interdisciplinary.Experiences} clearly show that the girls perceive CS as a creative field with various interdisciplinary possibilities. Figure~\ref{fig:CS.Is.Prestigious} has a favorable perception; the group with the lowest \emph{yes} response ratio to this question was that of girls who were not interested in CS, despite this group having a high ratio of \emph{maybe} replies. Figure~\ref{fig:CS.Provides.Good.Wages} indicates that the majority of girls think there are good salaries in the field, but it is worth to note that there was also a large part of them also responded \emph{maybe}, specially in the group of girls who were not interested in CS.
+
+The remaining questions simply inquire where the girls use computers and what software tools they use. Almost all use a computer at home and most also use is at a relative or friend's house; about half use them at school, and the vast majority does not use a computer at work, at the library, or in digital inclusion centers. Considering tools, most have used text or image editors, but more than half have not used spreadsheets and very few have used databases.
+
+% \fig{CS-relations:4}{Uses.Computer.At.Home}{Uses.Computer.At.Relatives.House}use.{Uses.Computer.At.Friends.House}{Uses.Computer.At.School}%
+% \fig{CS-relations:5}{Uses.Computer.At.Work}{Uses.Computer.At.Lan.House}{Uses.Computer.At.Library}{Uses.Computer.At.Digital.Inclusion.Center}%
+
+% \fig{CS-relations:6}{Has.Used.Text.Editor}{Has.Used.Image.Editor}{Has.Used.Spreadsheet}{Has.Used.Database}
+% \fig{CS-relations:7}{Has.Used.Internet}{Has.Used.Social.Network}{Has.Used.Games}{Has.Used.Email}
+% \fig{CS-relations:8}{Has.Used.For.Creating.Web.Pages}{Has.Used.For.Development}{Has.Used.Other.Softwares}%{Has.Used.Other.Softwares}%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Mining Association Rules}\label{sec:results}%
+In order to try to understand the profiles of girls intending to enroll in undergraduate courses, especially those interested in Computer Science, we applied Apriori's association rule algorithm to the data, with the minimum confidence level equal to 50\%, and with a maximum number of 3 items in an itemset. A filter was applied to select only the rules involving the variable \emph{Would.Enroll.In.CS}, which indicates the respondent is interested in pursuing a CS degree, on the rules' right-hand sides. The rules were analyzed considering \emph{support}, \emph{confidence} and \emph{lift} metrics. The association rule mining resulted in 32 rules involving the students' interest in Computer Science. Their details are presented in Figure~\ref{fig:apriori.rules}.
+
+\begin{figure}%
+\centering
+\includegraphics[scale=0.5]{{apriori.rules}.pdf}%
+\caption{Rules with highest confidence, ordered by lift.}%
+\label{fig:apriori.rules}%
+\end{figure}%
+
+We investigated ten main rules, which are with higher lift (stronger red color). Thus we looked into the subset of rules with lift greater than 50\%. This way we have more than 50\% of true in association rule. Figure~\ref{fig:apriori} presents the found rules with higher confidence, ordered by lift. Similarly, statistical analysis, the clearest information from this result was the presence of the \mbox{\emph{Family.Approves.CS.Major}} attribute in all rules.
+
+\begin{figure}%
+\includegraphics[width=\textwidth]{apriori-table}%
+\caption{Rules with highest confidence, ordered by lift.}%
+\label{fig:apriori}%
+\end{figure}%
+
+The rule with the highest lift (first in Figure~\ref{fig:apriori}) also had the highest confidence level; so we can say that \gnramos{there is 68\% chance for the rule ``\emph{if the respondent believes that she has the family's approval and higher education is required to work with CS, then she would enroll in a CS major}''.} The value of 1.8 for lift indicates that there is an 80\% chance that the antecedents and the consequent for this rule are correlated, which is a very intriguing discovery. Therefore, girls who are interested in computing, with family approval, know that to work in computing needs a high level of knowledge.
+
+The rule with the second highest lift means that 65\% of times ``\emph{if the respondent believes that she has the family's approval and she has used games, then she would enroll in a CS major}''. Again, there is a very strong correlation between the antecedents and the consequent.{there is 65\% chance for the rule ``\emph{if the respondent believes that she used games, then she would enroll in a CS major}''.} The value of 1.7 for lift indicates that there is a 70\% of chance that the antecedents and the consequent for this rule are correlated.
+
+The third rule with the highest lift states that ``\emph{if the respondent believes that she has the family's approval and she used computer at a relatives' house, then she would enroll in a CS major}''. There is 64\% chance for the antecedent rule then the consequent rule to happen. The value of 1.7 for lift indicates that there is a 70\% of chance that the antecedents and the consequent for this rule are correlated.
+
+\begin{figure}%
+\centering
+\includegraphics[scale=0.8]{{freq.Family.Approves.CS.Major}.pdf}%
+\caption{Respondents by answer for family approval and in interest in CS.}%
+\label{fig:freq.Family.Approves.CS.Major}%
+\end{figure}%
+
+The next tree rules, include the attributes with CS.Enables.Interdisciplinary.Experiences=Yes, Uses.Computer.At.Work=No and CS.Fosters.Creativity=Yes. These rules have a 63\% of occurring. Again, there is a very strong correlation between the antecedents and the consequent, lift 1.7 (70\%). About the use computer at work, there are a small number of respondents who work (15\%), which can make interpreting difficult. What if the girls who answered that they do not use computers at work do not work? The dubious nature of this question may obscure the understanding of the rule.
+
+The Seventh rule with highest lift states that ``\emph{if the respondent believes that she has the family's approval then she would enroll in a CS major}'', indicating that the family's approval is an important factor. This rule's confidence and lift are only a fraction smaller than the previous ones, while its support is slightly larger. Figure~\ref{fig:freq.Family.Approves.CS.Major} presents the data for this in more detail.
+
+Thee same analysis was applied to the remaining rules in Figure~\ref{fig:apriori}, and this investigation showed that the other attributes, such as \emph{Uses.Computer.At.Library=No}, \emph{Has.Used.Internet=Yes} or \emph{CS.Is.Prestigious=Yes} have low significance when compared to \emph{Family.Approves.CS.Major}. This implies that, for the respondent girls, their family's opinion is the single most important factor when deciding to apply (or not) for a CS course.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Discussion of Results}
+Analyzing the results of the present study, researchers highlight the following findings.
+
+Family approval is a very important factor in the choice of a major in higher education. For girls who are considering a major in CS, the significance of this variable was very clear. In the first semester of 2017 we applied the new questionnaire with 8 girls enrolled in the Department of Computer Science at the University of Brasilia , 38\% chose Computer Majors because of the influence of their families. In Brazil this result is also found at the University of Sao Paulo presented in~\cite{saboya_2009}.
+
+The majority of girls believe that there are more boys than girls majoring in CS. This is accordance with research presented in~\cite{Mercier_2006}, about stereotype in computing.
+
+The question of the viability of employment in CS does not seem to be an important factor when choosing a major in CS, although nearly 30\% of the girls responding maybe, showed that they were not clear about the job market in CS. In Brazil this is a sensitive data, because we have an unemployment rate of 13.7\% , as recorded in the quarter ending in March 2017~\footnote{\url{http://www.ibge.gov.br/}}.
+
+In all of the questions on the questionnaire, the frequency with which respondents chose maybe was significant, which indicates the need to intensify actions that disseminate information about the area of CS, with relation to salaries and job opportunities, as well as the question of the gender balance in the field, among others.
+
+The answers reported by the Elementary School students, regardless of the question, responded more frequently in the category maybe, which may indicate that it is better to begin with computer science activities as early as Elementary School, to motivate students to become interested in the area.
+
+Girls are aware that CS needs math. A report from Brazil's National Institute for Educational Studies and Research~\footnote{\url{http://portal.inep.gov.br/web/guest/censo-da-educacao-superior/}} showed that there are low levels of math learning in Middle and High schools. This difficulty in Math can be a important factor that deters girls from enrolling in CS majors.
+
+In general, these findings present insights into the factors that influence girls in choosing, or not, a major in CS, and can indicate directions to be taken in the effort to mitigate the gender disparity. For example, universities could give incentives for activities for disseminating information about the field of CS, which also target the participation of families, in contrast to activities that focus exclusively on High School students.
+
+Another possibility is to increase contact with the field of CS, bringing it into the students homes with the development of relevant applicatives for mobile devices, which are more common in homes than computers, to spark interest. These research results can also be considered iwhen developing public policies, aimed at creating more centers of digital inclusion, given the increasing need for this type of qualified labor.
+
+Therefore, this information provides many insights on the girls of the Federal District. Not only can we have a clearer picture of the Middle and High School girl in the area, we can change the current approaches to address directly what was found to be the most significant attribute. Initially, informal inquiries with new students at the University of Brasília indicated that not many girls knew many details the CS major, and this guided efforts to provide this information to girls in an attempt to increase their interest in CS.
+
+Therefore, this information provides many insights to the motivations of girls in the Federal District. Not only do we have a clearer picture of the Middle and High School girl in the area, we can change the current approaches to directly address what was found to be the most significant attribute. Initially, informal inquiries with new students at the University of Brasília indicated that not many girls knew many details about the CS major, and this has guided efforts to provide this information to girls in an attempt to increase their interest in CS.
+
+Additionally, the analysis raised more interesting questions concerning the questionnaire. Several of the attributes were found to be of less influence when investigating the girls' interest in pursuing a CS degree, so it may be the case that we are not asking the right questions. Other mining approaches might provide different results, and these will be investigated.
+
+
+
