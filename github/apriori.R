@@ -185,7 +185,7 @@ for (i in 2:ncol(poll.answers)) {
 # Association Rule Mining ######################################################
 cat('\n\n------------------------------------------------------\n')
 CS.rules <- apriori(data=poll.answers,
-                    parameter=list(confidence=0.5, maxtime=300, maxlen=5),
+                    parameter=list(confidence=0.5, maxtime=300, maxlen=3),
                     appearance=list(rhs=list('Would.Enroll.In.CS=Yes',
                                              'Would.Enroll.In.CS=Maybe',
                                              'Would.Enroll.In.CS=No'),
