@@ -42,7 +42,7 @@ cat('\n                  Middle and High School girls: |', nrow(poll.answers))
 
 # Remove NA from Would.Enroll.In.CS
 poll.answers <- subset(poll.answers, !is.na(poll.answers$Would.Enroll.In.CS))
-cat('\n Girls who answered if they might enroll in CS: |', nrow(poll.answers))
+cat('\n Girls who answered if they would enroll in CS: |', nrow(poll.answers))
 
 # Define attributes as factors
 poll.answers <- as.data.frame(lapply(poll.answers, as.factor))
@@ -154,32 +154,30 @@ save.plot('Would.Enroll.In.CS', plot.width, plot.height)
 # Would.Enroll.In.CS X others variables
 plot.width <- 5
 plot.height <- 3
+
 for (i in 2:ncol(poll.answers)) {
   attribute.name <- names(poll.answers)[i]
 
-  if (!(startsWith(attribute.name, 'Uses.Computer.At.') |
-        startsWith(attribute.name, 'Has.Used.'))) {
-    temp <- aggregate(x=list(Quantity=poll.answers$Would.Enroll.In.CS),
-                      by=list(Would.Enroll.In.CS=poll.answers$Would.Enroll.In.CS,
-                              Treatment=poll.answers[, i]),
-                      FUN=length)
+  temp <- aggregate(x=list(Quantity=poll.answers$Would.Enroll.In.CS),
+                    by=list(Would.Enroll.In.CS=poll.answers$Would.Enroll.In.CS,
+                            Treatment=poll.answers[, i]),
+                    FUN=length)
 
-    p <- ggplot(temp, aes(fill=Treatment, y=Quantity, x=Would.Enroll.In.CS)) +
-         geom_bar(position='dodge', stat='identity') +
-         ggtitle(attribute.name) +
-         theme(plot.title=element_text(hjust=0.5))
+  p <- ggplot(temp, aes(fill=Treatment, y=Quantity, x=Would.Enroll.In.CS)) +
+       geom_bar(position='dodge', stat='identity') +
+       ggtitle(attribute.name) +
+       theme(plot.title=element_text(hjust=0.5))
 
-    if (attribute.name == 'Educational.Stage')
-      p <- p + scale_fill_discrete(name='', breaks=c('Middle School',
-                                                     'High School (10th Grade)',
-                                                     'High School (11th Grade)',
-                                                     'High School (12th Grade)'))
-    else
-      p <- p + scale_fill_discrete(name='')
+  if (attribute.name == 'Educational.Stage')
+    p <- p + scale_fill_discrete(name='', breaks=c('Middle School',
+                                                   'High School (10th Grade)',
+                                                   'High School (11th Grade)',
+                                                   'High School (12th Grade)'))
+  else
+    p <- p + scale_fill_discrete(name='')
 
-    plot.name <- paste0('Would.Enroll.In.CSx', attribute.name)
-    save.plot(plot.name, plot.width, plot.height)
-  }
+  plot.name <- paste0('Would.Enroll.In.CSx', attribute.name)
+  save.plot(plot.name, plot.width, plot.height)
 }
 
 # Association Rule Mining ######################################################
@@ -192,12 +190,14 @@ CS.rules <- apriori(data=poll.answers,
                                     default='lhs'))
 
 sorted.CS.rules <- sort(CS.rules, by='lift')
+# inspect(sorted.CS.rules)
 
-pdf(paste0(plot.dir, 'apriori.rules.pdf'))
-plot(sorted.CS.rules)
-ignore <- dev.off()
+# pdf(paste0(plot.dir, 'apriori.scatterplot.pdf'))
+# plot(sorted.CS.rules)
+# ignore <- dev.off()
 
 CS.rules.df <- cbind(as(sorted.CS.rules, 'data.frame'))
+
 CS.rules.df$lhs <- substr(CS.rules.df$rules, 1,
                           regexpr(' =>', as.character(CS.rules.df$rules),
                                   fixed=TRUE))
@@ -210,8 +210,11 @@ CS.rules.df$rules <- NULL
 CS.rules.df <- CS.rules.df[, c(4, 5, 1, 2, 3)]
 CS.rules.df <- subset(CS.rules.df, CS.rules.df$lift >= 1.5) # greater than 50%
 
-pdf(paste0(plot.dir, 'apriori-table.pdf'), width=8,height=7)
-grid.table(head(CS.rules.df, 10), rows=NULL) # print top 10
+plot.width <- 8
+plot.height <- 5.25  # size set manually by visual inspection
+pdf(paste0(plot.dir, 'apriori.rule.table.pdf'),
+    width=plot.width, height=plot.height)
+grid.table(head(CS.rules.df, 10), rows=NULL)  # Top 10
 ignore <- dev.off()
 
 # Frequency tables for attributes ##############################################
@@ -229,7 +232,15 @@ frequency.table <- function(...) {
   colnames(freq.table)[1] <- column.names[2]
   freq.table <- as.data.frame(freq.table)
   freq.table[is.na(freq.table)] <- ' '
-  return(freq.table)
+  freq.table
+}
+
+save.grid.plot <- function(attribute.name, data.table, theme, plot.width, plot.height) {
+  plot.file <- paste0(plot.dir, 'frequency.table.', attribute.name, '.pdf')
+  cat('\nGenerating', plot.file)
+  pdf(plot.file, width=plot.width, height=plot.height)
+  grid.table(data.table, theme=theme)
+  ignore <- dev.off()
 }
 
 for (i in 2:ncol(poll.answers)) {
@@ -241,13 +252,13 @@ for (i in 2:ncol(poll.answers)) {
 
   # Column font theme
   theme <- ttheme_minimal(rowhead=list(fg_params=list(fontface=c(rep('bold',
-                                                                  nrow(ft))))))
+                                                                     nrow(ft))))))
 
   plot.width <- 1 * ncol(ft) + .1 * max(nchar(row.names(ft)))
   plot.height <- 1 + nrow(ft) * .2
-
-  plot.name <- paste0(plot.dir, 'freq.', attribute.name, '.pdf')
-  pdf(plot.name, width=plot.width, height=plot.height)
-  grid.table(ft, theme=theme)
-  ignore <- dev.off()
+  save.grid.plot(attribute.name, ft, theme, plot.width, plot.height)
 }
+
+cat('\n\n------------------------------------------------------')
+cat('\n                         Done                         ')
+cat('\n------------------------------------------------------\n\n')
