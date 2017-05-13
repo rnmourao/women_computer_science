@@ -1,4 +1,4 @@
-#      file: apriori.R
+#      file: script.R
 # authors: Guilherme N. Ramos (gnramos@unb.br)
 #          Roberto N. Mourão
 #
@@ -12,20 +12,63 @@ library(arulesViz)
 library(ggplot2)
 library(gridExtra)
 library(methods)
-library(readxl)
-
-plot.dir <- 'img/'
-poll.answers <- read_excel('raw_data.xlsx', sheet='answers',
-                           col_types=rep('text', 38), na='')
+# library(readxl)
 
 options(digits=2, device='pdf', max.print=99999) # Pretty printing
+
+# Generate charts
+plot.dir <- 'img/'
+save.plot <- function(plot.name, plot.width, plot.height) {
+  plot.file <- paste0(plot.dir, plot.name, '.pdf')
+  cat('\nGenerating', plot.file)
+  ggsave(plot.file, width=plot.width, height=plot.height)
+}
+
+################################################################################
+# Enrollment in UnB CS majors ##################################################
+################################################################################
+cat('\n------------------------------------------------------')
+cat('\n                  Enrollment in UnB                   ')
+cat('\n------------------------------------------------------')
+
+enrollments <- read.csv('Data.UnB.CIC.Enrollment.csv')
+x <- enrollments$Year
+variable <-c(rep('Bachelor in CS', length(x)),
+             rep('Licentiate in Computing', length(x)),
+             rep('Computer Engineer', length(x)))
+value <-  c(Computer.Science=enrollments$Computer.Science.Females * 100.00 / (enrollments$Computer.Science.Males + enrollments$Computer.Science.Females),
+            Licentiate=enrollments$Licentiate.Females * 100.00 / (enrollments$Licentiate.Males + enrollments$Licentiate.Females),
+            Computer.Engineering=enrollments$Computer.Engineering.Females * 100.00 / (enrollments$Computer.Engineering.Males + enrollments$Computer.Engineering.Females))
+ratios <- data.frame(x, variable, value)
+
+old.warning.settings <- getOption('warn') # Ignore plot warnings for NA values
+options(warn=-1)
+p <- ggplot(ratios, aes(x=x, y=value, group=variable, colour=variable)) +
+     geom_line(size=1.5) +
+     ylab('Female Ratio %') +
+     xlab('Years') + #labs(fill='') + #
+     scale_x_continuous(breaks=seq(1987, 2017, by=2)) +
+     theme(legend.title=element_blank(), legend.position='bottom') +
+     scale_fill_discrete(breaks=c('Bachelor in CS', 'Licentiate in Computing', 'Computer Engineer'))
+
+plot.width <- 7
+plot.height <- 4
+save.plot('CS.Enrollment.In.UnB', plot.width, plot.height)
+options(warn=old.warning.settings)  # Reset warnings
+cat('\n\n')
+
+################################################################################
+# Perception of CS majors survey ###############################################
+################################################################################
+
+poll.answers <- read.csv('Data.Survey.csv')
 
 # Preprocessing ################################################################
 poll.answers$Q1 <- NULL
 poll.answers$Q2 <- NULL
 
 cat('\n------------------------------------------------------')
-cat('\n                         Data                         ')
+cat('\n                     Survey Data                      ')
 cat('\n------------------------------------------------------')
 cat('\n                   Total number of respondents: |', nrow(poll.answers))
 
@@ -36,12 +79,14 @@ cat('\n                               Number of girls: |', nrow(poll.answers))
 
 # Middle and High Schools only
 poll.answers <- subset(poll.answers,
-                       poll.answers$Educational.Stage != 'College' &
-                       poll.answers$Educational.Stage != 'Adult Education Program')
+                       poll.answers$Educational.Stage == 'Middle School' |
+                       poll.answers$Educational.Stage == 'High School (10th Grade)' |
+                       poll.answers$Educational.Stage == 'High School (11th Grade)' |
+                       poll.answers$Educational.Stage == 'High School (12th Grade)')
 cat('\n                  Middle and High School girls: |', nrow(poll.answers))
 
 # Remove NA from Would.Enroll.In.CS
-poll.answers <- subset(poll.answers, !is.na(poll.answers$Would.Enroll.In.CS))
+poll.answers <- subset(poll.answers, poll.answers$Would.Enroll.In.CS != '')
 cat('\n Girls who answered if they would enroll in CS: |', nrow(poll.answers))
 
 # Define attributes as factors
