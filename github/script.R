@@ -49,7 +49,9 @@ p <- ggplot(ratios, aes(x=x, y=value, group=variable, colour=variable)) +
      xlab('Years') + #labs(fill='') + #
      scale_x_continuous(breaks=seq(1987, 2017, by=2)) +
      theme(legend.title=element_blank(), legend.position='bottom') +
-     scale_fill_discrete(breaks=c('Bachelor in CS', 'Licentiate in Computing', 'Computer Engineer'))
+     scale_fill_discrete(breaks=c('Bachelor in CS',
+                                  'Licentiate in Computing',
+                                  'Computer Engineer'))
 
 plot.width <- 7
 plot.height <- 4
