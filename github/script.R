@@ -2,7 +2,7 @@
 # authors: Guilherme N. Ramos (gnramos@unb.br)
 #          Roberto N. Mourão
 #
-# Script for analysis of data for the Meninas na Computação Project in the
+# Data analysis for the surveys of the Meninas na Computação Project in the
 # University of Brasília (http://meninas.cic.unb.br)
 
 
@@ -12,12 +12,11 @@ library(arulesViz)
 library(ggplot2)
 library(gridExtra)
 library(methods)
-# library(readxl)
 
 options(digits=2, device='pdf', max.print=99999) # Pretty printing
 
 # Generate charts
-plot.dir <- 'img/'
+plot.dir <- './'  # this could be something like 'img/'
 save.plot <- function(plot.name, plot.width, plot.height) {
   plot.file <- paste0(plot.dir, plot.name, '.pdf')
   cat('\nGenerating', plot.file)
@@ -32,6 +31,15 @@ cat('\n                  Enrollment in UnB                   ')
 cat('\n------------------------------------------------------')
 
 enrollments <- read.csv('Data.UnB.CIC.Enrollment.csv')
+
+cat('\n                   Total number of enrollments: |', nrow(enrollments))
+enrolled.in.Computer.Science <- sum(enrollments$Computer.Science.Males + enrollments$Computer.Science.Females, na.rm=TRUE)
+enrolled.in.Licentiate <- sum(enrollments$Licentiate.Males + enrollments$Licentiate.Females, na.rm=TRUE)
+enrolled.in.Computer.Engineering <- sum(enrollments$Computer.Engineering.Males + enrollments$Computer.Engineering.Females, na.rm=TRUE)
+cat('\n                  Enrolled in Computer Science: |', enrolled.in.Computer.Science)
+cat('\n                        Enrolled in Licentiate: |', enrolled.in.Licentiate, '\n')
+cat('\n              Enrolled in Computer Engineering: |', enrolled.in.Computer.Engineering)
+
 x <- enrollments$Year
 variable <-c(rep('Bachelor in CS', length(x)),
              rep('Licentiate in Computing', length(x)),
