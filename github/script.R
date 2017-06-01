@@ -16,7 +16,7 @@ library(methods)
 options(digits=2, device='pdf', max.print=99999) # Pretty printing
 
 # Generate charts
-plot.dir <- './'  # this could be something like 'img/'
+plot.dir <- 'img/'  # this could be something like 'img/'
 save.plot <- function(plot.name, plot.width, plot.height) {
   plot.file <- paste0(plot.dir, plot.name, '.pdf')
   cat('\nGenerating', plot.file)
@@ -30,15 +30,16 @@ cat('\n------------------------------------------------------')
 cat('\n                  Enrollment in UnB                   ')
 cat('\n------------------------------------------------------')
 
-enrollments <- read.csv('Data.UnB.CIC.Enrollment.csv')
+enrollments <- read.csv('Data.UnB.CIC.Enrollment.csv', na.strings=c(''))
 
 cat('\n                   Total number of enrollments: |', nrow(enrollments))
 enrolled.in.Computer.Science <- sum(enrollments$Computer.Science.Males + enrollments$Computer.Science.Females, na.rm=TRUE)
 enrolled.in.Licentiate <- sum(enrollments$Licentiate.Males + enrollments$Licentiate.Females, na.rm=TRUE)
 enrolled.in.Computer.Engineering <- sum(enrollments$Computer.Engineering.Males + enrollments$Computer.Engineering.Females, na.rm=TRUE)
 cat('\n                  Enrolled in Computer Science: |', enrolled.in.Computer.Science)
-cat('\n                        Enrolled in Licentiate: |', enrolled.in.Licentiate, '\n')
+cat('\n                        Enrolled in Licentiate: |', enrolled.in.Licentiate)
 cat('\n              Enrolled in Computer Engineering: |', enrolled.in.Computer.Engineering)
+cat('\n------------------------------------------------------\n')
 
 x <- enrollments$Year
 variable <-c(rep('Bachelor in CS', length(x)),
@@ -71,7 +72,7 @@ cat('\n\n')
 # Perception of CS majors survey ###############################################
 ################################################################################
 
-poll.answers <- read.csv('Data.Survey.csv')
+poll.answers <- read.csv('Data.Survey.csv', na.strings=c(''))
 
 # Preprocessing ################################################################
 poll.answers$Q1 <- NULL
