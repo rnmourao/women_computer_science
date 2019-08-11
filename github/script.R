@@ -8,7 +8,7 @@
 
 # Setup ########################################################################
 library(arules)
-library(arulesViz)
+# library(arulesViz)
 library(ggplot2)
 library(gridExtra)
 library(methods)
