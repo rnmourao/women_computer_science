@@ -263,10 +263,10 @@ CS.rules.df$rhs <- substr(CS.rules.df$rules,
                                   fixed=TRUE) + 3,
                           nchar(as.character(CS.rules.df$rules)))
 CS.rules.df$rules <- NULL
-CS.rules.df <- CS.rules.df[, c(4, 5, 1, 2, 3)]
+# CS.rules.df <- CS.rules.df[, c(4, 5, 1, 2, 3)]
 CS.rules.df <- subset(CS.rules.df, CS.rules.df$lift >= 1.5) # greater than 50%
 
-plot.width <- 8
+plot.width <- 10
 plot.height <- 5.25  # size set manually by visual inspection
 pdf(paste0(plot.dir, 'apriori.rule.table.pdf'),
     width=plot.width, height=plot.height)

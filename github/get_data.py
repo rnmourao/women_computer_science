@@ -136,10 +136,12 @@ for k in other:
 raw = raw[[c for c in raw.columns if c not in original_columns]]
 print('raw:', len(raw))
 
-df = pd.read_csv('Data.Survey.csv')
-print('df:', len(df))
+# df = pd.read_csv('Data.Survey.csv')
+# print('df:', len(df))
 
-df = df.append(raw, sort=False)
-print('new:', len(df))
+# df = df.append(raw, sort=False)
+# print('new:', len(df))
 
-df.to_csv('new.csv', index=False)
+# df.to_csv('new.csv', index=False)
+
+raw.to_csv('Data.Survey.csv', index=False)
