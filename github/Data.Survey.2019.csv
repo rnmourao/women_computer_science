@@ -1,0 +1,441 @@
+Year,Gender,Educational.Stage,Field.Of.Interest,Would.Enroll.In.CS,Uses.Computer.At.Home,Uses.Computer.At.Relatives.House,Uses.Computer.At.Friends.House,Uses.Computer.At.School,Uses.Computer.At.Work,Uses.Computer.At.Lan.House,Uses.Computer.At.Library,Uses.Computer.At.Digital.Inclusion.Center,Has.Used.Text.Editor,Has.Used.Image.Editor,Has.Used.Spreadsheet,Has.Used.Database,Has.Used.Internet,Has.Used.Social.Network,Has.Used.Email,Has.Used.Games,Has.Used.For.Creating.Web.Pages,Has.Used.For.Development,Has.Used.Other.Softwares,CS.Only.Teaches.To.Use.Software,CS.Uses.Little.Math,Most.CS.Students.Are.Male,CS.Requires.Knowledge.In.Computers,Higher.Education.Required.To.Work.In.CS,Family.Approves.CS.Major,CS.Has.Low.Employability,CS.Work.Has.Long.Hours,CS.Fosters.Creativity,CS.Is.Prestigious,CS.Provides.Good.Wages,CS.Enables.Interdisciplinary.Experiences
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,No,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Maybe,Maybe,Maybe,No,Yes,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,Middle School,Biology-Health Sciences,Maybe,No,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,Yes,Yes,Maybe,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,No,No,No,No,Yes,Yes,No,No,No,No,No,Yes,Yes,No,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Yes,Maybe
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,No,Maybe,Yes,No,Yes,Maybe,No,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,Maybe,Maybe,Maybe,No,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,Yes,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Maybe,No,Yes,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Maybe,Maybe,No,Yes,Yes,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,Maybe,No,No,Maybe,Yes,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Yes,Maybe,Yes,No,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,No,No,No,No,No,No,Yes,No,No,No,No,No,No,Yes,No,No,No,No,No,No,No,No,Yes,No,Yes,Maybe,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,No,Yes,No,Yes,Yes,No,Maybe,Yes,Yes,Yes,No
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Maybe,Yes,Yes,Maybe,Maybe,No,Maybe,Yes,Yes,Yes,Maybe
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,No,Yes,No,Yes,No,No,Yes,Maybe,Maybe,No,Yes,Maybe,No,Maybe,No,Yes,Yes,Maybe,Maybe
+2019,F,Middle School,Exact Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Maybe,Yes,Yes,No,No,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Maybe,Yes,Yes,Maybe,Maybe,Yes,No,Yes,Yes
+2019,F,Middle School,Exact Sciences,Maybe,Yes,No,No,Yes,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,Maybe,Yes,Yes,Yes,Maybe
+2019,F,Middle School,Biology-Health Sciences,Yes,No,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,Yes,Maybe,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),,Yes,Yes,No,No,Yes,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Maybe,Yes,Maybe,No,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Exact Sciences,Maybe,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,Yes,Maybe,No,No,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Exact Sciences,Maybe,Yes,No,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,Maybe,Maybe,No,No,Maybe,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Human Sciences,No,Yes,No,Yes,Yes,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Maybe,Maybe,Yes,Yes,No,Yes,Yes,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,,Maybe
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,No,Yes,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,Yes,Yes,Maybe,Yes,Maybe,Maybe,Yes,Yes,,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,No,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,Yes,Yes,Maybe,Yes,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Maybe,Maybe,No,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,Middle School,Exact Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Maybe,Yes,Yes,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Yes,Maybe,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,Middle School,Exact Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,Maybe,No,Yes,Yes,Maybe,No,No,Yes,Yes,Maybe,Maybe
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Yes,Maybe,Yes,Yes,No,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,No,Yes,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,No,Yes,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Maybe,Yes,Maybe,Yes,Maybe,No,Maybe,Maybe,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Maybe,Yes,Yes,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Maybe,Yes,Maybe,Yes,Maybe,Yes,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,,Maybe,No,Yes,No,No,No,No,No,No,Yes,Yes,No,No,No,Yes,No,Yes,No,No,No,No,No,Maybe,No,Maybe,Yes,Maybe,Maybe,Yes,Yes,,Yes
+2019,F,Middle School,Exact Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,No,No,No,No,No,No,No,Yes,Maybe,Maybe,Yes,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,No,Maybe,No,Maybe,No,Maybe,Yes,Maybe,Yes,Maybe,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,No,Yes,Maybe,Maybe,Yes,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Maybe,Maybe,No,No,No,Yes,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,No,Yes,No,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,Yes,Yes,Maybe,No,No,,Yes,Yes,Yes
+2019,F,Middle School,Exact Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,No,No,Yes,No,No,No,No,No,Yes,Maybe,No,Yes,No,No,Yes,No,Yes,Yes
+2019,F,Middle School,Exact Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,Maybe,No,No,Yes,Yes,Yes,Maybe
+2019,F,College,Human Sciences,No,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Maybe,Yes,No,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,College,Human Sciences,No,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,College,Human Sciences,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,No,No,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Yes,No,Maybe,Yes,Maybe,No,No,Yes,No,No,Yes
+2019,F,Middle School,Exact Sciences,Yes,No,No,No,No,No,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Maybe,No,Maybe,No,Yes,Yes,Maybe
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,Yes,Yes,Yes,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,No,Yes,No,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,Yes,No,Yes,No,Maybe,No,Maybe,Yes,,No
+2019,F,Middle School,Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,Maybe,No,Maybe,Maybe,Yes,Maybe,Yes
+2019,F,Middle School,Human Sciences,Maybe,Yes,Yes,No,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,Yes,Maybe,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Human Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Human Sciences,Maybe,Yes,Yes,No,No,No,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,No,No,No,No,Yes,Maybe,Yes,Maybe,No,Maybe,Yes,Yes,Yes,Maybe
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Yes,Yes,No,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Yes,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,Yes,Yes,Yes,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (11th Grade),Exact Sciences,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,Maybe,Maybe,No,No,No,Yes,Maybe,Maybe,Maybe
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,No,No,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,,No,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Maybe,Maybe,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Exact Sciences,Yes,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Yes,Maybe,Maybe,Yes,No,No,Yes,Maybe,Yes,Maybe
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Maybe,Yes,Maybe,No,No,Yes,Maybe,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,Maybe,Maybe,No,No,Maybe,Yes,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,Maybe,No,Yes,Maybe,Yes,Maybe,Maybe,No,Yes,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Maybe,Maybe,Maybe,No,Maybe,Yes,Yes,Yes
+2019,F,High School (11th Grade),Human Sciences,Yes,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,Maybe,Yes,Yes,Yes,Maybe
+2019,F,High School (10th Grade),Human Sciences,No,Yes,Yes,No,Yes,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Maybe,Maybe,Yes,Yes,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Maybe,Yes,Yes,Yes,Yes,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Exact Sciences,Maybe,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,Yes,Yes,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Exact Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,,Yes,Yes,Maybe,No,Yes,No,Maybe,Yes,No,Yes,Maybe
+2019,F,High School (10th Grade),Exact Sciences,Maybe,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,Maybe,Maybe,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Maybe,No,Maybe,Yes,No,Yes,Yes,,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,Yes,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,Maybe,No,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (11th Grade),,Maybe,Yes,No,No,Yes,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,No,Maybe,No,Maybe,Maybe,Yes,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,No,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,Yes,Maybe,No,No,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Human Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,No,Yes,Yes,Maybe,Maybe,No,No,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Maybe,Yes,Yes,Yes,Maybe,Maybe,Yes,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,No,No,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Maybe,No,Yes,Maybe,Maybe,Yes,No,Maybe,Yes,Yes,Maybe,Maybe
+2019,F,High School (11th Grade),Exact Sciences,Maybe,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,No,Maybe,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,Maybe,Yes,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Yes,No,Yes,No,No,No,No,No,,Maybe,Yes,Yes,Maybe,Maybe,No,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,No,Yes,Maybe,Yes,Yes,Yes
+2019,F,High School (10th Grade),Exact Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Maybe,Yes,Maybe,Maybe,,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Maybe,Yes,No,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,No,No,No,No,No,Yes,No,Yes,No,No,No,Yes,No,No,No,No,No,No,Maybe,Yes,Yes,Yes,Yes,Maybe,Maybe,Maybe,,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,No,,Yes,Maybe,No,Yes,Yes,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,No,No,No,No,No,Yes,No,No,Yes,Yes,Maybe,Yes,No,Maybe,No,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,No,No,No,No,No,No,No,Yes,Yes,No,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,No,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Maybe,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Maybe,No,Yes,No,Maybe,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Maybe,Maybe,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,No,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,No,No,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,Yes,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Maybe,Yes,No,Maybe,No,Maybe,Maybe,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Yes,No,No,No,No,Yes,No,No,No,Yes,No,No,No,No,No,Yes,No,No,No,No,No,No,Maybe,No,Yes,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Maybe,Maybe,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,No,No,No,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,No,No,No,No,No,No,No,Maybe,Yes,Yes,No,No,Maybe,No,,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,Maybe,No,Maybe,Maybe,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Maybe,Maybe,Maybe,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,Yes,No,No,No,No,No,No,No,Yes,No,Yes,Yes,No,No,No,No,Yes,Maybe,Maybe,No,Yes,No,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,No,No,No,No,No,Yes,No,No,Yes,No,No,No,No,No,No,No,No,No,No,Maybe,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,Yes,No,No,No,No,No,Yes,No,Yes,Yes,Yes,No,No,No,No,Yes,No,Maybe,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Maybe,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Maybe,No,Yes,Yes,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,No,No,No,No,No,Maybe,Yes,Maybe,Maybe,No,Yes,No,Yes,Maybe,No,Maybe
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,No,Yes,No,No,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Maybe,Yes,No,Maybe,No,Maybe,No,No,Maybe
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Maybe,Yes,No,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,,Yes,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,Yes,No,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Yes,No,Maybe,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,Yes,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,Maybe,No,No,No,No,Yes,Yes,Maybe,Maybe
+2019,F,High School (11th Grade),Human Sciences,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Maybe,No,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Yes,Maybe
+2019,F,High School (11th Grade),Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Maybe,No,Maybe,No,Yes,Maybe,Yes,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,No,No,No,No,Maybe,Maybe,No,Yes,Yes
+2019,F,High School (11th Grade),Exact Sciences,Maybe,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,Maybe,Yes,Yes,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Maybe,Maybe,Maybe,No,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Maybe,No,No,Maybe,Yes,Maybe,Maybe,No,Yes,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Yes,Yes,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Human Sciences,Maybe,Yes,No,No,No,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,No,Yes,Maybe,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Exact Sciences,Maybe,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,Maybe,Yes,Yes,Yes,Maybe
+2019,F,High School (11th Grade),Human Sciences,No,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Human Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,No,No,No,No,No,Maybe,Maybe,No,Yes,Maybe
+2019,F,High School (11th Grade),Human Sciences,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Maybe,Maybe,Maybe,No,Maybe,Yes,Yes,Maybe,Maybe
+2019,F,Middle School,Biology-Health Sciences,Maybe,No,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,Yes,Yes,Yes,No,Maybe,Yes,No,Yes,Yes
+2019,F,Middle School,Exact Sciences,Yes,Yes,Yes,No,No,No,Yes,No,No,No,No,No,No,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Maybe,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,No,No,No,No,No,No,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,No,Yes,Maybe,No,Yes,Maybe,Yes,Yes,Yes,Yes,Maybe,Maybe
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,No,No,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,Maybe,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,No,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,Maybe,No,Yes,No,Maybe,Maybe,Maybe,No,Maybe,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,No,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,No,No,Yes,No,No,No,Maybe,Maybe,No,Maybe,Maybe,No,No,Maybe,Yes,Maybe,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Maybe,No,Yes,Yes,Maybe,Maybe,No,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,No,No,No,No,No,Yes,No,No,No,Maybe,Yes,Yes,Maybe,Maybe,No,No,Yes,Yes,Yes,
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Maybe,Yes,Yes,No,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,Yes,Yes,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,No,No,Yes,No,No,No,No,Maybe,Maybe,Maybe,Yes,Yes,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Exact Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Yes,No,Yes,Yes,No,No,No,Maybe,Maybe,No,Maybe,Yes,Maybe,,No,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,Maybe,Yes,Maybe,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,No,Yes,Yes,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,Maybe,No,Yes,Yes,No,Maybe,Yes,Yes,,Yes
+2019,F,Middle School,Human Sciences,Yes,No,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,No,No,Maybe,Yes,Yes,Maybe,No,No,Maybe,,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,No,Yes,Yes,No,No,Yes,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,No,Maybe,No,Yes,Yes,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,Middle School,Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Maybe,No,Maybe,Yes,Yes,Maybe,No,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,Yes,Yes,Yes,Maybe,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Yes,Yes,Yes,No,Maybe,Yes,Yes,,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,Yes,Yes,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Maybe,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,No,No,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,No,Yes,Yes,Maybe,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,Yes,Maybe,Yes,Yes,Yes,Maybe,No,No,Yes,No,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Maybe,No,Maybe,Yes,No,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,No,Yes,Yes,,No,Yes,No,Yes,Yes
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes
+2019,F,Middle School,,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Maybe,No,No,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Yes,No,Yes,Yes,No,No,Yes,No,Maybe,No,Maybe,No,Maybe,No,Yes,Yes,Yes,Maybe,Maybe
+2019,F,Middle School,Human Sciences,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,No,No,Maybe,Yes,Yes,Maybe,No,No,Maybe,Maybe,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,No,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Maybe,Yes,Yes,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Biology-Health Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Maybe,Yes,No,Yes,No,Yes,Maybe,No,Maybe
+2019,F,Middle School,Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,Maybe,Maybe,Yes,Yes,Yes,Yes,Maybe,Yes
+2019,F,Middle School,Human Sciences,No,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Maybe,No,Maybe,Yes,Maybe,Yes,Yes
+2019,F,Middle School,Human Sciences,No,Yes,Yes,No,No,No,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,No,No,No,Yes,No,No,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Yes,Yes
+2019,F,Middle School,Biology-Health Sciences,,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Maybe,Yes,Yes,Yes,Maybe,Maybe
+2019,F,Middle School,Human Sciences,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Maybe,No,Yes,Yes,Yes,Maybe,No,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Maybe,Maybe,Yes,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,Maybe,No,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Maybe,No,No,Maybe,Maybe,Yes,Yes,Maybe
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,Maybe,No,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,No,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Maybe,Maybe,No,No,Yes,Yes,Maybe,Maybe,Yes,Maybe
+2019,F,High School (10th Grade),Human Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,Maybe,Maybe,Yes,Maybe,No,No,Maybe,No,,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,No,,Maybe,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Maybe,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Maybe,No,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Maybe,Maybe,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Yes,
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Maybe,No,Maybe,Maybe,No,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,Yes,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Yes,Yes,Yes,Maybe,Maybe,Maybe,No,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Maybe,Yes,Maybe,Yes,No,Maybe,No,Yes,Yes,Yes
+2019,F,High School (11th Grade),Human Sciences,Yes,No,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,Yes,Yes,Yes,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,Yes,Maybe,Yes,Maybe,Maybe,Maybe,Yes,Yes,Yes,Maybe
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes
+2019,F,,Biology-Health Sciences,Maybe,No,No,No,No,Yes,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,No,No,No,No,No,Maybe,Yes,Yes,Maybe,No,Maybe,,Yes,,Maybe
+2019,F,High School (11th Grade),Human Sciences,Maybe,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,Maybe,No,Maybe,Yes,Maybe,Yes,Maybe
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,No,No,Yes,No,Yes,No,Yes,No,No,No,Yes,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,Maybe,Yes,Yes,Yes,Maybe
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,Yes,No,Yes,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Yes,Yes,Maybe,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),,,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Yes,Yes,Yes,Yes,Yes,Maybe,Yes,Maybe,Maybe,No
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,No,No,No,No,No,Maybe,Yes,No,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,Yes,No,No,No,No,No,Maybe,No,No,Yes,Yes,Maybe,No,Maybe,Yes,Yes,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,No,No,No,No,No,No,No,Maybe,No,Maybe,Yes,No,No,Yes,Maybe,Maybe,Yes
+2019,M,High School (11th Grade),Exact Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Maybe,Maybe,Yes,No,Yes,Maybe,No,Yes,No
+2019,M,High School (11th Grade),Human Sciences,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,No,Maybe,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,Maybe,No,No,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,No,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Maybe
+2019,M,High School (11th Grade),Human Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,Yes,No,Maybe,Yes,Maybe,No,No,Yes,Yes,Maybe,Yes
+2019,F,High School (11th Grade),Exact Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,No,Maybe,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Exact Sciences,No,Yes,Yes,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Maybe,Yes,Yes,Yes,No,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Maybe,Maybe,Maybe,No,Maybe,Yes,Yes,Yes,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,Maybe,Maybe,No,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,Yes,Maybe,Yes,Yes,No,Maybe,No,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Maybe,Maybe,Yes,No,Maybe,Maybe,No,Yes,No,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Maybe,Yes,Yes,Maybe,Maybe,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,No,No,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Maybe,Maybe,Yes,No,Maybe,Maybe,No,Yes,No,Maybe,No
+2019,M,High School (11th Grade),Human Sciences,No,No,No,No,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,No,No,Yes,No,No,Maybe,Maybe,Yes,No,Maybe,Maybe,No,Yes,No,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Maybe,No,Maybe,Maybe,No,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,Yes,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Maybe,Yes,Maybe,Yes,Yes,Yes,Yes,Yes,Maybe,Yes,Yes
+2019,M,High School (11th Grade),Exact Sciences,,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Maybe,Yes,Yes,No,Maybe,Maybe,Yes,Yes,Yes,Yes,Yes,Maybe
+2019,M,High School (11th Grade),Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,Yes,Yes,Maybe,No,Maybe,Yes,Yes,Maybe,Yes
+2019,M,High School (11th Grade),Exact Sciences,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Maybe,No,No,Maybe,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Exact Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Maybe,No,No,Maybe,Maybe,Maybe,Yes,Maybe
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Maybe,Yes,Maybe,No,Yes,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Maybe,Maybe,Maybe,Yes,Maybe,No,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,No,No,No,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Maybe,Maybe,No,No,Maybe,Yes,Yes,Yes,Maybe
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,No,No,No,No,,,,,,,No,No,Maybe,Yes,Maybe,Yes
+2019,F,High School (11th Grade),,,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Yes,,,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Yes,No,No,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,No,Yes,Maybe,Maybe,No,Maybe,Maybe,Yes,,Yes
+2019,F,High School (11th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,No,Maybe,No,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,Yes,No,Yes,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,No,Yes,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (11th Grade),Exact Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,No,No,,Yes,Maybe,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Maybe,No,Maybe,Yes,Yes,Maybe,Yes,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,Maybe,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,No,Yes,No,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,Maybe,Maybe,Maybe,Yes,No,Maybe,No
+2019,F,High School (11th Grade),,No,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,Maybe,Yes,Yes,No,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,Yes,Yes,Maybe,Maybe,Maybe,Maybe,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,,No,No,Yes,No,No,No,No,No,Yes,No,Yes,No,No,Yes,No,No,No,No,Yes,No,Maybe,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,No,Yes,Maybe,No,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Exact Sciences,Maybe,Yes,No,No,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Maybe,Yes,No,No,Yes,Yes,Yes,No
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Maybe,,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Yes,No,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,No,No,Yes,Yes,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,No,Yes,No,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Maybe,Maybe,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),,Maybe,No,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Maybe,Yes,Maybe,Maybe,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Maybe,Yes,Yes,Yes,Maybe,No,Maybe,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,No,Maybe,Maybe,Maybe,Yes,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,No,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,Yes,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Maybe,Maybe,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Maybe,No,Maybe,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Maybe,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,No,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Maybe,Yes,Yes,Maybe,Yes,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),,Maybe,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,No,No,No,No,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Maybe,Yes,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),,Yes,Yes,No,No,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,No,No,Yes,Maybe,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,Yes,Maybe,Maybe,No,Maybe,Maybe,Maybe,Yes,Maybe
+2019,F,High School (10th Grade),,Maybe,Yes,Yes,No,No,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Maybe,Yes,Maybe,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Maybe,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Maybe,Maybe,Yes,No,Yes,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Maybe,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Human Sciences,,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Maybe,No,Yes,Yes,Maybe,No,Yes,Yes,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Human Sciences,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Maybe,Yes,No,Yes,Maybe,No,Maybe,Yes,No
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,No,No,Yes,No,No,No,No,No,No,No,No,Yes,No,Yes,No,No,No,No,Maybe,No,Maybe,No,Yes,Maybe,Maybe,No,No,Yes,Yes,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Maybe,Maybe,Yes,No,Maybe,Yes,No,No,Maybe
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Maybe,Yes,Yes,Yes,No,Yes,Yes,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Maybe,Yes,Yes,Yes,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Maybe,No,Yes,Yes,Maybe,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,Yes,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,,No,No,Yes,Maybe,Yes,No,Yes,No,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,Maybe,Yes,Yes,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,Yes,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,,Yes,Yes,Maybe,No,No,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Maybe,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,Yes,No,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,Maybe,Yes,Maybe,No,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Maybe,Yes,No,No,No,No,No,Maybe,Maybe,Yes,Yes,Yes
+2019,F,High School (10th Grade),Exact Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Maybe,No,Yes,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,No,Yes,No,No,No,No,No,No,No,No,Maybe,No,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Exact Sciences,Yes,No,No,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,No,Maybe,Maybe,Maybe,Yes,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Maybe,Yes,Yes,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,No,Maybe,Yes,Yes,Yes,Maybe,Yes,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,Yes,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Yes,No,Maybe,Maybe,Maybe,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (11th Grade),Human Sciences,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Maybe,Maybe,No,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Maybe,Yes,Maybe,Maybe,No,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,No,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Yes,Maybe,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,,No,Yes,Yes,Maybe,No,Yes,No,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Maybe,No,No,No,Yes,No,No,Yes,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,No,Yes,No,Maybe,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Exact Sciences,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,No,No,No,Maybe,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Maybe,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,Maybe,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,No,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,Maybe,Yes,Yes,Maybe,Yes,No,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,No,Yes,No,No,No,No,No,No,Maybe,Maybe,Yes,No,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Maybe,No,No,Yes,Maybe,No,No,Maybe,,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Maybe,No,Yes,No,No,Maybe,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Maybe,No,Maybe,Maybe,No,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,Maybe,No,Maybe,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,Yes,No,No,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,No,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,,Yes,No,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Maybe,Yes,No,Yes,No,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,Maybe,Yes,Maybe,Maybe,No,Maybe,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,No,Maybe,No,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,No,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,Yes,Maybe,Yes,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,,,Maybe,Yes,No,No,No,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Maybe,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,No,No,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,No,Yes,Maybe,No,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,No,Yes,No,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,Maybe,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,No,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Maybe,Yes,Yes,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,Maybe,No,Maybe,Yes,No,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,No,No,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Yes,,Maybe,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,Yes,No,No,No,No,No,No,Yes,No,No,No,No,Yes,No,No,No,No,No,No,Maybe,No,No,Yes,Maybe,Maybe,Yes,Yes,Yes,No,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,No,No,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),,Maybe,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Maybe,Yes,Yes,Yes,Maybe,Maybe,Yes,Yes,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,No,Maybe,No,No,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Maybe,Yes,Yes,Maybe,No,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,,Yes,Maybe,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Maybe,No,Maybe,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Maybe,No,Maybe,Maybe,Yes,,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,Yes,No,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Maybe,No,No,Yes,No,Maybe,Yes,Yes,Yes,Yes,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,No,Yes,Maybe,Maybe,Maybe,Yes,Yes,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Maybe,Maybe,Yes,Yes,Maybe,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,M,High School (10th Grade),Human Sciences,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Yes,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,,,Maybe,Yes,No,No,,,Yes,Yes,Yes,Yes
+2019,M,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Maybe,Maybe,Yes,Maybe,Yes,Yes,Yes,Yes
+2019,M,High School (10th Grade),Exact Sciences,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,Maybe,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,Maybe,No,Yes,Maybe,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Maybe,Maybe,Maybe,Yes,No,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,M,High School (10th Grade),Human Sciences,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,No,Yes,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,No,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,Maybe,Yes,No,Yes,Maybe,Yes,No,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,Maybe,No,Maybe,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,Maybe,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Maybe,Yes,Yes,Maybe,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Maybe,Yes,Maybe,Maybe,No,Yes,Maybe,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,Yes,Yes,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Yes,Maybe,Maybe,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,No,No,No,No,Yes,No,No,Yes,No,Yes,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Maybe,No,Yes,Yes,No,No,Yes,No,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,Maybe,Yes,No,No,Yes,Yes,Maybe,Yes,Yes,No,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,No,Yes,No,No,Yes,Maybe,No,Maybe,Yes,No,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Maybe,No,Yes,Yes,No,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Maybe,No,Yes,Yes,No,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,No,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,No,No,No,No,No,Maybe,No,Maybe,,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Maybe,Maybe,No,Yes,Yes,Maybe,No,Yes,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Maybe,No,No,Yes,Yes,Yes,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,Yes,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Maybe,No,Yes,No,Maybe,No,Yes,No,Maybe,No
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,Maybe,Yes,Maybe,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,Maybe,Maybe,Yes,Yes,Maybe,Yes,No,Yes,Yes,Yes,Maybe
+2019,F,High School (10th Grade),Human Sciences,Yes,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,No,No,No,No,No,No,Maybe,Yes,Yes,Yes,Maybe,Maybe,Yes,Maybe,Yes,,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,No,No,No,Yes,Maybe,Yes,Yes,Yes,No,,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Maybe,No,Yes,Yes,,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,No,Maybe,No,Yes,Maybe,Maybe,No,Yes,Yes,,Maybe
+2019,F,High School (10th Grade),Exact Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Yes,Maybe,Maybe,No,Yes,Maybe,Yes,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,Maybe,No,Yes,No,No,Maybe,Maybe,Maybe,Yes,Yes
+2019,F,High School (10th Grade),,Maybe,No,No,Yes,No,No,No,No,No,No,No,No,No,Yes,No,No,No,No,No,No,Maybe,No,No,Yes,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,No,Yes,No,Maybe,No,No,Maybe,Maybe,No,No
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,No,Maybe,No,Yes,Yes,No,Maybe,Maybe,Yes,Yes,Maybe,Maybe
+2019,F,High School (10th Grade),Exact Sciences,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Yes,Maybe,Yes,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Maybe,No,Maybe,No,No,Yes,Maybe,Yes,No,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,,Yes,Maybe,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Maybe,Yes,Maybe,Yes,Yes,Yes,Yes,No,No,No
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,,Maybe,No
+2019,F,High School (10th Grade),Exact Sciences,Yes,No,No,No,No,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,No,Maybe,,Maybe,,Maybe,Maybe,Yes,Maybe,No,No,Maybe,No
+2019,F,High School (10th Grade),Human Sciences,No,No,No,No,No,No,No,No,Yes,No,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Yes,No,Yes,Maybe,No,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Maybe,Maybe,No,Yes,Yes,Maybe,No,Maybe,Yes,No,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,No,Maybe,Maybe,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Maybe,Maybe,No,Yes,Yes,Yes,No,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,Maybe,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,No,Yes,Yes,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,No,No,No,No,No,No,Maybe,No,No,Yes,Maybe,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Maybe,No,No,Maybe,Yes,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,No,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Maybe,Maybe,No,No,Yes,Yes,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Maybe,Maybe,No,No,Yes,Maybe,No,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,No,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,Maybe,Yes,Yes,Maybe,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Maybe,No,No,Maybe,Maybe,Maybe,No,Yes,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Maybe,Maybe,Maybe,Yes,No,Yes,Maybe,No,No
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,No,Yes,No,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (11th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Maybe,Yes,Yes,No,No,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,No,Yes,No,No,No,No,Maybe,No,Maybe,No,Yes,No,Yes,Maybe,Yes,No,No,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,Yes,Yes,No,Maybe,No,Yes,Yes,,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Maybe,Maybe,Yes,Yes,No,Maybe,Yes,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,No,No,No,Yes,No,Yes,No,No,No,No,Yes,Yes,No,Yes,No,Yes,No,Maybe,Yes,Yes,Yes
+2019,F,High School (10th Grade),,Maybe,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Maybe,Maybe,No,No,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,No,No,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Maybe,Maybe,No,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Maybe,No,Yes,Yes,No,Maybe,No,Maybe,Maybe,Maybe,No
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Maybe,Maybe,No,Maybe,Yes,Yes,Yes,Yes,Maybe
+2019,F,High School (10th Grade),Human Sciences,Yes,No,No,Yes,Yes,No,No,Yes,No,Yes,No,No,No,No,No,No,Yes,No,No,No,No,Yes,Maybe,No,Yes,Yes,Yes,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Exact Sciences,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Maybe,No,No,Maybe,Yes,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Yes,Yes,Maybe,Maybe,No,Maybe,No,Maybe,Maybe
+2019,F,High School (10th Grade),,Maybe,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,,Yes,Maybe,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,Yes,Yes,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,,Yes,No,Maybe,Maybe,Yes,,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Maybe,Yes,Yes,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Maybe,Yes,Yes,Maybe,Maybe,No,,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,Yes,No,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Maybe,Maybe,Yes,Maybe,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,Maybe,Yes,Yes,Yes,No,Maybe,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Maybe,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Maybe,Yes,No,No,Maybe,Maybe,Yes,No
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,No,No,No,Maybe,Yes,No,No,Yes,Maybe,Maybe,,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Yes,Maybe,Yes,No,Yes,No,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Maybe,Maybe,Yes,Yes,Maybe,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Maybe,Yes,No,Maybe,Maybe,Maybe,Maybe,Yes,,,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Maybe,No,Yes,No,No,No,Yes,No,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Maybe,Yes,No,Yes,No,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,Yes,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,No,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,No,No,No,No,No,No,Maybe,Maybe,No,No,Yes,No,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Yes,No,Maybe,No,No,No,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,Yes,Maybe,Maybe,No,No,No,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,Yes,Maybe,No,Yes,Maybe,Yes,No,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,No,No,No,No,No,Yes,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Maybe,Yes,Yes,Maybe,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,No,No,No,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Maybe,No,Yes,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Maybe,Yes,Yes,No,Maybe,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Maybe,Yes,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Maybe,Maybe,No,No,No,Yes,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Maybe,No,Maybe,Yes,Maybe,No,No,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Maybe,Yes,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,Maybe,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Maybe,Maybe,No,Yes,No,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,Yes,No,No,Yes,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,No,No,Maybe,Maybe,Yes,No,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),,Maybe,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Maybe,Yes,Maybe,Maybe,Maybe,Yes,No,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,Yes,No,Yes,No,No,No,Yes,No,Yes,No,No,No,No,No,No,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Yes,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,No,Yes,No,No,Yes,No,No,No,No,No,Yes,No,Yes,Yes,No,No,No,No,Yes,Maybe,Yes,Yes,Yes,Maybe,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Maybe,Yes,Maybe,Yes,No,No,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Maybe,Yes,Maybe,Yes,No,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),,Maybe,Yes,No,No,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,Maybe,No,Yes,Yes,Maybe,Yes,Maybe,Maybe,Yes,Yes,Maybe,Maybe
+2019,F,High School (10th Grade),Exact Sciences,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,Maybe,Maybe,Maybe,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,No,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Maybe,Yes,Yes,No,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Exact Sciences,No,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Maybe,Maybe,Maybe,Yes,Maybe,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,No,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,No,No,No,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Maybe,Yes,No,Maybe,Yes,Maybe,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Maybe,Yes,No,Maybe,Yes,Maybe,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,No,No,No,No,Yes,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,,Yes,Maybe,No,,No,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Maybe,No,No,No,Maybe,Maybe,Yes,Yes,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Maybe,Maybe,Maybe,Maybe,Maybe,Maybe,Maybe,Maybe,Maybe,Maybe,Maybe,Maybe
+2019,F,High School (10th Grade),Biology-Health Sciences,Maybe,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,,Yes,Yes,No,Yes,No,No,Yes,Maybe,Yes,Yes
+2019,F,High School (10th Grade),Human Sciences,Maybe,Yes,No,No,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Maybe,Maybe,Maybe,No,Maybe,Yes,Yes,Maybe,Yes
+2019,F,High School (10th Grade),Biology-Health Sciences,No,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Maybe,No,Yes,Maybe,Yes,Maybe,Maybe,Yes,Maybe,Yes
