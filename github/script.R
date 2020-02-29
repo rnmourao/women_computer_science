@@ -264,6 +264,7 @@ CS.rules.df$rhs <- substr(CS.rules.df$rules,
                           nchar(as.character(CS.rules.df$rules)))
 CS.rules.df$rules <- NULL
 # CS.rules.df <- CS.rules.df[, c(4, 5, 1, 2, 3)]
+write.csv(CS.rules.df, paste0(plot.dir, 'apriori.rule.table.csv'))
 CS.rules.df <- subset(CS.rules.df, CS.rules.df$lift >= 1.5) # greater than 50%
 
 plot.width <- 10
