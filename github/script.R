@@ -239,7 +239,7 @@ for (i in 2:ncol(poll.answers)) {
 # Association Rule Mining ######################################################
 cat('\n\n------------------------------------------------------\n')
 CS.rules <- apriori(data=poll.answers,
-                    parameter=list(confidence=0.5, maxtime=300, maxlen=3),
+                    parameter=list(confidence=0.3, maxtime=300, maxlen=3),
                     appearance=list(rhs=list('Would.Enroll.In.CS=Yes',
                                              'Would.Enroll.In.CS=Maybe',
                                              'Would.Enroll.In.CS=No'),
@@ -265,7 +265,7 @@ CS.rules.df$rhs <- substr(CS.rules.df$rules,
 CS.rules.df$rules <- NULL
 # CS.rules.df <- CS.rules.df[, c(4, 5, 1, 2, 3)]
 write.csv(CS.rules.df, paste0(plot.dir, 'apriori.rule.table.csv'))
-CS.rules.df <- subset(CS.rules.df, CS.rules.df$lift >= 1.5) # greater than 50%
+CS.rules.df <- subset(CS.rules.df, CS.rules.df$lift >= 1.) # greater than 50%
 
 plot.width <- 10
 plot.height <- 5.25  # size set manually by visual inspection
