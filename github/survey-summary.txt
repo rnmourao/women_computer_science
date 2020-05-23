@@ -1,0 +1,21 @@
+2011
+------------------------------------------------------
+                     Survey Data                      
+------------------------------------------------------
+                   Total number of respondents: | 1821
+                               Number of girls: | 1804
+                  Middle and High School girls: | 1480
+ Girls who answered if they would enroll in CS: | 1452
+                  Girls who would enroll in CS: | 649
+------------------------------------------------------
+
+2019
+------------------------------------------------------
+                     Survey Data                      
+------------------------------------------------------
+                   Total number of respondents: | 440
+                               Number of girls: | 429
+                  Middle and High School girls: | 424
+ Girls who answered if they would enroll in CS: | 415
+                  Girls who would enroll in CS: | 116
+------------------------------------------------------
